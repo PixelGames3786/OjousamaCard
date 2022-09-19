@@ -8,9 +8,12 @@ public class BattleManager : MonoBehaviour
 {
     private int TurnCount = 1;
 
+    public Transform HandField;
+    public GameObject CardPrefab;
     public TextMeshProUGUI TurnText;
 
-    public List<int> Deck = new List<int>();
+    //カードを手札で管理する
+    public List<int> Deck,HandCard = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -30,27 +33,37 @@ public class BattleManager : MonoBehaviour
         Deck = SaveLoadManager.instance.Data.MyDecks;
 
         //シャッフル処理
-        // 整数 n の初期値はデッキの枚数
-        int n = 20;
-
-        // nが1より小さくなるまで繰り返す
-        while (n > 1)
         {
-            n--;
+            // 整数 n の初期値はデッキの枚数
+            int n = 20;
 
-            // kは 0 ～ n+1 の間のランダムな値
-            int k = UnityEngine.Random.Range(0, n + 1);
+            // nが1より小さくなるまで繰り返す
+            while (n > 1)
+            {
+                n--;
 
-            // k番目のカードをtempに代入
-            int temp = Deck[k];
-            Deck[k] = Deck[n];
-            Deck[n] = temp;
+                // kは 0 ～ n+1 の間のランダムな値
+                int k = UnityEngine.Random.Range(0, n + 1);
+
+                // k番目のカードをtempに代入
+                int temp = Deck[k];
+                Deck[k] = Deck[n];
+                Deck[n] = temp;
+            }
         }
 
-        for (int i=0;i<Deck.Count;i++)
+        //ドロー処理&カード生成
+        for (int i=0;i<5;i++)
         {
-            Debug.Log(Deck[i]);
+            HandCard.Add(Deck[i]);
+
+            Transform CreatedCard = Instantiate(CardPrefab, HandField).transform;
+
+            CreatedCard.localPosition = new Vector3(-500+i*250,0,0);
         }
+        //デッキからカードを削除
+        Deck.RemoveRange(0, 5);
+
     }
 
     //ターンエンド処理
