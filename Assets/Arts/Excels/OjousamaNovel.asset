@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e489b9696c66b479344576af664583, type: 3}
+  m_Name: OjousamaNovel
+  m_EditorClassIdentifier: 
+  sentences:
+  - id: 0
+    message: "\u3053\u308C\u306F\u30C6\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8\u3060\u3088"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+  - id: 1
+    message: "\u4ECA\u306F\u30C6\u30B9\u30C8\u7248\u3060\u3051\u3069\u6587\u5B57\u9001\u308A\u3068\u304B\u8272\u3005\u5B9F\u88C5\u3059\u308B\u4E88\u5B9A\u3060\u3088"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+  - id: 2
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 1
+    sceneChange: Battle
