@@ -59,9 +59,11 @@ public class BattleManager : MonoBehaviour
 
             Transform CreatedCard = Instantiate(CardPrefab, HandField).transform;
 
+            //位置設定＆カード番号入力
+            CreatedCard.GetComponent<CardController>().CardNumber = Deck[i];
             CreatedCard.localPosition = new Vector3(-500+i*250,0,0);
         }
-        //デッキからカードを削除
+        //デッキからドローした分のカードを削除
         Deck.RemoveRange(0, 5);
 
     }

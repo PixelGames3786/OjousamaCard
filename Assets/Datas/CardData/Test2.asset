@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: 2
   Name: "\u30C6\u30B9\u30C8\u30AB\u30FC\u30C92"
-  Cost: 0
+  Cost: 2
   Power: 3
   Icon: {fileID: 0}
   Type: 1

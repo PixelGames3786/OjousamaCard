@@ -6,5 +6,11 @@ using UnityEngine;
 
 public class CardEntityList : ScriptableObject
 {
-    public List<CardEntity> EntityList;
+    [SerializeField]
+    private List<CardEntity> EntityList;
+
+    public CardEntity GetCardData(int Num)
+    {
+        return EntityList[Num];
+    }
 }
