@@ -6,14 +6,17 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
+    //現在持っているマナコスト
+    public int HavingCost=3;
+
     private int TurnCount = 1;
 
     public Transform HandField;
     public GameObject CardPrefab;
-    public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI TurnText,MyCostText;
 
     //カードを手札で管理する
-    public List<int> Deck,HandCard = new List<int>();
+    public List<int> Deck,HandCard,ChoicedCard = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -57,11 +60,13 @@ public class BattleManager : MonoBehaviour
         {
             HandCard.Add(Deck[i]);
 
-            Transform CreatedCard = Instantiate(CardPrefab, HandField).transform;
+            CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
             //位置設定＆カード番号入力
-            CreatedCard.GetComponent<CardController>().CardNumber = Deck[i];
-            CreatedCard.localPosition = new Vector3(-500+i*250,0,0);
+            CreatedCard.CardNumber = Deck[i];
+            CreatedCard.HandNumber = i;
+
+            CreatedCard.transform.localPosition = new Vector3(-500+i*250,0,0);
         }
         //デッキからドローした分のカードを削除
         Deck.RemoveRange(0, 5);

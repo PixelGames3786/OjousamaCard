@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7cea5411873c641a363ab792385b27, type: 3}
   m_Name: CardEntityList
   m_EditorClassIdentifier: 
-  EntityList: []
+  EntityList:
+  - {fileID: 11400000, guid: 9dbbf4a44247103428060159e24248d0, type: 2}
+  - {fileID: 11400000, guid: 63388fa974770764a83c07bbfdd801a2, type: 2}

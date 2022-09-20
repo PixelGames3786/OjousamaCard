@@ -8,12 +8,20 @@ public class CardController : MonoBehaviour
 {
     //カード番号
     [NonSerialized]
-    public int CardNumber;
+    public int CardNumber,HandNumber;
+
+    //選択されているかどうかのフラグ
+    private bool ChoicedFlag;
 
     private CardEntity CardData;
     public CardEntityList CardDataBase;
 
+    public GameObject ChoicedFrame;
+
     public TextMeshProUGUI Name,Power,Cost;
+
+    public BattleManager BM;
+
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +40,51 @@ public class CardController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CardChoiced()
+    {
+        //既に選択済みならば
+        if (ChoicedFlag)
+        {
+            BM.ChoicedCard.Remove(HandNumber);
+
+            ChoicedFrame.SetActive(false);
+
+            ChoicedFlag = false;
+
+            BM.HavingCost += CardData.Cost;
+            BM.MyCostText.text = BM.HavingCost.ToString();
+
+            return;
+        }
+
+        //もし選択可能ならば
+        if (BM.ChoicedCard.Count<=3)
+        {
+            //もし十分なコストを持っていたら
+            if (BM.HavingCost-CardData.Cost>=0)
+            {
+                BM.ChoicedCard.Add(HandNumber);
+
+                ChoicedFrame.SetActive(true);
+
+                ChoicedFlag = true;
+
+                BM.HavingCost -= CardData.Cost;
+                BM.MyCostText.text = BM.HavingCost.ToString();
+
+            }
+            else
+            {
+                print("コストが足りないよ");
+            }
+            
+        }
+        else
+        {
+            print("三枚選択済みだよ");
+        }
+
     }
 }
