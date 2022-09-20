@@ -67,6 +67,8 @@ public class BattleManager : MonoBehaviour
             CreatedCard.HandNumber = i;
 
             CreatedCard.transform.localPosition = new Vector3(-500+i*250,0,0);
+
+            CreatedCard.BM = this;
         }
         //デッキからドローした分のカードを削除
         Deck.RemoveRange(0, 5);
