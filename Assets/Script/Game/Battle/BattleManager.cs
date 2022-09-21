@@ -11,9 +11,14 @@ public class BattleManager : MonoBehaviour
 
     private int TurnCount = 1;
 
+    [SerializeField]
+    private CardEntityList CardDataBase;
+
     public Transform HandField;
     public GameObject CardPrefab;
-    public TextMeshProUGUI TurnText,MyCostText;
+    public TextMeshProUGUI TurnText,MyCostText,MyHPText,EnemyHPText;
+
+    public BattleStatus MyChara, Enemy;
 
     //カードを手札で管理する
     public List<int> Deck,HandCard,ChoicedCard = new List<int>();
@@ -21,6 +26,11 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //ランダムのシード値設定
+        Random.InitState(System.DateTime.Now.Millisecond);
+
+        CardDataBase = (CardEntityList)Resources.Load("CardEntityList");
+
         BattleStart();
     }
 
@@ -93,9 +103,23 @@ public class BattleManager : MonoBehaviour
     {
         print("自身が動いた");
 
+        //選択したカードの処理
+        foreach (int Num in ChoicedCard)
+        {
+            //カードデータ取得
+            CardEntity Card = CardDataBase.GetCardData(HandCard[Num]);
+
+            //とりあえずダメージ与える処理のみ
+            Enemy.HP -= Card.Power;
+
+            EnemyHPText.text = Enemy.HP.ToString();
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
         StartCoroutine("EnemyCharaMove");
 
-        return null;
+        yield return null;
     }
 
     private IEnumerator EnemyCharaMove()
@@ -104,6 +128,6 @@ public class BattleManager : MonoBehaviour
 
         TurnChange();
 
-        return null;
+        yield return null;
     }
 }
