@@ -11,7 +11,8 @@ public class BattleManager : MonoBehaviour
 
     private int TurnCount = 1;
 
-    [SerializeField]
+    public Transform HandCardParent;
+
     private CardEntityList CardDataBase;
 
     public Transform HandField;
@@ -24,7 +25,7 @@ public class BattleManager : MonoBehaviour
     //カードを手札で管理する
     public List<int> Deck, HandCard, ChoicedCard = new List<int>();
 
-    private GameObject[] HandCardTrans=new GameObject[5];
+    private Transform[] HandCardTrans=new Transform[5];
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +60,7 @@ public class BattleManager : MonoBehaviour
                 n--;
 
                 // kは 0 ～ n+1 の間のランダムな値
-                int k = UnityEngine.Random.Range(0, n + 1);
+                int k = Random.Range(0, n + 1);
 
                 // k番目のカードをtempに代入
                 int temp = Deck[k];
@@ -76,7 +77,7 @@ public class BattleManager : MonoBehaviour
             //カード生成
             CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
-            HandCardTrans[i]=CreatedCard.gameObject;
+            HandCardTrans[i]=CreatedCard.transform;
 
             //位置設定＆カード番号入力
             CreatedCard.CardNumber = Deck[i];
@@ -92,28 +93,31 @@ public class BattleManager : MonoBehaviour
     }
 
     //ドロー処理&カード生成
-    private void Draw(int[] Blank)
+    private void Draw(int DrawNum)
     {
         //ドロー処理&カード生成
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < DrawNum; i++)
         {
             HandCard.Add(Deck[i]);
 
             //カード生成
             CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
-            HandCardTrans[i] = CreatedCard.gameObject;
-
-            //位置設定＆カード番号入力
+            //カード番号入力
             CreatedCard.CardNumber = Deck[i];
-            CreatedCard.HandNumber = i;
-
-            CreatedCard.transform.localPosition = new Vector3(-500 + i * 250, 0, 0);
 
             CreatedCard.BM = this;
         }
         //デッキからドローした分のカードを削除
-        Deck.RemoveRange(0, 5);
+        Deck.RemoveRange(0, DrawNum);
+
+        //カードナンバー振り直し
+        for (int i=0;i<5;i++)
+        {
+            HandCardTrans[i] = HandCardParent.GetChild(i);
+            HandCardTrans[i].localPosition = new Vector3(-500 + i * 250, 0, 0);
+            HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
+        }
     }
 
     //ターンエンド処理
@@ -125,6 +129,8 @@ public class BattleManager : MonoBehaviour
     //ターンカウント増やしたりドローしたり
     public void TurnChange()
     {
+        //ドロー
+        Draw(5-HandCard.Count);
 
         TurnCount++;
 

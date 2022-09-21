@@ -1099,6 +1099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HavingCost: 3
+  HandCardParent: {fileID: 2087307719}
   HandField: {fileID: 2087307719}
   CardPrefab: {fileID: 5367872962945394081, guid: 0823d0049fd5cef4b8dcf725529c9fb3, type: 3}
   TurnText: {fileID: 1012970811}
