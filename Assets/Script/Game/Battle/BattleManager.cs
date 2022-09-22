@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     public Transform HandCardParent;
 
     private CardEntityList CardDataBase;
+    private EnemyDecks EnemyDecks;
 
     public Transform HandField;
     public GameObject CardPrefab;
@@ -21,6 +22,7 @@ public class BattleManager : MonoBehaviour
 
     //カードを手札で管理する
     public List<int> Deck, HandCard, ChoicedCard = new List<int>();
+    private List<int> EnemyDeck,EnemyHand = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
 
@@ -32,6 +34,7 @@ public class BattleManager : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond);
 
         CardDataBase = (CardEntityList)Resources.Load("CardEntityList");
+        EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
 
         BattleStart();
     }
@@ -46,6 +49,7 @@ public class BattleManager : MonoBehaviour
     private void BattleStart()
     {
         Deck = SaveLoadManager.instance.Data.MyDecks;
+        EnemyDeck= EnemyDecks.GetDeck(0);
 
         //シャッフル処理
         {
@@ -118,6 +122,16 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //相手の手札管理
+    private void EnemyHandDraw(int DrawNum)
+    {
+        //ドロー処理
+        for (int i = 0; i < DrawNum; i++)
+        {
+            EnemyHand.Add(EnemyDeck[i]);
+        }
+    }
+
     //ターンエンド処理
     public void TurnEnd()
     {
@@ -141,13 +155,7 @@ public class BattleManager : MonoBehaviour
         Enemy.NowHaveCost++;
         EnemyCostText.text = Enemy.NowHaveCost.ToString();
     }
-
-    //相手の手札管理
-    public void EnemyHandReset()
-    {
-
-    }
-
+    
     //ターン終了時の自分の動き
     private IEnumerator MyCharaMove()
     {

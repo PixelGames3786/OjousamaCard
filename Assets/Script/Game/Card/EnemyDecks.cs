@@ -8,15 +8,15 @@ public class EnemyDecks : ScriptableObject
     [SerializeField]
     private List<string> EnemyDeck = new List<string>();
 
-    public int[] ReturnDeck(int Num)
+    public List<int> GetDeck(int Num)
     {
-        int[] Deck = new int[20];
+        List<int> Deck = new List<int>();
 
         string[] SplitDeck=EnemyDeck[Num].Split(',');
 
         for (int i=0;i<20;i++)
         {
-            Deck[i] = int.Parse(SplitDeck[i]);
+            Deck.Add(int.Parse(SplitDeck[i]));
         }
 
         return Deck;
