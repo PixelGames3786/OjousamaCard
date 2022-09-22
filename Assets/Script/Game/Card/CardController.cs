@@ -53,8 +53,8 @@ public class CardController : MonoBehaviour
 
             ChoicedFlag = false;
 
-            BM.HavingCost += CardData.Cost;
-            BM.MyCostText.text = BM.HavingCost.ToString();
+            BM.MyChara.NowHaveCost += CardData.Cost;
+            BM.MyCostText.text = BM.MyChara.NowHaveCost.ToString();
 
             return;
         }
@@ -63,7 +63,7 @@ public class CardController : MonoBehaviour
         if (BM.ChoicedCard.Count<=3)
         {
             //もし十分なコストを持っていたら
-            if (BM.HavingCost-CardData.Cost>=0)
+            if (BM.MyChara.NowHaveCost-CardData.Cost>=0)
             {
                 BM.ChoicedCard.Add(HandNumber);
 
@@ -71,8 +71,8 @@ public class CardController : MonoBehaviour
 
                 ChoicedFlag = true;
 
-                BM.HavingCost -= CardData.Cost;
-                BM.MyCostText.text = BM.HavingCost.ToString();
+                BM.MyChara.NowHaveCost -= CardData.Cost;
+                BM.MyCostText.text = BM.MyChara.NowHaveCost.ToString();
 
             }
             else

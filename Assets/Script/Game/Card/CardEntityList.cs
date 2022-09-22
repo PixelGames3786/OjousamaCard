@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Linq;
 
 [CreateAssetMenu(fileName = "CardEntityList", menuName = "Create CardEntityList")]
-
 public class CardEntityList : ScriptableObject
 {
     [SerializeField]

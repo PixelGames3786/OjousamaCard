@@ -1064,6 +1064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1206604201}
   - component: {fileID: 1206604202}
+  - component: {fileID: 1206604203}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -1098,17 +1099,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e1c911f6e96724b8196013b7cae76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HavingCost: 3
   HandCardParent: {fileID: 2087307719}
   HandField: {fileID: 2087307719}
   CardPrefab: {fileID: 5367872962945394081, guid: 0823d0049fd5cef4b8dcf725529c9fb3, type: 3}
   TurnText: {fileID: 1012970811}
   MyCostText: {fileID: 955095375}
+  EnemyCostText: {fileID: 1479554034}
   MyHPText: {fileID: 1997943619}
   EnemyHPText: {fileID: 116092588}
   Deck: 
   HandCard: 
   ChoicedCard: 
+--- !u!114 &1206604203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206604200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46bb9dfd638c4714294c26e2f1135eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1212924481
 GameObject:
   m_ObjectHideFlags: 0

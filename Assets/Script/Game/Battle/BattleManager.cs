@@ -6,9 +6,6 @@ using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
-    //現在持っているマナコスト
-    public int HavingCost = 3;
-
     private int TurnCount = 1;
 
     public Transform HandCardParent;
@@ -17,7 +14,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform HandField;
     public GameObject CardPrefab;
-    public TextMeshProUGUI TurnText, MyCostText, MyHPText, EnemyHPText;
+    public TextMeshProUGUI TurnText, MyCostText,EnemyCostText, MyHPText, EnemyHPText;
 
     public BattleStatus MyChara = new BattleStatus(),
                         Enemy = new BattleStatus();
@@ -26,6 +23,7 @@ public class BattleManager : MonoBehaviour
     public List<int> Deck, HandCard, ChoicedCard = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
+
 
     // Start is called before the first frame update
     void Start()
@@ -132,11 +130,25 @@ public class BattleManager : MonoBehaviour
         //ドロー
         Draw(5-HandCard.Count);
 
+        //ターンカウント増やす
         TurnCount++;
-
         TurnText.text = TurnCount.ToString();
+
+        //相手と自分のマナ増やす
+        MyChara.NowHaveCost++;
+        MyCostText.text = MyChara.NowHaveCost.ToString();
+
+        Enemy.NowHaveCost++;
+        EnemyCostText.text = Enemy.NowHaveCost.ToString();
     }
 
+    //相手の手札管理
+    public void EnemyHandReset()
+    {
+
+    }
+
+    //ターン終了時の自分の動き
     private IEnumerator MyCharaMove()
     {
         print("自身が動いた");
@@ -171,6 +183,7 @@ public class BattleManager : MonoBehaviour
         yield return null;
     }
 
+    //ターン終了時の相手の動き
     private IEnumerator EnemyCharaMove()
     {
         print("敵が動いた");
