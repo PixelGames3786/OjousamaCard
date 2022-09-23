@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -51,7 +53,7 @@ public class BattleManager : MonoBehaviour
         Deck = SaveLoadManager.instance.Data.MyDecks;
         EnemyDeck= EnemyDecks.GetDeck(0);
 
-        //シャッフル処理
+        //相手と自分のシャッフル処理
         {
             // 整数 n の初期値はデッキの枚数
             int n = 20;
@@ -68,30 +70,19 @@ public class BattleManager : MonoBehaviour
                 int temp = Deck[k];
                 Deck[k] = Deck[n];
                 Deck[n] = temp;
+
+                // kは 0 ～ n+1 の間のランダムな値
+                k = Random.Range(0, n + 1);
+
+                // k番目のカードをtempに代入
+                int EnemyTemp = EnemyDeck[k];
+                EnemyDeck[k] = EnemyDeck[n];
+                EnemyDeck[n] = EnemyTemp;
             }
         }
 
-        //ドロー処理&カード生成
-        for (int i = 0; i < 5; i++)
-        {
-            HandCard.Add(Deck[i]);
-
-            //カード生成
-            CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
-
-            HandCardTrans[i]=CreatedCard.transform;
-
-            //位置設定＆カード番号入力
-            CreatedCard.CardNumber = Deck[i];
-            CreatedCard.HandNumber = i;
-
-            CreatedCard.transform.localPosition = new Vector3(-500 + i * 250, 0, 0);
-
-            CreatedCard.BM = this;
-        }
-        //デッキからドローした分のカードを削除
-        Deck.RemoveRange(0, 5);
-
+        Draw(5);
+        EnemyDraw(5);
     }
 
     //ドロー処理&カード生成
@@ -123,13 +114,15 @@ public class BattleManager : MonoBehaviour
     }
 
     //相手の手札管理
-    private void EnemyHandDraw(int DrawNum)
+    private void EnemyDraw(int DrawNum)
     {
-        //ドロー処理
-        for (int i = 0; i < DrawNum; i++)
+        for (int i =0; i < DrawNum; i++)
         {
             EnemyHand.Add(EnemyDeck[i]);
         }
+
+        //ドローした分のカードを削除
+        EnemyDeck.RemoveRange(0,DrawNum);
     }
 
     //ターンエンド処理
@@ -143,6 +136,7 @@ public class BattleManager : MonoBehaviour
     {
         //ドロー
         Draw(5-HandCard.Count);
+        EnemyDraw(5-EnemyHand.Count);
 
         //ターンカウント増やす
         TurnCount++;
@@ -195,6 +189,55 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyCharaMove()
     {
         print("敵が動いた");
+
+        var EnemyChoiced = new List<int>();
+        int LoopCount = 0,CostCount = 0;
+
+        //敵が使うカードを選択、いい感じのAIは後で実装する予定
+        while (true)
+        {
+            //もし追加しようとしているカードのコストが上限を超えていたら追加しない
+            if ((CardDataBase.GetCardData(EnemyHand[LoopCount]).Cost+CostCount)<=Enemy.NowHaveCost)
+            {
+                EnemyChoiced.Add(EnemyHand[LoopCount]);
+
+                CostCount += CardDataBase.GetCardData(EnemyHand[LoopCount]).Cost;
+            }
+
+            if (EnemyChoiced.Count>=3 || LoopCount>EnemyHand.Count || CostCount>=Enemy.NowHaveCost)
+            {
+                break;
+            }
+
+            LoopCount++;
+        }
+
+        //選択したカードの処理
+        foreach (int Num in EnemyChoiced)
+        {
+            //カードデータ取得
+            CardEntity Card = CardDataBase.GetCardData(EnemyHand[Num]);
+
+            //とりあえずダメージ与える処理のみ
+            MyChara.HP -= Card.Power;
+
+            MyHPText.text = MyChara.HP.ToString() + "<size=45>/" + MyChara.MaxHP.ToString() + "</size>";
+
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        //もし自身のHPがなくなったらゲームオーバー
+        if (MyChara.HP<=0)
+        {
+            //後で直す
+            SceneManager.LoadScene("Title");
+        }
+
+        //使用可能コストを減らす
+        Enemy.NowHaveCost -= CostCount;
+        EnemyCostText.text = Enemy.NowHaveCost.ToString();
+
+        yield return new WaitForSeconds(0.3f);
 
         TurnChange();
 

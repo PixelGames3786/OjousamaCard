@@ -5,7 +5,7 @@ using UnityEngine;
 //敵や自キャラのデュエル中のステータス
 public class BattleStatus
 {
-    public int HP=50,MaxHP=50;
+    public int HP=20,MaxHP=20;
 
     public int NowHaveCost=3;
 
