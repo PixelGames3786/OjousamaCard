@@ -10,4 +10,7 @@ public class BattleStatus
     public int NowHaveCost=3;
 
     public List<int> Deck, HandCard, ChoicedCard;
+
+    //¡Œ»İ‚©‚©‚Á‚Ä‚¢‚éƒoƒt
+    public List<int> BuffNumbers,BuffCounts;
 }

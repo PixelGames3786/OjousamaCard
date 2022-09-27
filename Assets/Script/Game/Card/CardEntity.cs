@@ -10,7 +10,8 @@ public class CardEntity : ScriptableObject
     {
         Attack,
         Difence,
-        Buff
+        MyBuff,
+        EnemyBuff
     };
 
     public int CardID;
@@ -19,5 +20,5 @@ public class CardEntity : ScriptableObject
     public int Power;
     public Sprite Icon;
 
-    public CardType Type;
+    public CardType[] Types;
 }

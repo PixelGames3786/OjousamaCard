@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
 
     //カードを手札で管理する
     public List<int> Deck, HandCard, ChoicedCard = new List<int>();
-    private List<int> EnemyDeck,EnemyHand = new List<int>();
+    private List<int> EnemyDeck,EnemyHand,EnemyChoiced = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
 
@@ -156,18 +156,7 @@ public class BattleManager : MonoBehaviour
         print("自身が動いた");
 
         //選択したカードの処理
-        foreach (int Num in ChoicedCard)
-        {
-            //カードデータ取得
-            CardEntity Card = CardDataBase.GetCardData(HandCard[Num]);
-
-            //とりあえずダメージ与える処理のみ
-            Enemy.HP -= Card.Power;
-
-            EnemyHPText.text = Enemy.HP.ToString()+"<size=45>/"+Enemy.MaxHP.ToString()+"</size>";
-
-            yield return new WaitForSeconds(0.3f);
-        }
+        CardProcess(true);
 
         //手札から削除
         foreach (int Num in ChoicedCard)
@@ -190,7 +179,7 @@ public class BattleManager : MonoBehaviour
     {
         print("敵が動いた");
 
-        var EnemyChoiced = new List<int>();
+        EnemyChoiced.Clear();
         int LoopCount = 0,CostCount = 0;
 
         //敵が使うカードを選択、いい感じのAIは後で実装する予定
@@ -212,19 +201,8 @@ public class BattleManager : MonoBehaviour
             LoopCount++;
         }
 
-        //選択したカードの処理
-        foreach (int Num in EnemyChoiced)
-        {
-            //カードデータ取得
-            CardEntity Card = CardDataBase.GetCardData(EnemyHand[Num]);
+        CardProcess(false);
 
-            //とりあえずダメージ与える処理のみ
-            MyChara.HP -= Card.Power;
-
-            MyHPText.text = MyChara.HP.ToString() + "<size=45>/" + MyChara.MaxHP.ToString() + "</size>";
-
-            yield return new WaitForSeconds(0.3f);
-        }
 
         //もし自身のHPがなくなったらゲームオーバー
         if (MyChara.HP<=0)
@@ -242,5 +220,95 @@ public class BattleManager : MonoBehaviour
         TurnChange();
 
         yield return null;
+    }
+
+    //カード使用時の挙動
+    private IEnumerator CardProcess(bool MeOrEnemy)
+    {
+        //MeOrEnemy trueだと自分 falseだと敵
+
+        if (MeOrEnemy)
+        {
+            foreach (int Num in ChoicedCard)
+            {
+                //カードデータ取得
+                CardEntity Card = CardDataBase.GetCardData(HandCard[Num]);
+
+                //カードのタイプごとに処理をする
+                foreach (CardEntity.CardType Type in Card.Types)
+                {
+                    switch (Type)
+                    {
+                        case CardEntity.CardType.Attack :
+                            {
+                                Enemy.HP -= Card.Power;
+
+                                EnemyHPText.text = Enemy.HP.ToString() + "<size=45>/" + Enemy.MaxHP.ToString() + "</size>";
+
+                                break;
+                            }
+
+                        case CardEntity.CardType.Difence:
+                            {
+                                break;
+                            }
+
+                        case CardEntity.CardType.MyBuff:
+                            {
+                                break;
+                            }
+
+                        case CardEntity.CardType.EnemyBuff:
+                            {
+                                break;
+                            }
+                    }
+
+                    yield return new WaitForSeconds(0.3f);
+                }
+            }
+        }
+        else
+        {
+            //選択したカードの処理
+            foreach (int Num in EnemyChoiced)
+            {
+                //カードデータ取得
+                CardEntity Card = CardDataBase.GetCardData(EnemyHand[Num]);
+
+                //カードのタイプごとに処理をする
+                foreach (CardEntity.CardType Type in Card.Types)
+                {
+                    switch (Type)
+                    {
+                        case CardEntity.CardType.Attack:
+                            {
+                                MyChara.HP -= Card.Power;
+
+                                MyHPText.text = MyChara.HP.ToString() + "<size=45>/" + MyChara.MaxHP.ToString() + "</size>";
+
+                                break;
+                            }
+
+                        case CardEntity.CardType.Difence:
+                            {
+                                break;
+                            }
+
+                        case CardEntity.CardType.MyBuff:
+                            {
+                                break;
+                            }
+
+                        case CardEntity.CardType.EnemyBuff:
+                            {
+                                break;
+                            }
+                    }
+
+                    yield return new WaitForSeconds(0.3f);
+                }
+            }
+        }
     }
 }
