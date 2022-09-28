@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform HandCardParent;
 
-    private CardEntityList CardDataBase;
+    private CardScriptList CardDataBase;
     private EnemyDecks EnemyDecks;
 
     public Transform HandField;
@@ -24,7 +24,8 @@ public class BattleManager : MonoBehaviour
 
     //カードを手札で管理する
     public List<int> Deck, HandCard, ChoicedCard = new List<int>();
-    private List<int> EnemyDeck,EnemyHand,EnemyChoiced = new List<int>();
+
+    public List<int> EnemyDeck,EnemyHand,EnemyChoiced = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
 
@@ -35,8 +36,10 @@ public class BattleManager : MonoBehaviour
         //ランダムのシード値設定
         Random.InitState(System.DateTime.Now.Millisecond);
 
-        CardDataBase = (CardEntityList)Resources.Load("CardEntityList");
+        CardDataBase = (CardScriptList)Resources.Load("CardScriptList");
         EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
+
+        print(EnemyDecks);
 
         BattleStart();
     }
@@ -156,7 +159,7 @@ public class BattleManager : MonoBehaviour
         print("自身が動いた");
 
         //選択したカードの処理
-        CardProcess(true);
+        CardProcess(true,HandCard,ChoicedCard);
 
         //手札から削除
         foreach (int Num in ChoicedCard)
@@ -186,11 +189,11 @@ public class BattleManager : MonoBehaviour
         while (true)
         {
             //もし追加しようとしているカードのコストが上限を超えていたら追加しない
-            if ((CardDataBase.GetCardData(EnemyHand[LoopCount]).Cost+CostCount)<=Enemy.NowHaveCost)
+            if ((CardDataBase.GetCardScript(EnemyHand[LoopCount]).Cost+CostCount)<=Enemy.NowHaveCost)
             {
                 EnemyChoiced.Add(EnemyHand[LoopCount]);
 
-                CostCount += CardDataBase.GetCardData(EnemyHand[LoopCount]).Cost;
+                CostCount += CardDataBase.GetCardScript(EnemyHand[LoopCount]).Cost;
             }
 
             if (EnemyChoiced.Count>=3 || LoopCount>EnemyHand.Count || CostCount>=Enemy.NowHaveCost)
@@ -201,7 +204,7 @@ public class BattleManager : MonoBehaviour
             LoopCount++;
         }
 
-        CardProcess(false);
+        CardProcess(false,EnemyHand,EnemyChoiced);
 
 
         //もし自身のHPがなくなったらゲームオーバー
@@ -223,92 +226,21 @@ public class BattleManager : MonoBehaviour
     }
 
     //カード使用時の挙動
-    private IEnumerator CardProcess(bool MeOrEnemy)
+    private IEnumerator CardProcess(bool MeOrEnemy,List<int> Cards,List<int> Choices)
     {
         //MeOrEnemy trueだと自分 falseだと敵
 
-        if (MeOrEnemy)
+        foreach (int Num in Choices)
         {
-            foreach (int Num in ChoicedCard)
-            {
-                //カードデータ取得
-                CardEntity Card = CardDataBase.GetCardData(HandCard[Num]);
+            //カードデータ取得
+            CardBase Card = CardDataBase.GetCardScript(Cards[Num]);
 
-                //カードのタイプごとに処理をする
-                foreach (CardEntity.CardType Type in Card.Types)
-                {
-                    switch (Type)
-                    {
-                        case CardEntity.CardType.Attack :
-                            {
-                                Enemy.HP -= Card.Power;
+            //カードのタイプごとに処理をする
+            Card.StartCoroutine("CardProcess",this, MeOrEnemy);
 
-                                EnemyHPText.text = Enemy.HP.ToString() + "<size=45>/" + Enemy.MaxHP.ToString() + "</size>";
-
-                                break;
-                            }
-
-                        case CardEntity.CardType.Difence:
-                            {
-                                break;
-                            }
-
-                        case CardEntity.CardType.MyBuff:
-                            {
-                                break;
-                            }
-
-                        case CardEntity.CardType.EnemyBuff:
-                            {
-                                break;
-                            }
-                    }
-
-                    yield return new WaitForSeconds(0.3f);
-                }
-            }
+            yield return new WaitForSeconds(1f);
         }
-        else
-        {
-            //選択したカードの処理
-            foreach (int Num in EnemyChoiced)
-            {
-                //カードデータ取得
-                CardEntity Card = CardDataBase.GetCardData(EnemyHand[Num]);
 
-                //カードのタイプごとに処理をする
-                foreach (CardEntity.CardType Type in Card.Types)
-                {
-                    switch (Type)
-                    {
-                        case CardEntity.CardType.Attack:
-                            {
-                                MyChara.HP -= Card.Power;
-
-                                MyHPText.text = MyChara.HP.ToString() + "<size=45>/" + MyChara.MaxHP.ToString() + "</size>";
-
-                                break;
-                            }
-
-                        case CardEntity.CardType.Difence:
-                            {
-                                break;
-                            }
-
-                        case CardEntity.CardType.MyBuff:
-                            {
-                                break;
-                            }
-
-                        case CardEntity.CardType.EnemyBuff:
-                            {
-                                break;
-                            }
-                    }
-
-                    yield return new WaitForSeconds(0.3f);
-                }
-            }
-        }
+        yield return null;
     }
 }

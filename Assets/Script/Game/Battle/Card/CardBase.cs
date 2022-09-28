@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 abstract public class CardBase : ScriptableObject
@@ -7,7 +8,12 @@ abstract public class CardBase : ScriptableObject
     public string Name;
     public int Cost;
     public int Power;
+    public float WaitTime;
     public Sprite Icon;
 
-    abstract public IEnumerator CardProcess();
+    //働きかける相手を設定
+    virtual public IEnumerator CardProcess(BattleManager BM,bool MeOrEnemy)
+    {
+        yield return null;
+    }
 }
