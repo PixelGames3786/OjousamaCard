@@ -12,5 +12,5 @@ public class BattleStatus
     public List<int> Deck, HandCard, ChoicedCard;
 
     //¡Œ»İ‚©‚©‚Á‚Ä‚¢‚éƒoƒt
-    public List<int> BuffNumbers,BuffCounts;
+    public List<BuffBase> BuffNumbers;
 }
