@@ -17,4 +17,4 @@ MonoBehaviour:
   Cost: 2
   Power: 3
   Icon: {fileID: 0}
-  Type: 1
+  Types: 

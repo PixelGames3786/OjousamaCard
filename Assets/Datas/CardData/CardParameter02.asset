@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 825f121ed3c5bf345901ba2be6b92d2d, type: 3}
-  m_Name: CardTest01
+  m_Script: {fileID: 11500000, guid: 45959ee1e6f4e1d46a43e55fcda2d64b, type: 3}
+  m_Name: CardParameter02
   m_EditorClassIdentifier: 
-  CardID: 1
-  Name: "\u30C6\u30B9\u30C8\u30AB\u30FC\u30C91"
-  Cost: 1
-  Power: 2
+  CardID: 2
+  Name: "\u30C6\u30B9\u30C8\u30AB\u30FC\u30C92"
+  Cost: 2
+  Power: 3
   WaitTime: 0.3
   Icon: {fileID: 0}
+  ScriptName: CardTest01

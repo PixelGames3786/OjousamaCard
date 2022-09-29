@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e7dd00b22911e42ba9864b275ca490, type: 3}
   m_Name: CardScriptList
   m_EditorClassIdentifier: 
-  ScriptList:
-  - {fileID: 11400000, guid: d45651ecadb9ce0468842892970d7db0, type: 2}
-  - {fileID: 11400000, guid: 3e2e7c647ce41c446b01ba88ddf25d5e, type: 2}
+  ParameterList:
+  - {fileID: 11400000, guid: 2db641253be062042abaf1adb6235dc7, type: 2}
+  - {fileID: 11400000, guid: 95171ef2ba81bf843b0ee53dc205e7a2, type: 2}

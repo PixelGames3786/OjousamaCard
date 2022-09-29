@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[CreateAssetMenu(fileName = "CardTest01", menuName = "CreateCard/Test01")]
 public class CardTest01 : CardBase
 {
+    
 
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
+        Debug.Log("実行");
+
         BattleStatus Target;
         TextMeshProUGUI TargetText;
 
@@ -23,7 +25,7 @@ public class CardTest01 : CardBase
             TargetText = BM.MyHPText;
         }
 
-        Target.HP -= Power;
+        Target.HP -= Parameter.Power;
 
         TargetText.text = Target.HP.ToString() + "<size=45>/" + Target.MaxHP.ToString() + "</size>";
 

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
+using System;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform HandCardParent;
 
-    private CardScriptList CardDataBase;
+    private CardParameterList CardDataBase;
     private EnemyDecks EnemyDecks;
 
     public Transform HandField;
@@ -29,19 +30,17 @@ public class BattleManager : MonoBehaviour
 
     private Transform[] HandCardTrans=new Transform[5];
 
-
     // Start is called before the first frame update
     void Start()
     {
         //ランダムのシード値設定
         Random.InitState(System.DateTime.Now.Millisecond);
 
-        CardDataBase = (CardScriptList)Resources.Load("CardScriptList");
+        CardDataBase = (CardParameterList)Resources.Load("CardScriptList");
         EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
 
-        print(EnemyDecks);
-
         BattleStart();
+
     }
 
     // Update is called once per frame
@@ -159,7 +158,23 @@ public class BattleManager : MonoBehaviour
         print("自身が動いた");
 
         //選択したカードの処理
-        CardProcess(true,HandCard,ChoicedCard);
+
+        foreach (int Num in ChoicedCard)
+        {
+            Type type = Type.GetType(CardDataBase.GetCardParameter(HandCard[Num]).ScriptName);
+
+            CardBase Card = (CardBase)Activator.CreateInstance(type);
+            Card.Parameter = CardDataBase.GetCardParameter(HandCard[Num]);
+
+            //カードのタイプごとに処理をする
+
+            Card.Coroutine(this, true);
+            //CoroutineHandler.StartStaticCoroutine(Card.CardProcess(this,MeOrEnemy));
+            //Card.StartCoroutine(Card.CardProcess(this,MeOrEnemy));
+
+            yield return new WaitForSeconds(Card.Parameter.WaitTime);
+        }
+        //CardProcess(true,HandCard,ChoicedCard);
 
         //手札から削除
         foreach (int Num in ChoicedCard)
@@ -169,7 +184,7 @@ public class BattleManager : MonoBehaviour
         }
         ChoicedCard.Clear();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
 
         //敵の行動に移る
         StartCoroutine("EnemyCharaMove");
@@ -189,11 +204,11 @@ public class BattleManager : MonoBehaviour
         while (true)
         {
             //もし追加しようとしているカードのコストが上限を超えていたら追加しない
-            if ((CardDataBase.GetCardScript(EnemyHand[LoopCount]).Cost+CostCount)<=Enemy.NowHaveCost)
+            if ((CardDataBase.GetCardParameter(EnemyHand[LoopCount]).Cost+CostCount)<=Enemy.NowHaveCost)
             {
                 EnemyChoiced.Add(EnemyHand[LoopCount]);
 
-                CostCount += CardDataBase.GetCardScript(EnemyHand[LoopCount]).Cost;
+                CostCount += CardDataBase.GetCardParameter(EnemyHand[LoopCount]).Cost;
             }
 
             if (EnemyChoiced.Count>=3 || LoopCount>EnemyHand.Count || CostCount>=Enemy.NowHaveCost)
@@ -232,13 +247,18 @@ public class BattleManager : MonoBehaviour
 
         foreach (int Num in Choices)
         {
-            //カードデータ取得
-            CardBase Card = CardDataBase.GetCardScript(Cards[Num]);
+            Type type = Type.GetType(CardDataBase.GetCardParameter(Cards[Num]).ScriptName);
+
+            CardBase Card = (CardBase)Activator.CreateInstance(type);
+            Card.Parameter = CardDataBase.GetCardParameter(Cards[Num]);
 
             //カードのタイプごとに処理をする
-            Card.StartCoroutine("CardProcess",this, MeOrEnemy);
 
-            yield return new WaitForSeconds(1f);
+            Card.Coroutine(this,MeOrEnemy);
+            //CoroutineHandler.StartStaticCoroutine(Card.CardProcess(this,MeOrEnemy));
+            //Card.StartCoroutine(Card.CardProcess(this,MeOrEnemy));
+
+            yield return new WaitForSeconds(Card.Parameter.WaitTime);
         }
 
         yield return null;
