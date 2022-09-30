@@ -15,9 +15,10 @@ abstract public class BuffBase : ScriptableObject
     public BuffType Type;
 
     public int BuffNumber,TurnCount;
+    public float WaitTime;
 
     public Sprite BuffIcon;
 
-    abstract public void BuffProcess();
+    abstract public void BuffProcess(BattleManager BM,bool MeOrEnemy);
 
 }

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4fcb9e7e60c100047939b434fa1d428e, type: 3}
-  m_Name: BuffTest01
+  m_Name: Poison
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 2
   BuffNumber: 1
   TurnCount: 0
+  WaitTime: 0
   BuffIcon: {fileID: 0}

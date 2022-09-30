@@ -13,4 +13,9 @@ public class BuffScriptList : ScriptableObject
     {
         return ScriptList.Find(Buff=>Buff.BuffNumber==Num);
     }
+
+    public BuffBase GetBuffScript(string Name)
+    {
+        return ScriptList.Find(Buff=>Buff.name==Name);
+    }
 }

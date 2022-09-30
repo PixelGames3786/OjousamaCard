@@ -11,19 +11,8 @@ public class CardTest01 : CardBase
     {
         Debug.Log("実行");
 
-        BattleStatus Target;
-        TextMeshProUGUI TargetText;
-
-        if (MeOrEnemy)
-        {
-            Target = BM.Enemy;
-            TargetText = BM.EnemyHPText;
-        }
-        else
-        {
-            Target = BM.MyChara;
-            TargetText = BM.MyHPText;
-        }
+        BattleStatus Target=MeOrEnemy ? BM.Enemy : BM.MyChara;
+        TextMeshProUGUI TargetText=MeOrEnemy ? BM.EnemyHPText : BM.MyHPText;
 
         Target.HP -= Parameter.Power;
 

@@ -13,8 +13,8 @@ public class CardController : MonoBehaviour
     //選択されているかどうかのフラグ
     private bool ChoicedFlag;
 
-    private CardEntity CardData;
-    public CardEntityList CardDataBase;
+    private CardParameter CardData;
+    public CardParameterList CardDataBase;
 
     public GameObject ChoicedFrame;
 
@@ -27,7 +27,7 @@ public class CardController : MonoBehaviour
     void Start()
     {
         //カード番号を使ってデータベースからカードデータを取り出す
-        CardData = CardDataBase.GetCardData(CardNumber);
+        CardData = CardDataBase.GetCardParameter(CardNumber);
 
         //名前・コスト・ダメージセット
         Name.text = CardData.Name;

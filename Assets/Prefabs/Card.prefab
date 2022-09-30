@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb94d66d1d45bc44fb249a2ba341eb69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardDataBase: {fileID: 11400000, guid: 2c3aed5d50e111344a54b5ed93bcf8ae, type: 2}
+  CardDataBase: {fileID: 11400000, guid: 38c1d19afacbb1c4cb5601ff037fe2d3, type: 2}
   ChoicedFrame: {fileID: 5266952597101152149}
   Name: {fileID: 3133102531126673432}
   Power: {fileID: 3735414999045072179}

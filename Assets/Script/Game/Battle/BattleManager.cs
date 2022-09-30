@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
     public Transform HandCardParent;
 
     private CardParameterList CardDataBase;
+    [NonSerialized]
+    public BuffScriptList BuffDataBase;
     private EnemyDecks EnemyDecks;
 
     public Transform HandField;
@@ -37,6 +39,7 @@ public class BattleManager : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond);
 
         CardDataBase = (CardParameterList)Resources.Load("CardScriptList");
+        BuffDataBase = (BuffScriptList)Resources.Load("BuffScriptList");
         EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
 
         BattleStart();
@@ -158,7 +161,6 @@ public class BattleManager : MonoBehaviour
         print("自身が動いた");
 
         //選択したカードの処理
-
         foreach (int Num in ChoicedCard)
         {
             Type type = Type.GetType(CardDataBase.GetCardParameter(HandCard[Num]).ScriptName);
@@ -166,15 +168,10 @@ public class BattleManager : MonoBehaviour
             CardBase Card = (CardBase)Activator.CreateInstance(type);
             Card.Parameter = CardDataBase.GetCardParameter(HandCard[Num]);
 
-            //カードのタイプごとに処理をする
-
             Card.Coroutine(this, true);
-            //CoroutineHandler.StartStaticCoroutine(Card.CardProcess(this,MeOrEnemy));
-            //Card.StartCoroutine(Card.CardProcess(this,MeOrEnemy));
 
             yield return new WaitForSeconds(Card.Parameter.WaitTime);
         }
-        //CardProcess(true,HandCard,ChoicedCard);
 
         //手札から削除
         foreach (int Num in ChoicedCard)
@@ -188,8 +185,6 @@ public class BattleManager : MonoBehaviour
 
         //敵の行動に移る
         StartCoroutine("EnemyCharaMove");
-
-        yield return null;
     }
 
     //ターン終了時の相手の動き
@@ -219,8 +214,18 @@ public class BattleManager : MonoBehaviour
             LoopCount++;
         }
 
-        CardProcess(false,EnemyHand,EnemyChoiced);
+        //選択したカードの処理
+        foreach (int Num in ChoicedCard)
+        {
+            Type type = Type.GetType(CardDataBase.GetCardParameter(EnemyHand[Num]).ScriptName);
 
+            CardBase Card = (CardBase)Activator.CreateInstance(type);
+            Card.Parameter = CardDataBase.GetCardParameter(EnemyHand[Num]);
+
+            Card.Coroutine(this, false);
+
+            yield return new WaitForSeconds(Card.Parameter.WaitTime);
+        }
 
         //もし自身のHPがなくなったらゲームオーバー
         if (MyChara.HP<=0)
@@ -235,10 +240,73 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
+        StartCoroutine(EndBuffProcess());
+
+        //TurnChange();
+    }
+
+    private IEnumerator BuffProcess(BuffBase.BuffType Type,bool MeOrEnemy)
+    {
+        //三項演算子という書き方　行を節約できて楽
+        List<BuffBase> AllBuff = MeOrEnemy ? Enemy.Buffs : MyChara.Buffs;
+
+        //発動タイミングによってバフを絞り込む
+        List<BuffBase> FilteredBuff = AllBuff.FindAll(FindBuff=>FindBuff.Type==Type);
+
+        foreach (BuffBase Buff in FilteredBuff)
+        {
+            Buff.BuffProcess(this,MeOrEnemy);
+
+            yield return new WaitForSeconds(Buff.WaitTime);
+        }
+
+        switch (Type)
+        {
+            case BuffBase.BuffType.OnTurnEnd:
+
+                TurnChange();
+
+                break;
+        }
+
+        yield return null;
+    }
+
+    //後々統合する予定
+    private IEnumerator EndBuffProcess()
+    {
+        List<BuffBase> FilteredBuff;
+
+        //まず自分のバフを行う
+        FilteredBuff = MyChara.Buffs.FindAll(FindBuff=>FindBuff.Type==BuffBase.BuffType.OnTurnEnd);
+
+        foreach (BuffBase Buff in FilteredBuff)
+        {
+            Debug.Log("実行");
+
+            Buff.BuffProcess(this, true);
+
+            yield return new WaitForSeconds(Buff.WaitTime);
+        }
+
+        //次に敵のバフを行う
+        FilteredBuff = Enemy.Buffs.FindAll(FindBuff => FindBuff.Type == BuffBase.BuffType.OnTurnEnd);
+
+        foreach (BuffBase Buff in FilteredBuff)
+        {
+            Debug.Log("敵実行");
+
+            Buff.BuffProcess(this, true);
+
+            yield return new WaitForSeconds(Buff.WaitTime);
+        }
+
         TurnChange();
 
         yield return null;
     }
+
+    /*
 
     //カード使用時の挙動
     private IEnumerator CardProcess(bool MeOrEnemy,List<int> Cards,List<int> Choices)
@@ -252,15 +320,13 @@ public class BattleManager : MonoBehaviour
             CardBase Card = (CardBase)Activator.CreateInstance(type);
             Card.Parameter = CardDataBase.GetCardParameter(Cards[Num]);
 
-            //カードのタイプごとに処理をする
-
             Card.Coroutine(this,MeOrEnemy);
-            //CoroutineHandler.StartStaticCoroutine(Card.CardProcess(this,MeOrEnemy));
-            //Card.StartCoroutine(Card.CardProcess(this,MeOrEnemy));
 
             yield return new WaitForSeconds(Card.Parameter.WaitTime);
         }
 
         yield return null;
     }
+
+    */
 }
