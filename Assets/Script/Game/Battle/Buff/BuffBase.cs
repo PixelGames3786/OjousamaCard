@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 abstract public class BuffBase : ScriptableObject
 {
@@ -13,6 +14,9 @@ abstract public class BuffBase : ScriptableObject
     }
 
     public BuffType Type;
+
+    [NonSerialized]
+    public int BuffAddNum;
 
     public int BuffNumber,TurnCount;
     public float WaitTime;

@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
+    public static BattleManager BM;
+
     private int TurnCount = 1;
 
     public Transform HandCardParent;
@@ -31,6 +33,11 @@ public class BattleManager : MonoBehaviour
     public List<int> EnemyDeck,EnemyHand,EnemyChoiced = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
+
+    private void Awake()
+    {
+        BM = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -173,12 +180,15 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(Card.Parameter.WaitTime);
         }
 
+        ChoicedCard.Sort((a, b) => b - a);
+
         //éËéDÇ©ÇÁçÌèú
         foreach (int Num in ChoicedCard)
         {
             HandCard.RemoveAt(Num);
             Destroy(HandCardTrans[Num].gameObject);
         }
+
         ChoicedCard.Clear();
 
         yield return new WaitForSeconds(1f);
@@ -284,7 +294,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("é¿çs");
 
-            Buff.BuffProcess(this, true);
+            Buff.BuffProcess(this, false);
 
             yield return new WaitForSeconds(Buff.WaitTime);
         }

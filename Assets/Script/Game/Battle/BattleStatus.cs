@@ -13,4 +13,9 @@ public class BattleStatus
 
     //¡Œ»İ‚©‚©‚Á‚Ä‚¢‚éƒoƒt
     public List<BuffBase> Buffs=new List<BuffBase>();
+
+    public void HPDecrease(int Minus)
+    {
+        HP-=Minus;
+    }
 }

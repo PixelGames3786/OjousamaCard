@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UniRx;
 
 public class CardTest01 : CardBase
 {
@@ -12,11 +13,12 @@ public class CardTest01 : CardBase
         Debug.Log("実行");
 
         BattleStatus Target=MeOrEnemy ? BM.Enemy : BM.MyChara;
-        TextMeshProUGUI TargetText=MeOrEnemy ? BM.EnemyHPText : BM.MyHPText;
+        Subject<int> HPSubject = FieldManager.FM.HPSub;
 
-        Target.HP -= Parameter.Power;
+        Target.HPDecrease(Parameter.Power);
 
-        TargetText.text = Target.HP.ToString() + "<size=45>/" + Target.MaxHP.ToString() + "</size>";
+        FieldManager.FM.HPChanger = MeOrEnemy;
+        HPSubject.OnNext(Target.HP);
 
         yield return new WaitForSeconds(0.3f);
     }
