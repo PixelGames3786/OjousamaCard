@@ -6,19 +6,28 @@ using System;
 abstract public class BuffBase : ScriptableObject
 {
     //バフが使われるタイミング
-    public enum BuffType
+    public enum BuffUseType
     {
         OnAttack,
         OnDifence,
         OnTurnEnd
     }
 
-    public BuffType Type;
+    //バフのターンカウントが減るタイミング
+    public enum BuffDecreaseType
+    {
+        OnUse,
+        OnTurnEnd,
+        OnUseAndEnd
+    }
+
+    public BuffUseType UseType;
+    public BuffDecreaseType DecreaseType;
 
     [NonSerialized]
     public int BuffAddNum;
 
-    public int BuffNumber,TurnCount;
+    public int BuffNumber,TurnCount,UseCount;
     public float WaitTime;
 
     public Sprite BuffIcon;

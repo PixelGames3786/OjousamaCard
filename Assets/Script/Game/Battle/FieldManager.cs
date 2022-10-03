@@ -90,21 +90,38 @@ public class FieldManager : MonoBehaviour
         //アイコン追加
         Transform Icon = Instantiate(BuffIconPrefab, Parent).transform;
 
-        Icon.localPosition = new Vector3(MyBuffs.Count * 50, 0, 0);
+        Icon.localPosition = new Vector3(Buffs.Count * 50, 0, 0);
 
         //アイコンの画像設定
         Icon.GetComponent<Image>().sprite = Add.BuffIcon;
 
-        MyBuffs.Add(Icon);
+        Buffs.Add(Icon);
     }
 
-    public void RemoveBuff(int Num)
+    public void RemoveBuff(List<int> Num,bool MeOrEnemy)
     {
-        Destroy(MyBuffs[Num].gameObject);
+        List<Transform> Buffs;
 
-        for (int i=Num;i<MyBuffs.Count;i++)
+        if (!MeOrEnemy)
         {
-            MyBuffs[Num].localPosition = new Vector3(i*50,0,0);
+            Buffs = MyBuffs;
+        }
+        else
+        {
+            Buffs = EnemyBuffs;
+        }
+
+        foreach (int num in Num)
+        {
+            Destroy(Buffs[num].gameObject);
+
+        }
+
+        for (int i=0;i<Buffs.Count;i++)
+        {
+            print(i*50);
+
+            Buffs[i].localPosition = new Vector3(i*50,0,0);
         }
 
     }

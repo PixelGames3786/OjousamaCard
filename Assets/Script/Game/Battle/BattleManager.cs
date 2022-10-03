@@ -225,7 +225,7 @@ public class BattleManager : MonoBehaviour
         }
 
         //選択したカードの処理
-        foreach (int Num in ChoicedCard)
+        foreach (int Num in EnemyChoiced)
         {
             Type type = Type.GetType(CardDataBase.GetCardParameter(EnemyHand[Num]).ScriptName);
 
@@ -250,18 +250,19 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
+        //バフをする
         StartCoroutine(EndBuffProcess());
 
         //TurnChange();
     }
 
-    private IEnumerator BuffProcess(BuffBase.BuffType Type,bool MeOrEnemy)
+    private IEnumerator BuffProcess(BuffBase.BuffUseType Type,bool MeOrEnemy)
     {
         //三項演算子という書き方　行を節約できて楽
         List<BuffBase> AllBuff = MeOrEnemy ? Enemy.Buffs : MyChara.Buffs;
 
         //発動タイミングによってバフを絞り込む
-        List<BuffBase> FilteredBuff = AllBuff.FindAll(FindBuff=>FindBuff.Type==Type);
+        List<BuffBase> FilteredBuff = AllBuff.FindAll(FindBuff=>FindBuff.UseType==Type);
 
         foreach (BuffBase Buff in FilteredBuff)
         {
@@ -272,7 +273,7 @@ public class BattleManager : MonoBehaviour
 
         switch (Type)
         {
-            case BuffBase.BuffType.OnTurnEnd:
+            case BuffBase.BuffUseType.OnTurnEnd:
 
                 TurnChange();
 
@@ -285,12 +286,13 @@ public class BattleManager : MonoBehaviour
     //後々統合する予定
     private IEnumerator EndBuffProcess()
     {
-        List<BuffBase> FilteredBuff;
+        List<BuffBase> Filtered;
+        List<int> Remove=new List<int>();
 
         //まず自分のバフを行う
-        FilteredBuff = MyChara.Buffs.FindAll(FindBuff=>FindBuff.Type==BuffBase.BuffType.OnTurnEnd);
+        Filtered = MyChara.Buffs.FindAll(Buff=>Buff.UseType==BuffBase.BuffUseType.OnTurnEnd);
 
-        foreach (BuffBase Buff in FilteredBuff)
+        foreach (BuffBase Buff in Filtered)
         {
             Debug.Log("実行");
 
@@ -300,9 +302,9 @@ public class BattleManager : MonoBehaviour
         }
 
         //次に敵のバフを行う
-        FilteredBuff = Enemy.Buffs.FindAll(FindBuff => FindBuff.Type == BuffBase.BuffType.OnTurnEnd);
+        Filtered = Enemy.Buffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
 
-        foreach (BuffBase Buff in FilteredBuff)
+        foreach (BuffBase Buff in Filtered)
         {
             Debug.Log("敵実行");
 
@@ -310,6 +312,23 @@ public class BattleManager : MonoBehaviour
 
             yield return new WaitForSeconds(Buff.WaitTime);
         }
+
+        //自分のバフのターンカウントを減らす
+        Filtered= MyChara.Buffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd||Buff.DecreaseType==BuffBase.BuffDecreaseType.OnUseAndEnd);
+
+        foreach (BuffBase Buff in Filtered)
+        {
+            Buff.TurnCount -= 1;
+
+            if (Buff.TurnCount<=0)
+            {
+                Remove.Add(Buff.BuffAddNum);
+
+                MyChara.Buffs.Remove(Buff);
+            }
+        }
+
+        FieldManager.FM.RemoveBuff(Remove,false);
 
         TurnChange();
 

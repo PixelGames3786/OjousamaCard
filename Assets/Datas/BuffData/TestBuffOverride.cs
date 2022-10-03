@@ -7,11 +7,6 @@ using UniRx;
 
 public class TestBuffOverride : BuffBase
 {
-    public TestBuffOverride(BuffBase Mate)
-    {
-        
-    }
-
     public override void BuffProcess(BattleManager BM,bool MeOrEnemy)
     {
         BattleStatus Target = MeOrEnemy ? BM.Enemy : BM.MyChara;
@@ -21,13 +16,5 @@ public class TestBuffOverride : BuffBase
 
         FieldManager.FM.HPChanger = MeOrEnemy;
         HPSubject.OnNext(Target.HP);
-
-        TurnCount--;
-
-        if (TurnCount==0)
-        {
-            FieldManager.FM.RemoveBuff(BuffAddNum);
-            Target.Buffs.Remove(this);
-        }
     }
 }
