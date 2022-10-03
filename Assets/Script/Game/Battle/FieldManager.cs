@@ -98,7 +98,7 @@ public class FieldManager : MonoBehaviour
         Buffs.Add(Icon);
     }
 
-    public void RemoveBuff(List<int> Num,bool MeOrEnemy)
+    public void RemoveBuff(int Num,bool MeOrEnemy)
     {
         List<Transform> Buffs;
 
@@ -111,16 +111,11 @@ public class FieldManager : MonoBehaviour
             Buffs = EnemyBuffs;
         }
 
-        foreach (int num in Num)
-        {
-            Destroy(Buffs[num].gameObject);
-
-        }
+        Destroy(Buffs[Num].gameObject);
+        Buffs.RemoveAt(Num);
 
         for (int i=0;i<Buffs.Count;i++)
         {
-            print(i*50);
-
             Buffs[i].localPosition = new Vector3(i*50,0,0);
         }
 

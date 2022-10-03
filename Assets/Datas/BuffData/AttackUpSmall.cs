@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-[CreateAssetMenu(fileName = "BuffTest01", menuName = "CreateBuff/Test01")]
+[CreateAssetMenu(fileName = "AttackUpSmall", menuName = "CreateBuff/AttackBuffSmall")]
 
-public class TestBuffOverride : BuffBase
+public class AttackUpSmall : BuffBase
 {
     public override void BuffProcess(BattleManager BM,bool MeOrEnemy)
     {
         BattleStatus Target = MeOrEnemy ? BM.Enemy : BM.MyChara;
         Subject<int> HPSubject = FieldManager.FM.HPSub;
 
-        Target.HPDecrease(1);
+        Target.HP -= 1;
 
         FieldManager.FM.HPChanger = MeOrEnemy;
         HPSubject.OnNext(Target.HP);
@@ -20,6 +20,6 @@ public class TestBuffOverride : BuffBase
 
     public override int BuffEnhanceProcess()
     {
-        throw new System.NotImplementedException();
+        return 1;
     }
 }

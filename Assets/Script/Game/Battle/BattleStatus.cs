@@ -17,5 +17,10 @@ public class BattleStatus
     public void HPDecrease(int Minus)
     {
         HP-=Minus;
+
+        if (HP<=0)
+        {
+            BattleManager.BM.GameOver();
+        }
     }
 }

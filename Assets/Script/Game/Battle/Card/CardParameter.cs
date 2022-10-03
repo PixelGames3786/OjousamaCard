@@ -6,12 +6,20 @@ using UnityEngine;
 
 public class CardParameter : ScriptableObject
 {
+    public enum CardType
+    {
+        Attack,
+        Buff
+    }
+
     public int CardID;
-    public string Name;
+    public string Name,Description;
     public int Cost;
     public int Power;
     public float WaitTime;
     public Sprite Icon;
+
+    public CardType Type;
 
     public string ScriptName;
 }

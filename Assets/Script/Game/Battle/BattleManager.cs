@@ -53,16 +53,12 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //デュエルが始まった時
     private void BattleStart()
     {
-        Deck = SaveLoadManager.instance.Data.MyDecks;
+        //テストのために一旦変更　後で直す
+        //Deck = SaveLoadManager.instance.Data.MyDecks;
+        Deck = EnemyDecks.GetDeck(1);
         EnemyDeck= EnemyDecks.GetDeck(0);
 
         //相手と自分のシャッフル処理
@@ -237,13 +233,6 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(Card.Parameter.WaitTime);
         }
 
-        //もし自身のHPがなくなったらゲームオーバー
-        if (MyChara.HP<=0)
-        {
-            //後で直す
-            SceneManager.LoadScene("Title");
-        }
-
         //使用可能コストを減らす
         Enemy.NowHaveCost -= CostCount;
         EnemyCostText.text = Enemy.NowHaveCost.ToString();
@@ -251,88 +240,66 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         //バフをする
-        StartCoroutine(EndBuffProcess());
-
-        //TurnChange();
-    }
-
-    private IEnumerator BuffProcess(BuffBase.BuffUseType Type,bool MeOrEnemy)
-    {
-        //三項演算子という書き方　行を節約できて楽
-        List<BuffBase> AllBuff = MeOrEnemy ? Enemy.Buffs : MyChara.Buffs;
-
-        //発動タイミングによってバフを絞り込む
-        List<BuffBase> FilteredBuff = AllBuff.FindAll(FindBuff=>FindBuff.UseType==Type);
-
-        foreach (BuffBase Buff in FilteredBuff)
-        {
-            Buff.BuffProcess(this,MeOrEnemy);
-
-            yield return new WaitForSeconds(Buff.WaitTime);
-        }
-
-        switch (Type)
-        {
-            case BuffBase.BuffUseType.OnTurnEnd:
-
-                TurnChange();
-
-                break;
-        }
-
-        yield return null;
+        EndBuffProcess();
     }
 
     //後々統合する予定
-    private IEnumerator EndBuffProcess()
+    private void EndBuffProcess()
     {
         List<BuffBase> Filtered;
-        List<int> Remove=new List<int>();
 
         //まず自分のバフを行う
         Filtered = MyChara.Buffs.FindAll(Buff=>Buff.UseType==BuffBase.BuffUseType.OnTurnEnd);
 
-        foreach (BuffBase Buff in Filtered)
-        {
-            Debug.Log("実行");
-
-            Buff.BuffProcess(this, false);
-
-            yield return new WaitForSeconds(Buff.WaitTime);
-        }
+        StartCoroutine(BuffProcess(Filtered,false));
 
         //次に敵のバフを行う
         Filtered = Enemy.Buffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
 
-        foreach (BuffBase Buff in Filtered)
-        {
-            Debug.Log("敵実行");
-
-            Buff.BuffProcess(this, true);
-
-            yield return new WaitForSeconds(Buff.WaitTime);
-        }
+        StartCoroutine(BuffProcess(Filtered,true));
 
         //自分のバフのターンカウントを減らす
         Filtered= MyChara.Buffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd||Buff.DecreaseType==BuffBase.BuffDecreaseType.OnUseAndEnd);
 
         foreach (BuffBase Buff in Filtered)
         {
-            Buff.TurnCount -= 1;
-
-            if (Buff.TurnCount<=0)
-            {
-                Remove.Add(Buff.BuffAddNum);
-
-                MyChara.Buffs.Remove(Buff);
-            }
+            Buff.TurnCountDecrease(MyChara, false);
         }
 
-        FieldManager.FM.RemoveBuff(Remove,false);
+        //敵のバフのターンカウントを減らす
+        Filtered = Enemy.Buffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd || Buff.DecreaseType == BuffBase.BuffDecreaseType.OnUseAndEnd);
+
+        foreach (BuffBase Buff in Filtered)
+        {
+            Buff.TurnCountDecrease(Enemy, true);
+        }
 
         TurnChange();
+    }
 
-        yield return null;
+    public IEnumerator BuffProcess(List<BuffBase> Buffs,bool MeOrEnemy)
+    {
+        foreach (BuffBase Buff in Buffs)
+        {
+            Buff.BuffProcess(this,MeOrEnemy);
+
+            yield return new WaitForSeconds(Buff.WaitTime);
+        }
+    }
+
+    public void BuffTurnDecrease(List<BuffBase> Buffs,bool MeOrEnemy)
+    {
+        BattleStatus Target = MeOrEnemy ? Enemy : MyChara;
+
+        foreach (BuffBase Buff in Buffs)
+        {
+            Buff.TurnCountDecrease(Target,MeOrEnemy);
+        }
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("Title");
     }
 
     /*
