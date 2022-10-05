@@ -30,6 +30,7 @@ abstract public class BuffBase : ScriptableObject
     public BuffUseType UseType;
     public BuffDecreaseType DecreaseType;
     public BuffEffectType EffectType;
+    public CharaDisplayManager.MoveType MyChara, Enemy;
 
     public string BuffDescription;
 

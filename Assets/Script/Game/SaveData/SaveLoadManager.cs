@@ -10,6 +10,8 @@ public class SaveLoadManager : MonoBehaviour
 
     public SaveData Data;
 
+    public string NextBattle;
+
     //ƒVƒ“ƒOƒ‹ƒgƒ“ˆ—
     void Awake()
     {

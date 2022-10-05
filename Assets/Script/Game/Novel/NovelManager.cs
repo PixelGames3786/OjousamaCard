@@ -26,7 +26,7 @@ public class NovelManager : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log(CurrentSentenceID);
+		//Debug.Log(CurrentSentenceID);
 	}
 
 	//文章の続きを表示します。
@@ -151,14 +151,8 @@ public class NovelManager : MonoBehaviour
 	//アクティブ状態を切り替えます。
 	void SwichActiveState(GameObject target)
 	{
-		if (target.activeSelf)
-		{
-			target.SetActive(false);
-		}
-		else
-		{
-			target.SetActive(true);
-		}
+		target.SetActive(!target.activeSelf);
+
 	}
 
 	//選択肢のアクティブ状態を切り替えます。
@@ -193,6 +187,11 @@ public class NovelManager : MonoBehaviour
     {
         if (sentence.sceneChange!="")
         {
+            if (sentence.nextBattle!="")
+            {
+				SaveLoadManager.instance.NextBattle = sentence.nextBattle;
+            }
+
 			SceneManager.LoadScene(sentence.sceneChange);
         }
     }

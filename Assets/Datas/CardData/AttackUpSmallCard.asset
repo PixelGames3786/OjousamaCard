@@ -20,4 +20,6 @@ MonoBehaviour:
   WaitTime: 0.3
   Icon: {fileID: 21300000, guid: ce9e232424718f540b247319bb64a8ff, type: 3}
   Type: 1
+  MyChara: 2
+  Enemy: 0
   ScriptName: AttackUpSmallCard

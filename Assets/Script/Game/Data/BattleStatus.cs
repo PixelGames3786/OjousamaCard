@@ -5,6 +5,8 @@ using UnityEngine;
 //敵や自キャラのデュエル中のステータス
 public class BattleStatus
 {
+    public string Name;
+
     public int HP=20,MaxHP=20;
 
     public int NowHaveCost=3;
@@ -18,9 +20,14 @@ public class BattleStatus
     {
         HP-=Minus;
 
-        if (HP<=0)
+        if (HP<=0&&Name=="MyChara")
         {
             BattleManager.BM.GameOver();
+        }
+        else if (HP<=0&&Name=="Enemy")
+        {
+            BattleManager.BM.GameOver();
+
         }
     }
 }

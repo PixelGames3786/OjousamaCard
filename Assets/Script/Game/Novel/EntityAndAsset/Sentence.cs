@@ -17,4 +17,5 @@ public class Sentence   //センテンスと読みます。文章という意味です。シナリオは文
     public int skipId;          //収束するとき、どの文章から読むのかのIDです。
     public bool endOfTalk;      //対話が終了する最後の文章なのか判定するのに使います。
     public string sceneChange;  //シーンを移行するときに移行するシーンの名前を入れます。
+    public string nextBattle;   //バトルシーンに移行するときに行うバトルを設定します。
 }

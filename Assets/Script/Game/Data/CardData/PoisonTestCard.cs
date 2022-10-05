@@ -19,6 +19,16 @@ public class PoisonTestCard : CardBase
         FieldManager.FM.BuffChanger = MeOrEnemy;
         Subject.OnNext(AddBuff);
 
+        if (MeOrEnemy)
+        {
+            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy);
+
+        }
+        else
+        {
+            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara);
+        }
+
         yield return new WaitForSeconds(0.3f);
     }
 }

@@ -11,14 +11,16 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager BM;
 
-    private int TurnCount = 1;
-
-    public Transform HandCardParent;
-
     private CardParameterList CardDataBase;
     [NonSerialized]
     public BuffScriptList BuffDataBase;
     private EnemyDecks EnemyDecks;
+    private BattleInfoList InfoList;
+    private BattleInformation NowBattleInfo;
+
+    private int TurnCount = 1;
+
+    public Transform HandCardParent;
 
     public Transform HandField;
     public GameObject CardPrefab;
@@ -28,11 +30,15 @@ public class BattleManager : MonoBehaviour
                         Enemy = new BattleStatus();
 
     //カードを手札で管理する
-    public List<int> Deck, HandCard, ChoicedCard = new List<int>();
+    [NonSerialized]
+    public List<int> Deck=new List<int>(), HandCard=new List<int>(), ChoicedCard = new List<int>();
 
-    public List<int> EnemyDeck,EnemyHand,EnemyChoiced = new List<int>();
+    [NonSerialized]
+    public List<int> EnemyDeck=new List<int>(),EnemyHand=new List<int>(),EnemyChoiced = new List<int>();
 
     private Transform[] HandCardTrans=new Transform[5];
+
+    public bool EnemyAttackSkip;
 
     private void Awake()
     {
@@ -48,9 +54,14 @@ public class BattleManager : MonoBehaviour
         CardDataBase = (CardParameterList)Resources.Load("CardScriptList");
         BuffDataBase = (BuffScriptList)Resources.Load("BuffScriptList");
         EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
+        InfoList = (BattleInfoList)Resources.Load("BattleInfoList");
+
+        NowBattleInfo = InfoList.GetInfo(SaveLoadManager.instance.NextBattle);
+
+        MyChara.Name = "MyChara";
+        Enemy.Name = "Enemy";
 
         BattleStart();
-
     }
 
     //デュエルが始まった時
@@ -59,7 +70,9 @@ public class BattleManager : MonoBehaviour
         //テストのために一旦変更　後で直す
         //Deck = SaveLoadManager.instance.Data.MyDecks;
         Deck = EnemyDecks.GetDeck(1);
-        EnemyDeck= EnemyDecks.GetDeck(0);
+        EnemyDeck= EnemyDecks.GetDeck(NowBattleInfo.EnemyDeckNum);
+
+        CharaDisplayManager.CDM.CharaInstantiate(NowBattleInfo);
 
         //相手と自分のシャッフル処理
         {
@@ -189,6 +202,8 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        CharaDisplayManager.CDM.CharaReset();
+
         //敵の行動に移る
         StartCoroutine("EnemyCharaMove");
     }
@@ -197,6 +212,15 @@ public class BattleManager : MonoBehaviour
     private IEnumerator EnemyCharaMove()
     {
         print("敵が動いた");
+
+        //後で直す　デバッグ用
+        if (EnemyAttackSkip)
+        {
+            //バフをする
+            EndBuffProcess();
+
+            yield break;
+        }
 
         EnemyChoiced.Clear();
         int LoopCount = 0,CostCount = 0;
@@ -237,7 +261,10 @@ public class BattleManager : MonoBehaviour
         Enemy.NowHaveCost -= CostCount;
         EnemyCostText.text = Enemy.NowHaveCost.ToString();
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1f);
+
+        CharaDisplayManager.CDM.CharaReset();
+
 
         //バフをする
         EndBuffProcess();
@@ -299,30 +326,13 @@ public class BattleManager : MonoBehaviour
 
     public void GameOver()
     {
+        //後で直す
         SceneManager.LoadScene("Title");
     }
 
-    /*
-
-    //カード使用時の挙動
-    private IEnumerator CardProcess(bool MeOrEnemy,List<int> Cards,List<int> Choices)
+    public void Clear()
     {
-        //MeOrEnemy trueだと自分 falseだと敵
-
-        foreach (int Num in Choices)
-        {
-            Type type = Type.GetType(CardDataBase.GetCardParameter(Cards[Num]).ScriptName);
-
-            CardBase Card = (CardBase)Activator.CreateInstance(type);
-            Card.Parameter = CardDataBase.GetCardParameter(Cards[Num]);
-
-            Card.Coroutine(this,MeOrEnemy);
-
-            yield return new WaitForSeconds(Card.Parameter.WaitTime);
-        }
-
-        yield return null;
+        //後で直す
+        SceneManager.LoadScene("Lounge");
     }
-
-    */
 }

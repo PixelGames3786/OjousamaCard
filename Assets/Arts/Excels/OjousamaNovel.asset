@@ -24,6 +24,7 @@ MonoBehaviour:
     skipId: 0
     endOfTalk: 0
     sceneChange: 
+    nextBattle: 
   - id: 1
     message: "\u4ECA\u306F\u30C6\u30B9\u30C8\u7248\u3060\u3051\u3069\u6587\u5B57\u9001\u308A\u3068\u304B\u8272\u3005\u5B9F\u88C5\u3059\u308B\u4E88\u5B9A\u3060\u3088"
     branch: 0
@@ -35,6 +36,7 @@ MonoBehaviour:
     skipId: 0
     endOfTalk: 0
     sceneChange: 
+    nextBattle: 
   - id: 2
     message: 
     branch: 0
@@ -46,3 +48,4 @@ MonoBehaviour:
     skipId: 0
     endOfTalk: 1
     sceneChange: Battle
+    nextBattle: Battle01

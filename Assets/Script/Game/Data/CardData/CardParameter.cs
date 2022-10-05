@@ -12,14 +12,24 @@ public class CardParameter : ScriptableObject
         Buff
     }
 
+    public enum Rarity
+    {
+        Common,
+        UnCommon,
+        Rare,
+        SuperRare
+    }
+
     public int CardID;
     public string Name,Description;
+    public Rarity Rare;
     public int Cost;
     public int Power;
     public float WaitTime;
     public Sprite Icon;
 
     public CardType Type;
+    public CharaDisplayManager.MoveType MyChara, Enemy;
 
     public string ScriptName;
 }

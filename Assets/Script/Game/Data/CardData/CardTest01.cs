@@ -7,7 +7,6 @@ using UniRx;
 public class CardTest01 : CardBase
 {
     
-
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
         int Power = Parameter.Power;
@@ -41,6 +40,16 @@ public class CardTest01 : CardBase
 
         FieldManager.FM.HPChanger = MeOrEnemy;
         HPSubject.OnNext(Target.HP);
+
+        if (MeOrEnemy)
+        {
+            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy);
+        }
+        else
+        {
+            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara);
+        }
+
 
         yield return new WaitForSeconds(0.3f);
     }

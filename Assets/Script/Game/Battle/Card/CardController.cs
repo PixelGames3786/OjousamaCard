@@ -60,7 +60,7 @@ public class CardController : MonoBehaviour
         }
 
         //もし選択可能ならば
-        if (BM.ChoicedCard.Count<=3)
+        if (BM.ChoicedCard.Count<3)
         {
             //もし十分なコストを持っていたら
             if (BM.MyChara.NowHaveCost-CardData.Cost>=0)
