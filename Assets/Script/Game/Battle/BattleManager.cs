@@ -17,6 +17,7 @@ public class BattleManager : MonoBehaviour
     private EnemyDecks EnemyDecks;
     private BattleInfoList InfoList;
     private BattleInformation NowBattleInfo;
+    private CharaParameterList CharaParaList;
 
     private int TurnCount = 1;
 
@@ -28,6 +29,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleStatus MyChara = new BattleStatus(),
                         Enemy = new BattleStatus();
+
+    public CharaBase Chara, Enem;
 
     //カードを手札で管理する
     [NonSerialized]
@@ -55,8 +58,15 @@ public class BattleManager : MonoBehaviour
         BuffDataBase = (BuffScriptList)Resources.Load("BuffScriptList");
         EnemyDecks = (EnemyDecks)Resources.Load("EnemyDecks");
         InfoList = (BattleInfoList)Resources.Load("BattleInfoList");
+        CharaParaList = (CharaParameterList)Resources.Load("CharaParameterList") ;
 
         NowBattleInfo = InfoList.GetInfo(SaveLoadManager.instance.NextBattle);
+
+        //キャラセット
+        Type type = Type.GetType(CardDataBase.GetCardParameter(HandCard[1]).ScriptName);
+
+        CardBase Card = (CardBase)Activator.CreateInstance(type);
+        Card.Parameter = CardDataBase.GetCardParameter(HandCard[1]);
 
         MyChara.Name = "MyChara";
         Enemy.Name = "Enemy";

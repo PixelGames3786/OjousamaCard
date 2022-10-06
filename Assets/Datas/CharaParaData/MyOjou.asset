@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d780a5676c6f8d84dac229f0bd0f26f5, type: 3}
-  m_Name: Battle01
+  m_Script: {fileID: 11500000, guid: 768341bccaea19e429ab47aafdbdb115, type: 3}
+  m_Name: MyOjou
   m_EditorClassIdentifier: 
-  BattleName: Battle01
-  MyCharaImageName: KariCharaImage
-  EnemyImageName: KariCharaImage
-  MyCharaParaName: MyOjou
-  EnemyParaName: IcyOjou
-  EnemyDeckNum: 0
+  Name: "\u4E3B\u4EBA\u516C"
+  HP: 80
+  MaxHP: 80
+  Cost: 1
+  MaxCost: 3
+  Deck: 
+  ScriptName: MyOjouScript

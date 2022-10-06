@@ -6,7 +6,6 @@ using UniRx;
 
 public class CardTest01 : CardBase
 {
-    
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
         int Power = Parameter.Power;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e32f216f54192e47828e24c2fc8e3e7, type: 3}
-  m_Name: KariChara
+  m_Name: KariCharaImage
   m_EditorClassIdentifier: 
   NormalSprite: {fileID: -1568126757, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}
   PATKSprite: {fileID: 1841966289, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}

@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d780a5676c6f8d84dac229f0bd0f26f5, type: 3}
-  m_Name: Battle01
+  m_Script: {fileID: 11500000, guid: 944dc26b6f932a849a85d2e36d8222b4, type: 3}
+  m_Name: CharaParemeterList
   m_EditorClassIdentifier: 
-  BattleName: Battle01
-  MyCharaImageName: KariCharaImage
-  EnemyImageName: KariCharaImage
-  MyCharaParaName: MyOjou
-  EnemyParaName: IcyOjou
-  EnemyDeckNum: 0
+  ParameterList:
+  - {fileID: 11400000, guid: c0b223b0bea961a4abea0b99fb7aa83c, type: 2}
+  - {fileID: 11400000, guid: fc0ee13eab162644b955a4165b9103aa, type: 2}

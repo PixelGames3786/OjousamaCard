@@ -5,7 +5,7 @@ using TMPro;
 
 public class DeckBuildManager : MonoBehaviour
 {
-    public GameObject CardPrefab;
+    public GameObject CardParentPrefab,CardPrefab;
 
     public Transform DeckParent, HaveCardParent;
 
@@ -35,8 +35,6 @@ public class DeckBuildManager : MonoBehaviour
     //‰ŠúƒZƒbƒg
     private void Initialize()
     {
-        print("‚ ");
-
         Deck = SaveLoadManager.instance.Data.MyDecks;
         HaveCards = SaveLoadManager.instance.Data.HavingCards;
 
