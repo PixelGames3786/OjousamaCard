@@ -51,6 +51,7 @@ public class SaveLoadManager : MonoBehaviour
     //セーブデータのロード
     private SaveData Load()
     {
+        //後で直す
         SaveData data = new SaveData();
 
         return data;

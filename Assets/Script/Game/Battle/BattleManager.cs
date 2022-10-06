@@ -236,7 +236,7 @@ public class BattleManager : MonoBehaviour
                 CostCount += CardDataBase.GetCardParameter(EnemyHand[LoopCount]).Cost;
             }
 
-            if (EnemyChoiced.Count>=3 || LoopCount>EnemyHand.Count || CostCount>=Enemy.NowHaveCost)
+            if (EnemyChoiced.Count>=3 || LoopCount>=EnemyHand.Count-1 || CostCount>=Enemy.NowHaveCost)
             {
                 break;
             }
