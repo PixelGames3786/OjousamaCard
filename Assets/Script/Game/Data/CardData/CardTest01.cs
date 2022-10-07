@@ -10,12 +10,12 @@ public class CardTest01 : CardBase
     {
         int Power = Parameter.Power;
 
-        BattleStatus Target=MeOrEnemy ? BM.Enemy : BM.MyChara;
-        BattleStatus BuffTarget=MeOrEnemy ? BM.MyChara : BM.Enemy;
+        CharaBase Target=MeOrEnemy ? BM.Enemykari : BM.Chara;
+        CharaBase BuffTarget=MeOrEnemy ? BM.Chara : BM.Enemykari;
         Subject<int> HPSubject = FieldManager.FM.HPSub;
 
         //攻撃時発動のバフの処理
-        List<BuffBase> Buffs = BuffTarget.Buffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnAttack);
+        List<BuffBase> Buffs = BuffTarget.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnAttack);
 
         foreach (BuffBase Buff in Buffs)
         {

@@ -9,7 +9,8 @@ public class CardParameter : ScriptableObject
     public enum CardType
     {
         Attack,
-        Buff
+        BuffToMe,
+        BuffToEne
     }
 
     public enum Rarity

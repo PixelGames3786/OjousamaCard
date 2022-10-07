@@ -9,10 +9,10 @@ public class AttackUpSmall : BuffBase
 {
     public override void BuffProcess(BattleManager BM,bool MeOrEnemy)
     {
-        BattleStatus Target = MeOrEnemy ? BM.Enemy : BM.MyChara;
+        CharaBase Target = MeOrEnemy ? BM.Enemykari : BM.Chara;
         Subject<int> HPSubject = FieldManager.FM.HPSub;
 
-        Target.HP -= 1;
+        Target.HPDecrease(1);
 
         FieldManager.FM.HPChanger = MeOrEnemy;
         HPSubject.OnNext(Target.HP);

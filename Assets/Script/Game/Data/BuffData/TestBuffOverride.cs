@@ -9,7 +9,7 @@ public class TestBuffOverride : BuffBase
 {
     public override void BuffProcess(BattleManager BM,bool MeOrEnemy)
     {
-        BattleStatus Target = MeOrEnemy ? BM.Enemy : BM.MyChara;
+        CharaBase Target = MeOrEnemy ? BM.Enemykari : BM.Chara;
         Subject<int> HPSubject = FieldManager.FM.HPSub;
 
         Target.HPDecrease(1);

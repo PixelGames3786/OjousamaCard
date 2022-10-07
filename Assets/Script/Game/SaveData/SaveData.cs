@@ -20,6 +20,6 @@ public class SaveData
     //‰Šúİ’è
     [SerializeField]
     public List<int> HavingCards=new List<int> { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 }, 
-                     MyDecks=new List<int>() { 3,3,3,3,3,1,1,1,1,1,2,2,2,2,2,2,4,4,4,4};
+                     MyDecks=new List<int>() { 1,2,3,4,1,2,3,4,1};
 
 }

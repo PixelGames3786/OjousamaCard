@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768341bccaea19e429ab47aafdbdb115, type: 3}
   m_Name: IcyOjou
   m_EditorClassIdentifier: 
-  Name: "\u6C37\u304A\u5B22\u69D8"
+  CharaName: 
   HP: 60
   MaxHP: 60
   Cost: 1
   MaxCost: 3
-  Deck: 1,1,1,1,1,1,1,1,1
+  DeckSeed: 1,1,1,1,1,1,1,1,1
   ScriptName: IcyOjouScript

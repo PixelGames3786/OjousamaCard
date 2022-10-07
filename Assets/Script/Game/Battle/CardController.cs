@@ -21,7 +21,7 @@ public class CardController : MonoBehaviour
     public TextMeshProUGUI Name,Power,Cost;
 
     public BattleManager BM;
-
+    private CharaBase MyChara;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,7 @@ public class CardController : MonoBehaviour
         Cost.text = CardData.Cost.ToString();
         Power.text = CardData.Power.ToString();
 
+        MyChara = BM.Chara;
     }
 
     // Update is called once per frame
@@ -44,42 +45,41 @@ public class CardController : MonoBehaviour
 
     public void CardChoiced()
     {
-        //既に選択済みならば
+        //既に選択済みならばとりはずす
         if (ChoicedFlag)
         {
-            BM.ChoicedCard.Remove(HandNumber);
+            MyChara.Choiced.Remove(HandNumber);
 
             ChoicedFrame.SetActive(false);
 
             ChoicedFlag = false;
 
-            BM.MyChara.NowHaveCost += CardData.Cost;
-            BM.MyCostText.text = BM.MyChara.NowHaveCost.ToString();
+            MyChara.Cost += CardData.Cost;
+            BM.MyCostText.text = MyChara.Cost.ToString();
 
             return;
         }
 
         //もし選択可能ならば
-        if (BM.ChoicedCard.Count<3)
+        if (MyChara.Choiced.Count<2)
         {
             //もし十分なコストを持っていたら
-            if (BM.MyChara.NowHaveCost-CardData.Cost>=0)
+            if (MyChara.Cost-CardData.Cost>=0)
             {
-                BM.ChoicedCard.Add(HandNumber);
+                MyChara.Choiced.Add(HandNumber);
 
                 ChoicedFrame.SetActive(true);
 
                 ChoicedFlag = true;
 
-                BM.MyChara.NowHaveCost -= CardData.Cost;
-                BM.MyCostText.text = BM.MyChara.NowHaveCost.ToString();
+                MyChara.Cost -= CardData.Cost;
+                BM.MyCostText.text = MyChara.Cost.ToString();
 
             }
             else
             {
                 print("コストが足りないよ");
             }
-            
         }
         else
         {

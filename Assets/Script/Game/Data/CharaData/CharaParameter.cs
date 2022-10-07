@@ -7,22 +7,16 @@ using UnityEngine;
 
 public class CharaParameter : ScriptableObject
 {
-    public string Name;
+    public string CharaName;
 
-    public int HP,MaxHP;
+    public int MaxHP;
 
-    public int Cost, MaxCost;
+    public int MaxCost;
 
     public string DeckSeed;
 
     public string ScriptName;
 
-    [NonSerialized]
-    public List<int> Deck, HandCard, Choiced;
-
-    [NonSerialized]
-    public List<BuffBase> NowBuffs=new List<BuffBase>();
-
-    [NonSerialized]
-    public CharaParameter Enemy;
 }
+
+

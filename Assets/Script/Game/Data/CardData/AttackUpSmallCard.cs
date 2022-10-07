@@ -8,12 +8,12 @@ public class AttackUpSmallCard : CardBase
 {
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
-        BattleStatus Target = MeOrEnemy ? BM.MyChara : BM.Enemy;
+        CharaBase Target = MeOrEnemy ? BM.Chara : BM.Enemykari;
         Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
 
         BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BM.BuffDataBase.GetBuffScript("AttackUpSmall"));
 
-        Target.Buffs.Add(AddBuff);
+        Target.NowBuffs.Add(AddBuff);
 
         FieldManager.FM.BuffChanger = !MeOrEnemy;
         Subject.OnNext(AddBuff);
@@ -30,4 +30,5 @@ public class AttackUpSmallCard : CardBase
 
         yield return new WaitForSeconds(0.3f);
     }
+
 }

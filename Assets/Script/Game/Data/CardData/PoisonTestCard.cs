@@ -9,12 +9,12 @@ public class PoisonTestCard : CardBase
 
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
-        BattleStatus Target = MeOrEnemy ? BM.Enemy : BM.MyChara;
+        CharaBase Target = MeOrEnemy ? BM.Enemykari : BM.Chara;
         Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
 
         BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BM.BuffDataBase.GetBuffScript("Poison"));
 
-        Target.Buffs.Add(AddBuff);
+        Target.NowBuffs.Add(AddBuff);
 
         FieldManager.FM.BuffChanger = MeOrEnemy;
         Subject.OnNext(AddBuff);

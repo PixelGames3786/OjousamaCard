@@ -1,17 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
-public class MyOjouScript : MonoBehaviour
+
+public class MyOjouScript : CharaBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void HPDecrease(int Minus)
     {
-        
+        HP -= Minus;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DeckInitialize(List<int> deck = null)
+    {
+        Deck = deck;
+
+        // 整数 n の初期値はデッキの枚数
+        int n = Deck.Count;
+
+        // nが1より小さくなるまで繰り返す
+        while (n > 1)
+        {
+            n--;
+
+            // kは 0 ～ n+1 の間のランダムな値
+            int k = Random.Range(0, n + 1);
+
+            // k番目のカードをtempに代入
+            int temp = Deck[k];
+            Deck[k] = Deck[n];
+            Deck[n] = temp;
+        }
+    }
+
+    public override void Draw(int DrawNum)
+    {
+        //ドロー処理&カード生成
+        for (int i = 0; i < DrawNum; i++)
+        {
+            HandCard.Add(Deck[i]);
+        }
+
+        BattleManager.BM.MakeCards(HandCard);
+
+        //デッキからドローした分のカードを削除
+        Deck.RemoveRange(0, DrawNum);
+    }
+
+    public override void ChoiceUseCard()
     {
         
     }

@@ -46,25 +46,25 @@ abstract public class BuffBase : ScriptableObject
 
     abstract public int BuffEnhanceProcess();
 
-    public void TurnCountDecrease(BattleStatus Target,bool MeOrEnemy)
+    public void TurnCountDecrease(CharaBase Target,bool MeOrEnemy)
     {
         TurnCount--;
 
         if (TurnCount<=0)
         {
-            FieldManager.FM.RemoveBuff(Target.Buffs.IndexOf(this), MeOrEnemy);
-            Target.Buffs.Remove(this);
+            FieldManager.FM.RemoveBuff(Target.NowBuffs.IndexOf(this), MeOrEnemy);
+            Target.NowBuffs.Remove(this);
         }
     }
 
-    public void UseCountDecrease(BattleStatus Target, bool MeOrEnemy)
+    public void UseCountDecrease(CharaBase Target, bool MeOrEnemy)
     {
         UseCount--;
 
         if (UseCount <= 0)
         {
-            FieldManager.FM.RemoveBuff(Target.Buffs.IndexOf(this), MeOrEnemy);
-            Target.Buffs.Remove(this);
+            FieldManager.FM.RemoveBuff(Target.NowBuffs.IndexOf(this), MeOrEnemy);
+            Target.NowBuffs.Remove(this);
         }
     }
 }

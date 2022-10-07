@@ -9,6 +9,6 @@ public class CharaParameterList : ScriptableObject
     public List<CharaParameter> ParameterList;
     public CharaParameter GetCharaPara(string CharaName)
     {
-        return ParameterList.Find(Chara => Chara.Name == CharaName);
+        return ParameterList.Find(Chara => Chara.name == CharaName);
     }
 }

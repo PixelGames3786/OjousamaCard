@@ -20,7 +20,7 @@ MonoBehaviour:
   Power: 0
   WaitTime: 0.3
   Icon: {fileID: 0}
-  Type: 1
+  Type: 2
   MyChara: 2
   Enemy: 3
   ScriptName: PoisonTestCard
