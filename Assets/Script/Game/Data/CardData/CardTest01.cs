@@ -12,7 +12,6 @@ public class CardTest01 : CardBase
 
         CharaBase Target=MeOrEnemy ? BM.Enemykari : BM.Chara;
         CharaBase BuffTarget=MeOrEnemy ? BM.Chara : BM.Enemykari;
-        Subject<int> HPSubject = FieldManager.FM.HPSub;
 
         //攻撃時発動のバフの処理
         List<BuffBase> Buffs = BuffTarget.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnAttack);
@@ -35,10 +34,7 @@ public class CardTest01 : CardBase
             }
         }
 
-        Target.HPDecrease(Power);
-
-        FieldManager.FM.HPChanger = MeOrEnemy;
-        HPSubject.OnNext(Target.HP);
+        Target.HPChange(Power,false);
 
         if (MeOrEnemy)
         {

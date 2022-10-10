@@ -54,8 +54,7 @@ public class CardController : MonoBehaviour
 
             ChoicedFlag = false;
 
-            MyChara.Cost += CardData.Cost;
-            BM.MyCostText.text = MyChara.Cost.ToString();
+            MyChara.CostChange(CardData.Cost, true);
 
             return;
         }
@@ -72,9 +71,7 @@ public class CardController : MonoBehaviour
 
                 ChoicedFlag = true;
 
-                MyChara.Cost -= CardData.Cost;
-                BM.MyCostText.text = MyChara.Cost.ToString();
-
+                MyChara.CostChange(CardData.Cost,false);
             }
             else
             {

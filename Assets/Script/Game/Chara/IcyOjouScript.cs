@@ -5,9 +5,38 @@ using System;
 
 public class IcyOjouScript : CharaBase
 {
-    public override void HPDecrease(int Minus)
+    public override void HPChange(int Change, bool PlusMinus)
     {
-        HP -= Minus;
+        //true‚È‚ç‰ñ•œ false‚È‚çŒ¸­
+        if (PlusMinus)
+        {
+            HP += Change;
+
+        }
+        else
+        {
+            HP -= Change;
+        }
+
+        FieldManager.FM.HPChanger = true;
+        FieldManager.FM.HPSub.OnNext(HP);
+    }
+
+    public override void CostChange(int Change, bool PlusMinus)
+    {
+        //true‚È‚ç‰ñ•œ false‚È‚çŒ¸­
+        if (PlusMinus)
+        {
+            Cost += Change;
+
+        }
+        else
+        {
+            Cost -= Change;
+        }
+
+        FieldManager.FM.CostChanger = true;
+        FieldManager.FM.CostSub.OnNext(Cost);
     }
 
     public override void DeckInitialize(List<int> deck = null)
@@ -78,7 +107,7 @@ public class IcyOjouScript : CharaBase
         }
 
         Cost -= CostCount;
-        BattleManager.BM.EnemyCostText.text = Cost.ToString();
+        FieldManager.FM.CostChanger=true;
 
     }
 }

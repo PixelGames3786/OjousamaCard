@@ -20,16 +20,13 @@ public class BattleManager : MonoBehaviour
     private BattleInformation BattleInfo;
     private CharaParameterList CharaDataBase;
 
-    private int TurnCount = 1;
+    private int TurnCount = 1,CostMax=3;
 
     public Transform HandCardParent;
 
     public Transform HandField, OrderField;
     public GameObject CardPrefab;
-    public TextMeshProUGUI TurnText, MyCostText, EnemyCostText, MyHPText, EnemyHPText;
-
-    public BattleStatus MyChara = new BattleStatus(),
-                        Enemy = new BattleStatus();
+    public TextMeshProUGUI TurnText;
 
     public CharaBase Chara, Enemykari;
 
@@ -40,7 +37,7 @@ public class BattleManager : MonoBehaviour
     [NonSerialized]
     public List<int> EnemyDeck = new List<int>(), EnemyHand = new List<int>(), EnemyChoiced = new List<int>();
 
-    private Transform[] HandCardTrans = new Transform[5];
+    public Transform[] HandCardTrans = new Transform[5];
 
     public bool EnemyAttackSkip;
 
@@ -82,8 +79,7 @@ public class BattleManager : MonoBehaviour
         Chara.Initialize();
         Enemykari.Initialize();
 
-        MyChara.Name = "MyChara";
-        Enemy.Name = "Enemy";
+        FieldManager.FM.Initialize();
 
         BattleStart();
     }
@@ -133,9 +129,6 @@ public class BattleManager : MonoBehaviour
         Enemykari.Draw(5);
 
         SetOrder();
-
-        //Draw(5);
-        //EnemyDraw(5);
     }
 
     //行動順設定 trueだと自分の動き　falseは敵の動き
@@ -174,6 +167,14 @@ public class BattleManager : MonoBehaviour
 
     public void MakeCards(List<int> Cards)
     {
+        foreach (Transform a in HandCardTrans)
+        {
+            if (a!=null)
+            {
+                Destroy(a.gameObject);
+            }
+        }
+
         for (int i = 0; i < Cards.Count; i++)
         {
             //カード生成
@@ -183,50 +184,11 @@ public class BattleManager : MonoBehaviour
 
             CreatedCard.BM = this;
 
-            HandCardTrans[i] = HandCardParent.GetChild(i);
-            HandCardTrans[i].localPosition = new Vector3(-500 + i * 250, 0, 0);
+            HandCardTrans[i] = CreatedCard.transform;
+
+            HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * 250, 0, 0);
             HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
         }
-    }
-
-    //ドロー処理&カード生成
-    private void Draw(int DrawNum)
-    {
-        //ドロー処理&カード生成
-        for (int i = 0; i < DrawNum; i++)
-        {
-            HandCard.Add(Deck[i]);
-
-            //カード生成
-            CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
-
-            //カード番号入力
-            CreatedCard.CardNumber = Deck[i];
-
-            CreatedCard.BM = this;
-        }
-        //デッキからドローした分のカードを削除
-        Deck.RemoveRange(0, DrawNum);
-
-        //カードナンバー振り直し
-        for (int i = 0; i < 5; i++)
-        {
-            HandCardTrans[i] = HandCardParent.GetChild(i);
-            HandCardTrans[i].localPosition = new Vector3(-500 + i * 250, 0, 0);
-            HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
-        }
-    }
-
-    //相手の手札管理
-    private void EnemyDraw(int DrawNum)
-    {
-        for (int i = 0; i < DrawNum; i++)
-        {
-            EnemyHand.Add(EnemyDeck[i]);
-        }
-
-        //ドローした分のカードを削除
-        EnemyDeck.RemoveRange(0, DrawNum);
     }
 
     //ターンエンド処理
@@ -238,9 +200,22 @@ public class BattleManager : MonoBehaviour
     //ターンカウント増やしたりドローしたり
     public void TurnChange()
     {
-        //ドロー
-        Chara.Draw(5 - Chara.HandCard.Count);
-        Enemykari.Draw(5 - Enemykari.HandCard.Count);
+        int MyDraw = 1, EnemyDraw = 1;
+
+        if (Chara.HandCard.Count>=5)
+        {
+            MyDraw = 0;
+        }
+
+        if (Enemykari.HandCard.Count>=5)
+        {
+            EnemyDraw = 0;
+        }
+
+        print(MyDraw);
+
+        Chara.Draw(MyDraw);
+        Enemykari.Draw(EnemyDraw);
 
         //ターンカウント増やす
         TurnCount++;
@@ -248,114 +223,32 @@ public class BattleManager : MonoBehaviour
 
         //相手と自分のマナ増やす
         Chara.Cost++;
-        if (Chara.Cost > Chara.Para.MaxCost) Chara.Cost = Chara.Para.MaxCost;
+        if (Chara.Cost > CostMax) Chara.Cost = Chara.Para.MaxCost;
 
-        MyCostText.text = Chara.Cost.ToString();
+        FieldManager.FM.CostChanger = false;
+        FieldManager.FM.CostSub.OnNext(Chara.Cost);
 
         Enemykari.Cost++;
-        if (Enemykari.Cost > Enemykari.Para.MaxCost) Enemykari.Cost = Enemykari.Para.MaxCost;
-        EnemyCostText.text = Enemykari.Cost.ToString();
+        if (Enemykari.Cost > CostMax) Enemykari.Cost = Enemykari.Para.MaxCost;
+
+        FieldManager.FM.CostChanger = true;
+        FieldManager.FM.CostSub.OnNext(Enemykari.Cost);
 
         SetOrder();
+        CostMaxChange();
     }
 
-    //ターン終了時の自分の動き
-    private IEnumerator MyCharaMove()
+    private void CostMaxChange()
     {
-        print("自身が動いた");
-
-        //選択したカードの処理
-        foreach (int Num in ChoicedCard)
+        if (TurnCount>CostMax)
         {
-            Type type = Type.GetType(CardDataBase.GetCardParameter(HandCard[Num]).ScriptName);
+            CostMax++;
 
-            CardBase Card = (CardBase)Activator.CreateInstance(type);
-            Card.Parameter = CardDataBase.GetCardParameter(HandCard[Num]);
-
-
-            Card.Coroutine(this, true);
-
-            yield return new WaitForSeconds(Card.Parameter.WaitTime);
-        }
-
-        ChoicedCard.Sort((a, b) => b - a);
-
-        //手札から削除
-        foreach (int Num in ChoicedCard)
-        {
-            HandCard.RemoveAt(Num);
-            Destroy(HandCardTrans[Num].gameObject);
-        }
-
-        ChoicedCard.Clear();
-
-        yield return new WaitForSeconds(1f);
-
-        CharaDisplayManager.CDM.CharaReset();
-
-        //敵の行動に移る
-        StartCoroutine("EnemyCharaMove");
-    }
-
-    //ターン終了時の相手の動き
-    private IEnumerator EnemyCharaMove()
-    {
-        print("敵が動いた");
-
-        //後で直す　デバッグ用
-        if (EnemyAttackSkip)
-        {
-            //バフをする
-            EndBuffProcess();
-
-            yield break;
-        }
-
-        EnemyChoiced.Clear();
-        int LoopCount = 0, CostCount = 0;
-
-        //敵が使うカードを選択、いい感じのAIは後で実装する予定
-        while (true)
-        {
-            //もし追加しようとしているカードのコストが上限を超えていたら追加しない
-            if ((CardDataBase.GetCardParameter(EnemyHand[LoopCount]).Cost + CostCount) <= Enemy.NowHaveCost)
+            if (CostMax>6)
             {
-                EnemyChoiced.Add(EnemyHand[LoopCount]);
-
-                CostCount += CardDataBase.GetCardParameter(EnemyHand[LoopCount]).Cost;
+                CostMax = 6;
             }
-
-            if (EnemyChoiced.Count >= 3 || LoopCount >= EnemyHand.Count - 1 || CostCount >= Enemy.NowHaveCost)
-            {
-                break;
-            }
-
-            LoopCount++;
         }
-
-        //選択したカードの処理
-        foreach (int Num in EnemyChoiced)
-        {
-            Type type = Type.GetType(CardDataBase.GetCardParameter(EnemyHand[Num]).ScriptName);
-
-            CardBase Card = (CardBase)Activator.CreateInstance(type);
-            Card.Parameter = CardDataBase.GetCardParameter(EnemyHand[Num]);
-
-            Card.Coroutine(this, false);
-
-            yield return new WaitForSeconds(Card.Parameter.WaitTime);
-        }
-
-        //使用可能コストを減らす
-        Enemy.NowHaveCost -= CostCount;
-        EnemyCostText.text = Enemy.NowHaveCost.ToString();
-
-        yield return new WaitForSeconds(1f);
-
-        CharaDisplayManager.CDM.CharaReset();
-
-        //バフをする
-        EndBuffProcess();
     }
 
     //戦闘
@@ -392,6 +285,7 @@ public class BattleManager : MonoBehaviour
 
                     Destroy(HandCardTrans[Chara.Choiced[0]].gameObject);
 
+                    Chara.HandCard.RemoveAt(Chara.Choiced[0]);
                     Chara.Choiced.RemoveAt(0);
                 }
             }
@@ -411,6 +305,7 @@ public class BattleManager : MonoBehaviour
 
                     yield return new WaitForSeconds(Card.Parameter.WaitTime);
 
+                    Enemykari.HandCard.RemoveAt(Enemykari.Choiced[0]);
                     Enemykari.Choiced.RemoveAt(0);
                 }
             }
@@ -430,17 +325,17 @@ public class BattleManager : MonoBehaviour
         List<BuffBase> Filtered;
 
         //まず自分のバフを行う
-        Filtered = MyChara.Buffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
+        Filtered = Chara.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
 
         StartCoroutine(BuffProcess(Filtered, false));
 
         //次に敵のバフを行う
-        Filtered = Enemy.Buffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
+        Filtered = Enemykari.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnTurnEnd);
 
         StartCoroutine(BuffProcess(Filtered, true));
 
         //自分のバフのターンカウントを減らす
-        Filtered = MyChara.Buffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd || Buff.DecreaseType == BuffBase.BuffDecreaseType.OnUseAndEnd);
+        Filtered = Chara.NowBuffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd || Buff.DecreaseType == BuffBase.BuffDecreaseType.OnUseAndEnd);
 
         foreach (BuffBase Buff in Filtered)
         {
@@ -448,7 +343,7 @@ public class BattleManager : MonoBehaviour
         }
 
         //敵のバフのターンカウントを減らす
-        Filtered = Enemy.Buffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd || Buff.DecreaseType == BuffBase.BuffDecreaseType.OnUseAndEnd);
+        Filtered = Enemykari.NowBuffs.FindAll(Buff => Buff.DecreaseType == BuffBase.BuffDecreaseType.OnTurnEnd || Buff.DecreaseType == BuffBase.BuffDecreaseType.OnUseAndEnd);
 
         foreach (BuffBase Buff in Filtered)
         {

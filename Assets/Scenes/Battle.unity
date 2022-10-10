@@ -508,6 +508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyHP: {fileID: 1997943619}
   EnemyHP: {fileID: 116092588}
+  MyCost: {fileID: 955095375}
+  EnemyCost: {fileID: 1479554034}
   MyBuffParent: {fileID: 1504469566}
   EnemyBuffParent: {fileID: 1667971107}
   MyHPGauge: {fileID: 1218406221}
@@ -1489,7 +1491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 0.000030517578}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 500, y: 20}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1218406222
@@ -1717,7 +1719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 0.000030517578}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 500, y: 20}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1423712022

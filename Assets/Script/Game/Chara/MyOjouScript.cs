@@ -7,9 +7,36 @@ using Random = UnityEngine.Random;
 
 public class MyOjouScript : CharaBase
 {
-    public override void HPDecrease(int Minus)
+    public override void HPChange(int Change,bool PlusMinus)
     {
-        HP -= Minus;
+        //true‚È‚ç‰ñ•œ false‚È‚çŒ¸­
+        if (PlusMinus)
+        {
+            HP +=Change;
+
+        }
+        else
+        {
+            HP -= Change;
+        }
+
+        FieldManager.FM.HPChanger = false;
+        FieldManager.FM.HPSub.OnNext(HP);
+    }
+
+    public override void CostChange(int Change, bool PlusMinus)
+    {
+        if (PlusMinus)
+        {
+            Cost += Change;
+        }
+        else
+        {
+            Cost -= Change;
+        }
+
+        FieldManager.FM.CostChanger = false;
+        FieldManager.FM.CostSub.OnNext(Cost);
     }
 
     public override void DeckInitialize(List<int> deck = null)

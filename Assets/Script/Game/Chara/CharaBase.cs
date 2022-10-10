@@ -33,7 +33,6 @@ abstract public class CharaBase
                 //CoroutineHandler.StartStaticCoroutine(BattleMove(Card));
 
                 break;
-
         }
 
         // 使い方の例
@@ -46,7 +45,9 @@ abstract public class CharaBase
         yield return null;
     }
 
-    abstract public void HPDecrease(int Minus);
+    abstract public void HPChange(int Change,bool PlusMinus);
+
+    abstract public void CostChange(int Change,bool PlusMinus);
 
     //デッキセット＆シャッフル
     abstract public void DeckInitialize(List<int> Deck = null);

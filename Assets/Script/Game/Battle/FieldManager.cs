@@ -11,7 +11,7 @@ public class FieldManager : MonoBehaviour
 {
     public static FieldManager FM;
 
-    public TextMeshProUGUI MyHP, EnemyHP;
+    public TextMeshProUGUI MyHP, EnemyHP,MyCost,EnemyCost;
     public Transform MyBuffParent, EnemyBuffParent;
     public RectTransform MyHPGauge, EnemyHPGauge;
 
@@ -21,14 +21,19 @@ public class FieldManager : MonoBehaviour
 
     //true ìGÅ@false é©ï™
     [NonSerialized]
-    public bool HPChanger,BuffChanger;
+    public bool HPChanger,BuffChanger,CostChanger;
 
-    public Subject<int> HPSub = new Subject<int>();
+    public Subject<int> HPSub = new Subject<int>(),CostSub=new Subject<int>();
     public Subject<BuffBase> BuffSub = new Subject<BuffBase>();
 
     public IObservable<int> OnHPChanged
     {
         get { return HPSub; }
+    }
+
+    public IObservable<int> OnCostChanged
+    {
+        get { return CostSub; }
     }
 
     public IObservable<BuffBase> OnBuffChanged
@@ -65,6 +70,18 @@ public class FieldManager : MonoBehaviour
         OnBuffChanged.Subscribe(Buff =>
         {
             AddBuff(Buff);
+        });
+
+        OnCostChanged.Subscribe(Cost =>
+        {
+            if (!CostChanger)
+            {
+                MyCost.text = Cost.ToString();
+            }
+            else
+            {
+                EnemyCost.text = Cost.ToString();
+            }
         });
     }
 
@@ -118,8 +135,25 @@ public class FieldManager : MonoBehaviour
         {
             Buffs[i].localPosition = new Vector3(i*50,0,0);
         }
-
     }
 
+    public void Initialize()
+    {
+        int EneHP=BattleManager.BM.Enemykari.HP,HP = BattleManager.BM.Chara.HP;
+        int EneMaxHP=BattleManager.BM.Enemykari.Para.MaxHP,MaxHP = BattleManager.BM.Chara.Para.MaxHP;
+        int CharaCost= BattleManager.BM.Chara.Cost, EneCost=BattleManager.BM.Enemykari.Cost;
 
+        MyHP.text = HP + "<size=45>/" + MaxHP + "</size>";
+
+        float Width = 500f / MaxHP;
+        MyHPGauge.sizeDelta = new Vector2(Width * HP, 20);
+
+        EnemyHP.text = EneHP + "<size=45>/" + EneMaxHP + "</size>";
+
+        Width = 500f / EneMaxHP;
+        EnemyHPGauge.sizeDelta = new Vector2(Width * EneHP, 20);
+
+        MyCost.text = CharaCost.ToString();
+        EnemyCost.text = EneCost.ToString();
+    }
 }
