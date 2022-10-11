@@ -10,8 +10,8 @@ public class CardTest01 : CardBase
     {
         int Power = Parameter.Power;
 
-        CharaBase Target=MeOrEnemy ? BM.Enemykari : BM.Chara;
-        CharaBase BuffTarget=MeOrEnemy ? BM.Chara : BM.Enemykari;
+        CharaBase Target=MeOrEnemy ? BM.Enemy : BM.Chara;
+        CharaBase BuffTarget=MeOrEnemy ? BM.Chara : BM.Enemy;
 
         //攻撃時発動のバフの処理
         List<BuffBase> Buffs = BuffTarget.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnAttack);

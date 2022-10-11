@@ -63,6 +63,30 @@ public class MyOjouScript : CharaBase
 
     public override void Draw(int DrawNum)
     {
+        //もしデッキがドローする枚数以下だったら墓地のカードをシャッフルしてデッキに入れる
+        if (DrawNum >= Deck.Count)
+        {
+            // 整数 n の初期値はデッキの枚数
+            int n = Grave.Count;
+
+            // nが1より小さくなるまで繰り返す
+            while (n > 1)
+            {
+                n--;
+
+                // kは 0 ～ n+1 の間のランダムな値
+                int k = UnityEngine.Random.Range(0, n + 1);
+
+                // k番目のカードをtempに代入
+                int temp = Grave[k];
+                Grave[k] = Grave[n];
+                Grave[n] = temp;
+            }
+
+            Deck.AddRange(Grave);
+            Grave.Clear();
+        }
+
         //ドロー処理&カード生成
         for (int i = 0; i < DrawNum; i++)
         {
@@ -71,7 +95,9 @@ public class MyOjouScript : CharaBase
 
         BattleManager.BM.MakeCards(HandCard);
 
-        //デッキからドローした分のカードを削除
+        //墓地に使ったカードを追加して削除する
+        Grave.AddRange(Deck.GetRange(0, DrawNum));
+
         Deck.RemoveRange(0, DrawNum);
     }
 

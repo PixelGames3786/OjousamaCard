@@ -11,11 +11,18 @@ public class CharaParameter : ScriptableObject
 
     public int MaxHP;
 
-    public int MaxCost;
+    public int FirstMaxCost,EndMaxCost;
+    public int CostRecover;
+
+    public int DrawNum;
 
     public string DeckSeed;
 
     public string ScriptName;
+
+    public CharaImage Image;
+
+    public CharaParameter AwakedPara;
 
 }
 

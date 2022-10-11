@@ -9,8 +9,10 @@ abstract public class CharaBase
 
     public int HP, Cost;
 
+    public bool Awaked;
+
     [NonSerialized]
-    public List<int> Deck = new List<int>(), HandCard = new List<int>(), Choiced = new List<int>();
+    public List<int> Deck = new List<int>(), HandCard = new List<int>(), Choiced = new List<int>(),Grave=new List<int>();
 
     [NonSerialized]
     public List<BuffBase> NowBuffs = new List<BuffBase>();

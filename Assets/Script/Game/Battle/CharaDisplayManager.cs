@@ -18,6 +18,7 @@ public class CharaDisplayManager : MonoBehaviour
     public List<CharaImage> Charas;
 
     public Image MyChara, Enemy;
+    public CharaImage CharaImages, EnemyImages;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,29 +32,23 @@ public class CharaDisplayManager : MonoBehaviour
         
     }
 
-    public void CharaInstantiate(BattleInformation Info)
+    public void CharaInstantiate()
     {
-        MyChara.name = Info.MyCharaImageName;
-        Enemy.name = Info.EnemyImageName;
+        CharaImages = BattleManager.BM.Chara.Para.Image;
+        EnemyImages = BattleManager.BM.Enemy.Para.Image;
 
-        CharaImage CharaImage = Charas.Find(Image => Image.name == MyChara.name);
-        CharaImage EnemyImage = Charas.Find(Image => Image.name == Enemy.name);
-
-        MyChara.sprite = CharaImage.NormalSprite;
-        Enemy.sprite = EnemyImage.NormalSprite;
+        MyChara.sprite = CharaImages.NormalSprite;
+        Enemy.sprite = EnemyImages.NormalSprite;
     }
 
     public void CharaMove(MoveType CharaType,MoveType EnemyType)
     {
-        CharaImage CharaImage = Charas.Find(Image=>Image.name==MyChara.name);
-        CharaImage EnemyImage = Charas.Find(Image=>Image.name==Enemy.name);
-
         switch (CharaType)
         {
             case MoveType.Normal:
 
                 {
-                    MyChara.sprite = CharaImage.NormalSprite;
+                    MyChara.sprite = CharaImages.NormalSprite;
 
                     MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550,250);
                 }
@@ -63,7 +58,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.PhysicAttack:
 
                 {
-                    MyChara.sprite = CharaImage.PATKSprite;
+                    MyChara.sprite = CharaImages.PATKSprite;
 
                     MyChara.GetComponent<RectTransform>().localPosition = new Vector3(250, 250);
 
@@ -74,7 +69,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.MagicAttack:
 
                 {
-                    MyChara.sprite = CharaImage.MATKSprite;
+                    MyChara.sprite = CharaImages.MATKSprite;
 
                     MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
 
@@ -85,7 +80,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.Damage:
 
                 {
-                    MyChara.sprite = CharaImage.DamageSprite;
+                    MyChara.sprite = CharaImages.DamageSprite;
 
                     MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
 
@@ -99,7 +94,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.Normal:
 
                 {
-                    Enemy.sprite = EnemyImage.NormalSprite;
+                    Enemy.sprite = EnemyImages.NormalSprite;
 
                     Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
 
@@ -110,7 +105,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.PhysicAttack:
 
                 {
-                    Enemy.sprite = EnemyImage.PATKSprite;
+                    Enemy.sprite = EnemyImages.PATKSprite;
 
                     Enemy.GetComponent<RectTransform>().localPosition = new Vector3(-250, 250);
 
@@ -121,7 +116,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.MagicAttack:
 
                 {
-                    Enemy.sprite = EnemyImage.MATKSprite;
+                    Enemy.sprite = EnemyImages.MATKSprite;
 
                     Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
 
@@ -132,7 +127,7 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.Damage:
 
                 {
-                    Enemy.sprite = EnemyImage.DamageSprite;
+                    Enemy.sprite = EnemyImages.DamageSprite;
 
                     Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
 
@@ -144,16 +139,25 @@ public class CharaDisplayManager : MonoBehaviour
 
     public void CharaReset()
     {
-        CharaImage CharaImage = Charas.Find(Image => Image.name == MyChara.name);
-        CharaImage EnemyImage = Charas.Find(Image => Image.name == Enemy.name);
-
-        MyChara.sprite = CharaImage.NormalSprite;
+        MyChara.sprite = CharaImages.NormalSprite;
 
         MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
 
-        Enemy.sprite = EnemyImage.NormalSprite;
+        Enemy.sprite = EnemyImages.NormalSprite;
 
         Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
+    }
+
+    public void CharaAwake(bool MeOrEnemy)
+    {
+        CharaImages = BattleManager.BM.Chara.Para.Image;
+        EnemyImages = BattleManager.BM.Enemy.Para.Image;
+
+        Image Target = MeOrEnemy ? MyChara : Enemy;
+        CharaImage TargetImage = MeOrEnemy ? CharaImages : EnemyImages;
+
+        Target.sprite = TargetImage.NormalSprite;
+        
     }
 
 }

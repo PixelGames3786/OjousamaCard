@@ -60,9 +60,9 @@ public class FieldManager : MonoBehaviour
             }
             else
             {
-                EnemyHP.text = HP + "<size=45>/" + BattleManager.BM.Enemykari.Para.MaxHP + "</size>";
+                EnemyHP.text = HP + "<size=45>/" + BattleManager.BM.Enemy.Para.MaxHP + "</size>";
 
-                int Width = 500 / BattleManager.BM.Enemykari.Para.MaxHP;
+                int Width = 500 / BattleManager.BM.Enemy.Para.MaxHP;
                 EnemyHPGauge.sizeDelta = new Vector2(Width * HP, 20);
             }
         });
@@ -139,9 +139,9 @@ public class FieldManager : MonoBehaviour
 
     public void Initialize()
     {
-        int EneHP=BattleManager.BM.Enemykari.HP,HP = BattleManager.BM.Chara.HP;
-        int EneMaxHP=BattleManager.BM.Enemykari.Para.MaxHP,MaxHP = BattleManager.BM.Chara.Para.MaxHP;
-        int CharaCost= BattleManager.BM.Chara.Cost, EneCost=BattleManager.BM.Enemykari.Cost;
+        int EneHP=BattleManager.BM.Enemy.HP,HP = BattleManager.BM.Chara.HP;
+        int EneMaxHP=BattleManager.BM.Enemy.Para.MaxHP,MaxHP = BattleManager.BM.Chara.Para.MaxHP;
+        int CharaCost= BattleManager.BM.Chara.Cost, EneCost=BattleManager.BM.Enemy.Cost;
 
         MyHP.text = HP + "<size=45>/" + MaxHP + "</size>";
 

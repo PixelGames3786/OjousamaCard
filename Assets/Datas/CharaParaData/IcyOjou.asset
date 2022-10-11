@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: IcyOjou
   m_EditorClassIdentifier: 
   CharaName: 
-  HP: 60
   MaxHP: 60
-  Cost: 1
-  MaxCost: 3
+  FirstMaxCost: 3
+  EndMaxCost: 6
+  CostRecover: 1
+  DrawNum: 1
   DeckSeed: 1,1,1,1,1,1,1,1,1
   ScriptName: IcyOjouScript
+  Image: {fileID: 11400000, guid: fcb96ce3700e7494f8c70ed21df8a87f, type: 2}
+  AwakedPara: {fileID: 11400000, guid: 172b7fb96af97954fa870b9ca8dd01bc, type: 2}

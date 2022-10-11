@@ -8,7 +8,7 @@ public class AttackUpSmallCard : CardBase
 {
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
-        CharaBase Target = MeOrEnemy ? BM.Chara : BM.Enemykari;
+        CharaBase Target = MeOrEnemy ? BM.Chara : BM.Enemy;
         Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
 
         BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BM.BuffDataBase.GetBuffScript("AttackUpSmall"));
