@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
 
     public Transform[] HandCardTrans = new Transform[5];
 
-    public bool EnemyAttackSkip,CanNext;
+    public bool EnemyAttackSkip,CanNext=true;
 
     private bool[] MoveOrder;
 

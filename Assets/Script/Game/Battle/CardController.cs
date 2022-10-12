@@ -8,17 +8,20 @@ public class CardController : MonoBehaviour
 {
     //カード番号
     [NonSerialized]
-    public int CardNumber,HandNumber;
+    public int CardNumber, HandNumber;
+
+    public float DiscriptNeedTime;
+    private float PointerTime;
 
     //選択されているかどうかのフラグ
-    private bool ChoicedFlag;
+    private bool ChoicedFlag, PointerFlag;
 
     private CardParameter CardData;
     public CardParameterList CardDataBase;
 
     public GameObject ChoicedFrame;
 
-    public TextMeshProUGUI Name,Power,Cost;
+    public TextMeshProUGUI Name, Power, Cost;
 
     public BattleManager BM;
     private CharaBase MyChara;
@@ -40,7 +43,15 @@ public class CardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (PointerFlag)
+        {
+            PointerTime += Time.deltaTime;
+
+            if (PointerTime>DiscriptNeedTime)
+            {
+                MakeCardDiscription();
+            }
+        }
     }
 
     public void CardChoiced()
@@ -60,10 +71,10 @@ public class CardController : MonoBehaviour
         }
 
         //もし選択可能ならば
-        if (MyChara.Choiced.Count<2)
+        if (MyChara.Choiced.Count < 2)
         {
             //もし十分なコストを持っていたら
-            if (MyChara.Cost-CardData.Cost>=0)
+            if (MyChara.Cost - CardData.Cost >= 0)
             {
                 MyChara.Choiced.Add(HandNumber);
 
@@ -71,7 +82,7 @@ public class CardController : MonoBehaviour
 
                 ChoicedFlag = true;
 
-                MyChara.CostChange(CardData.Cost,false);
+                MyChara.CostChange(CardData.Cost, false);
             }
             else
             {
@@ -83,5 +94,29 @@ public class CardController : MonoBehaviour
             print("三枚選択済みだよ");
         }
 
+    }
+
+    public void PointerDown()
+    {
+        PointerFlag = true;
+    }
+
+    public void PointerUp()
+    {
+        if (PointerFlag)
+        {
+            PointerFlag = false;
+
+            PointerTime = 0;
+
+            CardChoiced();
+        }
+    }
+
+    public void MakeCardDiscription()
+    {
+        PointerFlag = false;
+
+        PointerTime = 0;
     }
 }
