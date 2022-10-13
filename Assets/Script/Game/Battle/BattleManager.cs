@@ -102,7 +102,6 @@ public class BattleManager : MonoBehaviour
         Deck = EnemyDecks.GetDeck(1);
         EnemyDeck = EnemyDecks.GetDeck(BattleInfo.EnemyDeckNum);
 
-
         //相手と自分のシャッフル処理
         {
             // 整数 n の初期値はデッキの枚数
@@ -129,6 +128,11 @@ public class BattleManager : MonoBehaviour
                 EnemyDeck[k] = EnemyDeck[n];
                 EnemyDeck[n] = EnemyTemp;
             }
+        }
+
+        if (BattleInfo.BeforeNovel>=0)
+        {
+            return;
         }
 
         Chara.Draw(5);

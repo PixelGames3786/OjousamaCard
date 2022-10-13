@@ -9,4 +9,6 @@ public class BattleInformation : ScriptableObject
     public string BattleName,MyCharaImageName,EnemyImageName,MyCharaParaName,EnemyParaName;
 
     public int EnemyDeckNum;
+
+    public int BeforeNovel;
 }

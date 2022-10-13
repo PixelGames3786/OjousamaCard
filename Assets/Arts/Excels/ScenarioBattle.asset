@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e140003fdb03bb45810c4463450c752, type: 3}
+  m_Name: ScenarioBattle
+  m_EditorClassIdentifier: 
+  Sheet1:
+  - id: 0
+    speaker: "\u4E3B\u4EBA\u516C"
+    speakerSide: Left
+    message: "\u6226\u95D8\u306E\u30C6\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8\u3060\uFF01"
+    endOfTalk: 0
+  - id: 1
+    speaker: "\u30A8\u30CD\u30DF\u30FC"
+    speakerSide: Right
+    message: "\u306A\u3093\u3066\u9762\u5012\u306A\u3093\u3060\u2026\u2026"
+    endOfTalk: 0
+  - id: 2
+    speaker: 
+    speakerSide: 
+    message: 
+    endOfTalk: 1
