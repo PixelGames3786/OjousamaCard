@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: 1
   Name: "\u30C6\u30B9\u30C8\u30AB\u30FC\u30C91"
-  Description: 
+  Description: "\u76F8\u624B\u306B1~2\u306E\u30C0\u30E1\u30FC\u30B8\u3092\u4E0E\u3048\u308B"
   Rare: 0
   Cost: 1
-  Power: 1
-  WaitTime: 0.3
+  MinPower: 1
+  MaxPower: 3
+  WaitTime: 0.5
   Icon: {fileID: 0}
   Type: 0
   MyChara: 1

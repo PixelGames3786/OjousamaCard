@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
     public GameObject CardPrefab;
     public TextMeshProUGUI TurnText;
 
+    public MiniDiscriptionController MDC;
+
     public CharaBase Chara, Enemy;
 
     //カードを手札で管理する
@@ -138,6 +140,7 @@ public class BattleManager : MonoBehaviour
     //行動順設定 trueだと自分の動き　falseは敵の動き
     public void SetOrder()
     {
+        //trueだと自分の行動
         MoveOrder = new bool[4];
 
         int FirstRan = Random.Range(0, 4);
@@ -184,9 +187,7 @@ public class BattleManager : MonoBehaviour
             //カード生成
             CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
-            CreatedCard.CardNumber = Cards[i];
-
-            CreatedCard.BM = this;
+            CreatedCard.Initialize(Cards[i]);
 
             HandCardTrans[i] = CreatedCard.transform;
 
@@ -246,6 +247,8 @@ public class BattleManager : MonoBehaviour
 
     private void CostMaxChange()
     {
+        bool NextSkip = false;
+
         if (TurnCount>CharaMaxCost && !Chara.Awaked)
         {
             CharaMaxCost++;
@@ -255,7 +258,11 @@ public class BattleManager : MonoBehaviour
                 CharaMaxCost = Chara.Para.EndMaxCost;
 
                 //覚醒処理
-                if (Chara.Cost == CharaMaxCost) StartCoroutine(Awake(true));
+                if (Chara.Cost == CharaMaxCost) 
+                {
+                    StartCoroutine(Awake(true));
+                    NextSkip = true;
+                }
             }
         }
 
@@ -267,8 +274,17 @@ public class BattleManager : MonoBehaviour
             {
                 EnemyMaxCost = Enemy.Para.EndMaxCost;
 
-                if(Enemy.Cost==EnemyMaxCost) StartCoroutine(Awake(false));
+                if(Enemy.Cost==EnemyMaxCost)
+                {
+                    StartCoroutine(Awake(false));
+                    NextSkip = true;
+                }
             }
+        }
+
+        if (NextSkip)
+        {
+            return;
         }
 
         CanNext = true;
@@ -407,6 +423,8 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         CharaDisplayManager.CDM.CharaAwake(MeOrEnemy);
+
+        CanNext = true;
     }
 
     public void GameOver()

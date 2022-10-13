@@ -8,7 +8,7 @@ public class CardController : MonoBehaviour
 {
     //カード番号
     [NonSerialized]
-    public int CardNumber, HandNumber;
+    public int CardNum,HandNumber;
 
     public float DiscriptNeedTime;
     private float PointerTime;
@@ -29,15 +29,7 @@ public class CardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //カード番号を使ってデータベースからカードデータを取り出す
-        CardData = CardDataBase.GetCardParameter(CardNumber);
 
-        //名前・コスト・ダメージセット
-        Name.text = CardData.Name;
-        Cost.text = CardData.Cost.ToString();
-        Power.text = CardData.Power.ToString();
-
-        MyChara = BM.Chara;
     }
 
     // Update is called once per frame
@@ -52,6 +44,19 @@ public class CardController : MonoBehaviour
                 MakeCardDiscription();
             }
         }
+    }
+
+    public void Initialize(int CardNumber)
+    {
+        //カード番号を使ってデータベースからカードデータを取り出す
+        CardData = CardDataBase.GetCardParameter(CardNumber);
+
+        //名前・コスト・ダメージセット
+        Name.text = CardData.Name;
+        Cost.text = CardData.Cost.ToString();
+        Power.text = CardData.MaxPower.ToString();
+
+        MyChara = BattleManager.BM.Chara;
     }
 
     public void CardChoiced()
@@ -118,5 +123,7 @@ public class CardController : MonoBehaviour
         PointerFlag = false;
 
         PointerTime = 0;
+
+        BattleManager.BM.MDC.Initialize(CardData);
     }
 }

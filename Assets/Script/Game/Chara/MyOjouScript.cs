@@ -18,6 +18,13 @@ public class MyOjouScript : CharaBase
         else
         {
             HP -= Change;
+
+            if (HP<=0)
+            {
+                HP = 0;
+
+                BattleManager.BM.GameOver();
+            }
         }
 
         FieldManager.FM.HPChanger = false;

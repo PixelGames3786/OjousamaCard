@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CharaDisplayManager : MonoBehaviour
 {
@@ -43,6 +44,9 @@ public class CharaDisplayManager : MonoBehaviour
 
     public void CharaMove(MoveType CharaType,MoveType EnemyType)
     {
+        RectTransform CharaRect = MyChara.GetComponent<RectTransform>();
+        RectTransform EnemyRect = Enemy.GetComponent<RectTransform>();
+
         switch (CharaType)
         {
             case MoveType.Normal:
@@ -50,7 +54,7 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.NormalSprite;
 
-                    MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550,250);
+                    CharaRect.localPosition = new Vector3(-550,250);
                 }
 
                 break;
@@ -60,8 +64,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.PATKSprite;
 
-                    MyChara.GetComponent<RectTransform>().localPosition = new Vector3(250, 250);
-
+                    CharaRect.localPosition = new Vector3(200, 250);
+                    CharaRect.DOLocalMoveX(250, 0.5f);
                 }
 
                 break;
@@ -71,7 +75,7 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.MATKSprite;
 
-                    MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
+                    CharaRect.localPosition = new Vector3(-550, 250);
 
                 }
 
@@ -82,8 +86,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.DamageSprite;
 
-                    MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
-
+                    CharaRect.localPosition = new Vector3(-500, 250);
+                    CharaRect.DOLocalMoveX(-550, 0.5f);
                 }
 
                 break;
@@ -96,7 +100,7 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.NormalSprite;
 
-                    Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
+                    EnemyRect.localPosition = new Vector3(550, 250);
 
                 }
 
@@ -107,8 +111,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.PATKSprite;
 
-                    Enemy.GetComponent<RectTransform>().localPosition = new Vector3(-250, 250);
-
+                    EnemyRect.localPosition = new Vector3(-200, 250);
+                    EnemyRect.DOLocalMoveX(-250, 0.5f);
                 }
 
                 break;
@@ -118,8 +122,7 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.MATKSprite;
 
-                    Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
-
+                    EnemyRect.localPosition = new Vector3(550, 250);
                 }
 
                 break;
@@ -129,7 +132,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.DamageSprite;
 
-                    Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
+                    EnemyRect.localPosition = new Vector3(500, 250);
+                    EnemyRect.DOLocalMoveX(550, 0.5f);
 
                 }
 

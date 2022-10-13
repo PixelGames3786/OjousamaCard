@@ -16,6 +16,13 @@ public class IcyOjouScript : CharaBase
         else
         {
             HP -= Change;
+
+            if (HP<=0)
+            {
+                HP = 0;
+
+                BattleManager.BM.Clear();
+            }
         }
 
         FieldManager.FM.HPChanger = true;

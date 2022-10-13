@@ -22,10 +22,13 @@ public class CardParameter : ScriptableObject
     }
 
     public int CardID;
-    public string Name,Description;
+    public string Name;
+
+    [TextArea]
+    public string Description;
     public Rarity Rare;
     public int Cost;
-    public int Power;
+    public int MinPower,MaxPower;
     public float WaitTime;
     public Sprite Icon;
 
