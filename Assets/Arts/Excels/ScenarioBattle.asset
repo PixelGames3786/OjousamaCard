@@ -9,22 +9,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e140003fdb03bb45810c4463450c752, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f7736599889a564f90caf48224cf3e0, type: 3}
   m_Name: ScenarioBattle
   m_EditorClassIdentifier: 
-  Sheet1:
+  Sentences:
   - id: 0
     speaker: "\u4E3B\u4EBA\u516C"
     speakerSide: Left
     message: "\u6226\u95D8\u306E\u30C6\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8\u3060\uFF01"
-    endOfTalk: 0
+    ivent: 
   - id: 1
     speaker: "\u30A8\u30CD\u30DF\u30FC"
     speakerSide: Right
     message: "\u306A\u3093\u3066\u9762\u5012\u306A\u3093\u3060\u2026\u2026"
-    endOfTalk: 0
+    ivent: 
   - id: 2
+    speaker: 
+    speakerSide: Left
+    message: "\u3053\u3093\u306A\u98A8\u306B\u3001\u884C\u6570\u304C\u5897\u3048\u308B\u3068\u81EA\u52D5\u3067\u5439\u304D\u51FA\u3057\u304C\u5927\u304D\u304F\u306A\u308B\u3088"
+    ivent: 
+  - id: 3
+    speaker: 
+    speakerSide: Right
+    message: "\u3053\u308C\u304C\u7D42\u308F\u308B\u3068\u3001\u6226\u95D8\u304C\u59CB\u307E\u308B\u3088"
+    ivent: 
+  - id: 4
     speaker: 
     speakerSide: 
     message: 
-    endOfTalk: 1
+    ivent: BattleStart

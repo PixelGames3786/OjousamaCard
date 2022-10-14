@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -373,7 +373,7 @@ RectTransform:
   m_GameObject: {fileID: 5367872962945394081}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7312711768826743404}
@@ -410,13 +410,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb94d66d1d45bc44fb249a2ba341eb69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DiscriptNeedTime: 1
+  DiscriptNeedTime: 0.3
   CardDataBase: {fileID: 11400000, guid: 38c1d19afacbb1c4cb5601ff037fe2d3, type: 2}
   ChoicedFrame: {fileID: 5266952597101152149}
   Name: {fileID: 3133102531126673432}
   Power: {fileID: 3735414999045072179}
   Cost: {fileID: 4094601340039208971}
   BM: {fileID: 0}
+  DefaultPosi: {x: 0, y: 0, z: 0}
 --- !u!1 &5367872963036630707
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,17 +585,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
-  - eventID: 2
+  - eventID: 0
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9103001394570429894}
           m_TargetAssemblyTypeName: CardController, Assembly-CSharp
-          m_MethodName: PointerDown
+          m_MethodName: PointerEnter
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -604,13 +601,29 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 3
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 9103001394570429894}
           m_TargetAssemblyTypeName: CardController, Assembly-CSharp
-          m_MethodName: PointerUp
+          m_MethodName: PointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9103001394570429894}
+          m_TargetAssemblyTypeName: CardController, Assembly-CSharp
+          m_MethodName: CardChoiced
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

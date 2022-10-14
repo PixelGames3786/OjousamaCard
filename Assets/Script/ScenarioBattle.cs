@@ -6,5 +6,5 @@ using UnityEngine;
 [ExcelAsset]
 public class ScenarioBattle : ScriptableObject
 {
-	public List<BattleSentence> Sheet1; // Replace 'EntityType' to an actual type that is serializable.
+	public List<BattleSentence> Sentences;
 }

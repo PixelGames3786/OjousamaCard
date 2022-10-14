@@ -70,6 +70,8 @@ public class MyOjouScript : CharaBase
 
     public override void Draw(int DrawNum)
     {
+        List<int> AddCard=new List<int>();
+
         //もしデッキがドローする枚数以下だったら墓地のカードをシャッフルしてデッキに入れる
         if (DrawNum >= Deck.Count)
         {
@@ -98,9 +100,10 @@ public class MyOjouScript : CharaBase
         for (int i = 0; i < DrawNum; i++)
         {
             HandCard.Add(Deck[i]);
+            AddCard.Add(Deck[i]);
         }
 
-        BattleManager.BM.MakeCards(HandCard);
+        BattleManager.BM.StartCoroutine("MakeCards",AddCard);
 
         //墓地に使ったカードを追加して削除する
         Grave.AddRange(Deck.GetRange(0, DrawNum));

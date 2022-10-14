@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class CardController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class CardController : MonoBehaviour
     //‘I‘ð‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
     private bool ChoicedFlag, PointerFlag;
 
+    private RectTransform ThisRect;
+
     private CardParameter CardData;
     public CardParameterList CardDataBase;
 
@@ -26,10 +29,12 @@ public class CardController : MonoBehaviour
     public BattleManager BM;
     private CharaBase MyChara;
 
+    public Vector3 DefaultPosi;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        ThisRect = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -57,6 +62,11 @@ public class CardController : MonoBehaviour
         Power.text = CardData.MaxPower.ToString();
 
         MyChara = BattleManager.BM.Chara;
+    }
+
+    public void AppearAnimation(float Size)
+    {
+        GetComponent<RectTransform>().DOScaleX(Size, 0.3f);
     }
 
     public void CardChoiced()
@@ -101,21 +111,23 @@ public class CardController : MonoBehaviour
 
     }
 
-    public void PointerDown()
+    public void PointerEnter()
     {
+        GetComponent<RectTransform>().DOScale(new Vector3(1,1,1),0.3f);
+        GetComponent<RectTransform>().DOLocalMoveY(0f,0.3f);
+
         PointerFlag = true;
     }
 
-    public void PointerUp()
+    public void PointerExit()
     {
-        if (PointerFlag)
-        {
-            PointerFlag = false;
+        GetComponent<RectTransform>().DOScale(new Vector3(0.8f, 0.8f, 1), 0.3f);
+        GetComponent<RectTransform>().DOLocalMoveY(-35f, 0.3f);
 
-            PointerTime = 0;
+        PointerFlag = false;
+        PointerTime = 0;
 
-            CardChoiced();
-        }
+        BattleManager.BM.MDC.Close();
     }
 
     public void MakeCardDiscription()

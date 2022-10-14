@@ -5,64 +5,137 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class SpeechBubbleManager : MonoBehaviour
 {
-	[SerializeField] GameObject dialogue = null;
-	[SerializeField] GameObject choices = null;
-	[SerializeField] Button readMore = null;
-	[SerializeField] TextMeshProUGUI massage = null;
-	[SerializeField] Text yBranchMassage = null;
-	[SerializeField] Text nBranchMassage = null;
-	[SerializeField] OjousamaNovel TextDatas = null;
+	[SerializeField] RectTransform LeftSpeechBubble, RightSpeechBubble;
+	[SerializeField] TextMeshProUGUI LeftMess, RightMess;
+	[SerializeField] ScenarioBattle TextDatas = null;
 
-	int CurrentSentenceID = 0;
-	private void OnEnable()
+	private RectTransform TargetBubble=null;
+	private TextMeshProUGUI Target=null;
+	private string TargetText,AddText;
+
+	private int CurrentSentenceID = 0, NowCharaNum=0,NowLineNum=1;
+
+	public float NeedAddTime;
+	private float AddTime;
+
+	private bool Showing, CanNext;
+
+	public void MessageStart(int id)
 	{
-		//最初の1行目を表示します。
-		Sentence result = SerchSentence(CurrentSentenceID);
+		CurrentSentenceID = id;
+		BattleSentence result = SearchSentence(CurrentSentenceID);
+
 		ShowingMassage(result);
 	}
 
-	private void Update()
+	void Update()
 	{
-		//Debug.Log(CurrentSentenceID);
+        if (Showing)
+        {
+			AddTime += Time.deltaTime;
+
+            if (AddTime>=NeedAddTime)
+            {
+				AddTime = 0;
+
+				AddText += TargetText[NowCharaNum];
+
+				Target.text = AddText;
+
+				NowCharaNum++;
+
+                if (NowCharaNum>NowLineNum*12)
+                {
+					NowLineNum++;
+
+					TargetBubble.sizeDelta = new Vector2(500,50+(NowLineNum*50));
+                }
+
+				//もし全部表示し終わったなら
+                if (NowCharaNum>=TargetText.Length)
+                {
+					AddText = "";
+
+					NowCharaNum = 0;
+					NowLineNum = 1;
+
+					Showing = false;
+					CanNext = true;
+                }
+            }
+        }
 	}
+
 
 	//文章の続きを表示します。
 	public void ReadmoreMessage()
 	{
+		if (!CanNext) return;
+
 		//文章番号をひとつだけ次に進めます。
 		CurrentSentenceID++;
 
 		//文章番号をもとに文を検索します。
-		Sentence result = SerchSentence(CurrentSentenceID);
+		BattleSentence result = SearchSentence(CurrentSentenceID);
 
-		//シーンチェンジ
-		SceneChange(result);
+		//なんらかの特殊なイベントがないか確認
+		IventCheck(result);
 
-		//メッセージがこれ以上ない場合はダイアログUIを非アクティブにする。
-		EndOfTalk(result);
 		//得られたメッセージを表示します。
 		ShowingMassage(result);
-		ShowingMassageIsBranch(result);
-		Connect(result);
 	}
+
 
 	//メッセージを表示させるだけです。
-	void ShowingMassage(Sentence sentence)
+	void ShowingMassage(BattleSentence sentence)
 	{
-		massage.text = sentence.message;
+		LeftSpeechBubble.gameObject.SetActive(false);
+		RightSpeechBubble.gameObject.SetActive(false);
+		LeftMess.gameObject.SetActive(false);
+		RightMess.gameObject.SetActive(false);
+
+		switch (sentence.speakerSide)
+		{
+			case "Left":
+				{
+					TargetBubble = LeftSpeechBubble;
+					TargetText = sentence.message;
+					Target = LeftMess;
+				}
+				break;
+
+			case "Right":
+				{
+					TargetBubble = RightSpeechBubble;
+					TargetText = sentence.message;
+					Target = RightMess;
+				}
+				break;
+		}
+
+		Target.text = "";
+
+		TargetBubble.gameObject.SetActive(true);
+		Target.gameObject.SetActive(true);
+
+		Showing = true;
+		CanNext = false;
 	}
 
-	Sentence SerchSentence(int Id)
+	BattleSentence SearchSentence(int Id)
 	{
 		//シナリオのメッセージ配列の中から文章をIDで検索して取得します。
-		Sentence result = TextDatas.sentences.First(
-			(Sentence line) => { return line.id == Id; }
+		BattleSentence result = TextDatas.Sentences.First(
+			(BattleSentence line) => { return line.id == Id; }
 		);
 		return result;
 	}
+
+	/*
 
 	//選択肢のメッセージを表示させるだけです。
 	//選択肢のUIはボタンとテキストで構成されています。
@@ -85,7 +158,7 @@ public class SpeechBubbleManager : MonoBehaviour
 		//選択肢を非表示にします。
 		SwichCoicesActivate();
 
-		Sentence result = SerchSentence(CurrentSentenceID);
+		Sentence result = SearchSentence(CurrentSentenceID);
 		Skip(result.choseYes);
 	}
 
@@ -97,7 +170,7 @@ public class SpeechBubbleManager : MonoBehaviour
 		//選択肢を非表示にします。
 		SwichCoicesActivate();
 
-		Sentence result = SerchSentence(CurrentSentenceID);
+		Sentence result = SearchSentence(CurrentSentenceID);
 		Skip(result.choseNo);
 	}
 
@@ -114,26 +187,39 @@ public class SpeechBubbleManager : MonoBehaviour
 	//別の文章に読み飛ばします。
 	void Skip(int id)
 	{
-		Sentence result = SerchSentence(id);
+		Sentence result = SearchSentence(id);
 		CurrentSentenceID = result.id;
 		ShowingMassage(result);
 	}
 
+	*/
+
 	//最後の文章になったらUIを非表示にします。
 	//会話が終わったのにもかかわらず、UIが表示されていたらバグです。
 	//だから非表示する必要があります。
-	void EndOfTalk(Sentence sentence)
+	void IventCheck(BattleSentence sentence)
 	{
-		if (sentence.endOfTalk)
+		if (sentence.ivent=="BattleStart")
 		{
 			//このゼロは現在読んでいる文章をリセットするための数値です。
 			CurrentSentenceID = 0;
-			SwichDialougeActivate();
+			Close();
+
+			BattleManager.BM.BattleStart();
 		}
 	}
 
+	void Close()
+    {
+		LeftSpeechBubble.gameObject.SetActive(false);
+		RightSpeechBubble.gameObject.SetActive(false);
+		LeftMess.gameObject.SetActive(false);
+		RightMess.gameObject.SetActive(false);
 
+		gameObject.SetActive(false);
+	}
 
+	/*
 	//Readmoreボタンを押下の可不可を切り替えます。
 	//選択肢があるとき、選択肢以外のボタンを押せなくするために使用します。
 	void SwichReadmoreInteractable()
@@ -195,4 +281,6 @@ public class SpeechBubbleManager : MonoBehaviour
 			SceneManager.LoadScene(sentence.sceneChange);
 		}
 	}
+	*/
+
 }

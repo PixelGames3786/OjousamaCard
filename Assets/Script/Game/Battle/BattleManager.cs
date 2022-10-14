@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 public class BattleManager : MonoBehaviour
 {
@@ -30,6 +32,9 @@ public class BattleManager : MonoBehaviour
 
     public MiniDiscriptionController MDC;
 
+    public SpeechBubbleManager SBM;
+
+    [NonSerialized]
     public CharaBase Chara, Enemy;
 
     //カードを手札で管理する
@@ -88,11 +93,19 @@ public class BattleManager : MonoBehaviour
         CharaMaxCost = Chara.Para.FirstMaxCost;
         EnemyMaxCost = Chara.Para.FirstMaxCost;
 
+        if (BattleInfo.BeforeNovel >= 0)
+        {
+            SBM.gameObject.SetActive(true);
+            SBM.MessageStart(BattleInfo.BeforeNovel);
+
+            return;
+        }
+
         BattleStart();
     }
 
     //デュエルが始まった時
-    private void BattleStart()
+    public void BattleStart()
     {
         Chara.DeckInitialize(SaveLoadManager.instance.Data.MyDecks);
         Enemy.DeckInitialize(EnemyDecks.GetDeck(BattleInfo.EnemyDeckNum));
@@ -130,13 +143,10 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (BattleInfo.BeforeNovel>=0)
-        {
-            return;
-        }
-
         Chara.Draw(5);
         Enemy.Draw(5);
+
+        Enemy.ChoiceUseCard();
 
         SetOrder();
     }
@@ -165,6 +175,9 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            //敵選択済みのカードの順番
+            int EnemyChoiced = 0;
+
             if (MoveOrder[i])
             {
                 OrderField.GetChild(i).GetComponent<Image>().color = new Color(1, 0, 0);
@@ -172,31 +185,62 @@ public class BattleManager : MonoBehaviour
             else
             {
                 OrderField.GetChild(i).GetComponent<Image>().color = new Color(0, 1, 0);
+
+                /*
+                //敵が何かしらのカードを選択していたなら
+                if (Enemy.Choiced.Count>EnemyChoiced)
+                {
+                    //カード生成
+                    CardController CreatedCard = Instantiate(CardPrefab, OrderField.GetChild(i)).GetComponent<CardController>();
+
+                    CreatedCard.Initialize(Enemy.Choiced[EnemyChoiced]);
+
+                    CreatedCard.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,0, 0);
+                    CreatedCard.GetComponent<RectTransform>().localScale = new Vector3(0.4f,0.4f,1f);
+
+
+                    CreatedCard.enabled = false;
+                }
+                else
+                {
+                }
+
+                EnemyChoiced++;
+
+                */
             }
         }
     }
 
-    public void MakeCards(List<int> Cards)
+    public IEnumerator MakeCards(List<int> Cards)
     {
-        foreach (Transform a in HandCardTrans)
+        int TransCount = HandCardTrans.Count(Trans => Trans != null);
+
+        for (int i=0;i<TransCount;i++)
         {
-            if (a!=null)
-            {
-                Destroy(a.gameObject);
-            }
+            HandField.GetChild(i).GetComponent<RectTransform>().anchoredPosition= new Vector3(-400 + i * 200, -35, 0);
+            HandField.GetChild(i).GetComponent<CardController>().HandNumber = i;
+
         }
 
-        for (int i = 0; i < Cards.Count; i++)
+        for (int i = TransCount; i < TransCount+Cards.Count; i++)
         {
             //カード生成
             CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
-            CreatedCard.Initialize(Cards[i]);
+            CreatedCard.Initialize(Cards[i-TransCount]);
+            CreatedCard.AppearAnimation(0.8f);
+
+            CreatedCard.DefaultPosi= new Vector3(-400 + i * 200, -35, 0);
+
+            //print(i);
 
             HandCardTrans[i] = CreatedCard.transform;
 
-            HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-500 + i * 250, 0, 0);
+            HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-400 + i * 200, -35, 0);
             HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
+
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
@@ -244,6 +288,9 @@ public class BattleManager : MonoBehaviour
 
         FieldManager.FM.CostChanger = true;
         FieldManager.FM.CostSub.OnNext(Enemy.Cost);
+
+        Enemy.ChoiceUseCard();
+
 
         SetOrder();
         CostMaxChange();
@@ -306,7 +353,6 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
 
-        Enemy.ChoiceUseCard();
 
         for (int i = 0; i < 4; i++)
         {

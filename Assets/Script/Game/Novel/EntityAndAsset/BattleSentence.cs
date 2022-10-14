@@ -10,5 +10,5 @@ public class BattleSentence   //センテンスと読みます。文章という意味です。シナリ
     public string speaker;
     public string speakerSide;
     public string message;      //メッセージの本文です。
-    public bool endOfTalk;      //対話が終了する最後の文章なのか判定するのに使います。
+    public string ivent;      //対話が終了する最後の文章なのか判定するのに使います。
 }
