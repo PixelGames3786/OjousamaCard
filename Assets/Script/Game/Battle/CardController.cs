@@ -78,6 +78,8 @@ public class CardController : MonoBehaviour
 
             ChoicedFrame.SetActive(false);
 
+            BattleManager.BM.MOM.OrderChange();
+
             ChoicedFlag = false;
 
             MyChara.CostChange(CardData.Cost, true);
@@ -88,16 +90,18 @@ public class CardController : MonoBehaviour
         //もし選択可能ならば
         if (MyChara.Choiced.Count < 2)
         {
-            //もし十分なコストを持っていたら
+            //もし十分なコストを持っていたら選択する
             if (MyChara.Cost - CardData.Cost >= 0)
             {
                 MyChara.Choiced.Add(HandNumber);
+                MyChara.CostChange(CardData.Cost, false);
+
+                BattleManager.BM.MOM.OrderChange();
 
                 ChoicedFrame.SetActive(true);
 
                 ChoicedFlag = true;
 
-                MyChara.CostChange(CardData.Cost, false);
             }
             else
             {
@@ -106,7 +110,7 @@ public class CardController : MonoBehaviour
         }
         else
         {
-            print("三枚選択済みだよ");
+            print("二枚選択済みだよ");
         }
 
     }

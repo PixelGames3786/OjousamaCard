@@ -31,8 +31,8 @@ public class BattleManager : MonoBehaviour
     public TextMeshProUGUI TurnText;
 
     public MiniDiscriptionController MDC;
-
     public SpeechBubbleManager SBM;
+    public MoveOrderManager MOM;
 
     [NonSerialized]
     public CharaBase Chara, Enemy;
@@ -44,7 +44,7 @@ public class BattleManager : MonoBehaviour
     [NonSerialized]
     public List<int> EnemyDeck = new List<int>(), EnemyHand = new List<int>(), EnemyChoiced = new List<int>();
 
-    public Transform[] HandCardTrans = new Transform[5];
+    public Transform[] HandCardTrans = new Transform[9];
 
     public bool EnemyAttackSkip,CanNext=true;
 
@@ -173,72 +173,46 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 4; i++)
-        {
-            //敵選択済みのカードの順番
-            int EnemyChoiced = 0;
+        MOM.StartCoroutine("OrderInitialize", MoveOrder);
 
-            if (MoveOrder[i])
-            {
-                OrderField.GetChild(i).GetComponent<Image>().color = new Color(1, 0, 0);
-            }
-            else
-            {
-                OrderField.GetChild(i).GetComponent<Image>().color = new Color(0, 1, 0);
-
-                /*
-                //敵が何かしらのカードを選択していたなら
-                if (Enemy.Choiced.Count>EnemyChoiced)
-                {
-                    //カード生成
-                    CardController CreatedCard = Instantiate(CardPrefab, OrderField.GetChild(i)).GetComponent<CardController>();
-
-                    CreatedCard.Initialize(Enemy.Choiced[EnemyChoiced]);
-
-                    CreatedCard.GetComponent<RectTransform>().anchoredPosition = new Vector3(0,0, 0);
-                    CreatedCard.GetComponent<RectTransform>().localScale = new Vector3(0.4f,0.4f,1f);
-
-
-                    CreatedCard.enabled = false;
-                }
-                else
-                {
-                }
-
-                EnemyChoiced++;
-
-                */
-            }
-        }
     }
 
     public IEnumerator MakeCards(List<int> Cards)
     {
         int TransCount = HandCardTrans.Count(Trans => Trans != null);
 
-        for (int i=0;i<TransCount;i++)
-        {
-            HandField.GetChild(i).GetComponent<RectTransform>().anchoredPosition= new Vector3(-400 + i * 200, -35, 0);
-            HandField.GetChild(i).GetComponent<CardController>().HandNumber = i;
-
-        }
-
         for (int i = TransCount; i < TransCount+Cards.Count; i++)
         {
+            int MotoPosi = i * -100;
+            float Kankaku = 200;
+
+            if (MotoPosi<-500)
+            {
+                MotoPosi = -500;
+                Kankaku =500.0f*2f/(TransCount+Cards.Count-1);
+            }
+
             //カード生成
             CardController CreatedCard = Instantiate(CardPrefab, HandField).GetComponent<CardController>();
 
             CreatedCard.Initialize(Cards[i-TransCount]);
             CreatedCard.AppearAnimation(0.8f);
 
-            CreatedCard.DefaultPosi= new Vector3(-400 + i * 200, -35, 0);
-
-            //print(i);
+            CreatedCard.DefaultPosi= new Vector3(MotoPosi + i * Kankaku, -35, 0);
 
             HandCardTrans[i] = CreatedCard.transform;
 
-            HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(-400 + i * 200, -35, 0);
+            HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(MotoPosi + i * Kankaku, -35, 0);
             HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
+
+
+            //既に存在しているカードを動かす
+            for (int u = 0; u < HandCardTrans.Count(Trans => Trans != null); u++)
+            {
+                HandCardTrans[u].GetComponent<RectTransform>().DOAnchorPosX(MotoPosi + u * Kankaku, 0.3f);
+                HandCardTrans[u].GetComponent<CardController>().HandNumber = i;
+
+            }
 
             yield return new WaitForSeconds(0.3f);
         }
@@ -259,12 +233,12 @@ public class BattleManager : MonoBehaviour
     {
         int MyDraw = Chara.Para.DrawNum, EnemyDraw = Enemy.Para.DrawNum;
 
-        if (Chara.HandCard.Count>=5)
+        if (Chara.HandCard.Count>=9)
         {
             MyDraw = 0;
         }
 
-        if (Enemy.HandCard.Count>=5)
+        if (Enemy.HandCard.Count>=9)
         {
             EnemyDraw = 0;
         }
@@ -290,7 +264,6 @@ public class BattleManager : MonoBehaviour
         FieldManager.FM.CostSub.OnNext(Enemy.Cost);
 
         Enemy.ChoiceUseCard();
-
 
         SetOrder();
         CostMaxChange();
@@ -352,7 +325,6 @@ public class BattleManager : MonoBehaviour
 
             yield break;
         }
-
 
         for (int i = 0; i < 4; i++)
         {
