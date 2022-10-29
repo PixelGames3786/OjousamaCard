@@ -39,7 +39,6 @@ public class MoveOrderManager : MonoBehaviour
                 if (Chara.Choiced.Count > MyChoiceCount)
                 {
                     CardController Card = Instantiate(CardPrefab, transform).GetComponent<CardController>();
-                    Debug.Log(Chara.HandCard[Chara.Choiced[MyChoiceCount]]);
 
                     Card.Initialize(Chara.HandCard[Chara.Choiced[MyChoiceCount]]);
                     Card.GetComponent<RectTransform>().anchoredPosition = DefaultPosi[i];

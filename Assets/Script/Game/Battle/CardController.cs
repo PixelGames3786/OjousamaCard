@@ -17,8 +17,6 @@ public class CardController : MonoBehaviour
     //‘I‘ð‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
     private bool ChoicedFlag, PointerFlag;
 
-    private RectTransform ThisRect;
-
     private CardParameter CardData;
     public CardParameterList CardDataBase;
 
@@ -34,7 +32,6 @@ public class CardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ThisRect = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame

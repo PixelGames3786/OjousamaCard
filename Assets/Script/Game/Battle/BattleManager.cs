@@ -210,7 +210,7 @@ public class BattleManager : MonoBehaviour
             for (int u = 0; u < HandCardTrans.Count(Trans => Trans != null); u++)
             {
                 HandCardTrans[u].GetComponent<RectTransform>().DOAnchorPosX(MotoPosi + u * Kankaku, 0.3f);
-                HandCardTrans[u].GetComponent<CardController>().HandNumber = i;
+                HandCardTrans[u].GetComponent<CardController>().HandNumber = u;
 
             }
 

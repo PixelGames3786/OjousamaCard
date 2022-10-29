@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 768341bccaea19e429ab47aafdbdb115, type: 3}
-  m_Name: MyOjou
+  m_Name: Dummy
   m_EditorClassIdentifier: 
-  CharaName: 
-  MaxHP: 75
+  CharaName: "\u30C0\u30DF\u30FC"
+  MaxHP: 40
   FirstMaxCost: 3
   EndMaxCost: 6
   CostRecover: 1
   DrawNum: 1
   DeckSeed: 
-  ScriptName: MyOjouScript
+  ScriptName: DummyScript
   Image: {fileID: 11400000, guid: fcb96ce3700e7494f8c70ed21df8a87f, type: 2}
-  AwakedPara: {fileID: 11400000, guid: 2b2ee90e8e1a8d343a80c479db736199, type: 2}
+  AwakedPara: {fileID: 11400000}

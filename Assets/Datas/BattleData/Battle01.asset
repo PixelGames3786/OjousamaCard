@@ -16,6 +16,6 @@ MonoBehaviour:
   MyCharaImageName: KariCharaImage
   EnemyImageName: KariCharaImage
   MyCharaParaName: MyOjou
-  EnemyParaName: IcyOjou
+  EnemyParaName: Dummy
   EnemyDeckNum: 0
   BeforeNovel: -1

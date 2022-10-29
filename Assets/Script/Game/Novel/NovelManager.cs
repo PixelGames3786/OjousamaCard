@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class NovelManager : MonoBehaviour
 {
@@ -16,17 +17,58 @@ public class NovelManager : MonoBehaviour
     [SerializeField] Text nBranchMassage = null;
     [SerializeField] OjousamaNovel TextDatas = null;
 
-    int CurrentSentenceID = 0;
+	public RectTransform LeftTalker, RightTalker;
+
+	private string TargetText, AddText;
+
+	private int CurrentSentenceID = -1,NowCharaNum = 0, NowLineNum = 1;
+
+	public float NeedAddTime;
+	private float AddTime;
+
+	public bool CanNext=true,Showing;
+
 	private void OnEnable()
 	{
 		//最初の1行目を表示します。
-		Sentence result = SerchSentence(CurrentSentenceID);
-		ShowingMassage(result);
+		ReadmoreMessage();
 	}
 
 	private void Update()
 	{
-		//Debug.Log(CurrentSentenceID);
+        if ((Input.GetMouseButtonDown(0)||Input.GetKey(KeyCode.Space))&&CanNext)
+        {
+			CanNext = false;
+
+			ReadmoreMessage();
+        }
+
+		if (Showing)
+		{
+			AddTime += Time.deltaTime;
+
+			if (AddTime >= NeedAddTime)
+			{
+				AddTime = 0;
+
+				AddText += TargetText[NowCharaNum];
+
+				massage.text = AddText;
+
+				NowCharaNum++;
+
+				//もし全部表示し終わったなら
+				if (NowCharaNum >= TargetText.Length)
+				{
+					AddText = "";
+
+					NowCharaNum = 0;
+
+					Showing = false;
+					CanNext = true;
+				}
+			}
+		}
 	}
 
 	//文章の続きを表示します。
@@ -41,6 +83,9 @@ public class NovelManager : MonoBehaviour
 		//シーンチェンジ
 		SceneChange(result);
 
+		//喋り手のウィンドウを出す
+		TalkerWindow(result);
+
 		//メッセージがこれ以上ない場合はダイアログUIを非アクティブにする。
 		EndOfTalk(result);
 		//得られたメッセージを表示します。
@@ -52,7 +97,13 @@ public class NovelManager : MonoBehaviour
 	//メッセージを表示させるだけです。
 	void ShowingMassage(Sentence sentence)
 	{
-		massage.text = sentence.message;
+		TargetText = sentence.message;
+		massage.text = "";
+
+		Showing = true;
+		CanNext = false;
+
+		//massage.text = sentence.message;
 	}
 
 	Sentence SerchSentence(int Id)
@@ -181,6 +232,35 @@ public class NovelManager : MonoBehaviour
 		}
 	}
 
+	public void TalkerWindow(Sentence sentence)
+    {
+        if (sentence.Talker=="")
+        {
+			return;
+        }
+
+		string[] Splited = sentence.Talker.Split(',');
+
+        switch (Splited[1])
+        {
+			case "Left":
+
+				LeftTalker.DOAnchorPosX(-960,0.3f);
+
+				LeftTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[0];
+
+				break;
+
+			case "Right":
+
+				RightTalker.DOAnchorPosX(960, 0.3f);
+
+				RightTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[0];
+
+				break;
+        }
+    }
+
 
 	//シーンチェンジします。
 	void SceneChange(Sentence sentence)
@@ -194,5 +274,10 @@ public class NovelManager : MonoBehaviour
 
 			SceneManager.LoadScene(sentence.sceneChange);
         }
+    }
+
+	public void OnApplicationFocus(bool Focus)
+    {
+
     }
 }
