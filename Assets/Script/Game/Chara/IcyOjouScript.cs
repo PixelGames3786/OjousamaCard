@@ -104,6 +104,10 @@ public class IcyOjouScript : CharaBase
         //ドロー処理&カード生成
         for (int i = 0; i < DrawNum; i++)
         {
+            if (HandCard.Count >= 9)
+            {
+                return;
+            }
             HandCard.Add(Deck[i]);
         }
 

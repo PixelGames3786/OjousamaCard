@@ -19,4 +19,6 @@ public class Sentence   //センテンスと読みます。文章という意味です。シナリオは文
     public string sceneChange;  //シーンを移行するときに移行するシーンの名前を入れます。
     public string nextBattle;   //バトルシーンに移行するときに行うバトルを設定します。
     public string Talker;
+    public string Tatie;
+    public string BackGround;
 }

@@ -26,6 +26,8 @@ MonoBehaviour:
     sceneChange: 
     nextBattle: 
     Talker: "\u558B\u308A\u624BA,Left"
+    Tatie: Ojou_Normal,Left
+    BackGround: Black
   - id: 1
     message: "\u4ECA\u306F\u30C6\u30B9\u30C8\u7248\u3060\u3051\u3069\u6587\u5B57\u9001\u308A\u3068\u304B\u8272\u3005\u5B9F\u88C5\u3059\u308B\u4E88\u5B9A\u3060\u3088"
     branch: 0
@@ -39,6 +41,8 @@ MonoBehaviour:
     sceneChange: 
     nextBattle: 
     Talker: "\u558B\u308A\u624BB,Right"
+    Tatie: 
+    BackGround: 
   - id: 2
     message: "\u30FB\u30FB\u30FB"
     branch: 0
@@ -52,6 +56,8 @@ MonoBehaviour:
     sceneChange: 
     nextBattle: 
     Talker: 
+    Tatie: 
+    BackGround: 
   - id: 3
     message: "\u3053\u3093\u306A\u3075\u3046\u306B\u558B\u308A\u624B\u306B\u5909\u66F4\u304C\u3042\u308B\u3068\u304D\u3060\u3051Talker\u3092\u3044\u3058\u3063\u3066\u306D"
     branch: 0
@@ -65,6 +71,8 @@ MonoBehaviour:
     sceneChange: 
     nextBattle: 
     Talker: "\u3042\u3042\u3042,Left"
+    Tatie: 
+    BackGround: 
   - id: 4
     message: 
     branch: 0
@@ -78,3 +86,5 @@ MonoBehaviour:
     sceneChange: Battle
     nextBattle: Battle01
     Talker: 
+    Tatie: 
+    BackGround: 

@@ -894,7 +894,9 @@ MonoBehaviour:
     Scene: 0
     CurrentNovelId: 0
     HavingCards: 
-    MyCardDecks: 
+    MyDecks: 010000000200000003000000040000000100000002000000030000000400000001000000
+  NextBattle: 
+  NextNovel: 0
 --- !u!4 &1478878944
 Transform:
   m_ObjectHideFlags: 0
@@ -939,6 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db35fcea6ae32d940a7a28dd903caf17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SLM: {fileID: 1478878943}
 --- !u!4 &1504911025
 Transform:
   m_ObjectHideFlags: 0

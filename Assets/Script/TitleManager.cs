@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
+    public SaveLoadManager SLM;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,8 @@ public class TitleManager : MonoBehaviour
     //‚Í‚¶‚ß‚©‚ç
     public void ForBeginning()
     {
+        SLM.NextNovel = 0;
+
         SceneManager.LoadSceneAsync("Novel");
     }
 

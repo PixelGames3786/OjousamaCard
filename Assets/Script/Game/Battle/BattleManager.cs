@@ -179,7 +179,9 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator MakeCards(List<int> Cards)
     {
-        int TransCount = HandCardTrans.Count(Trans => Trans != null);
+        int TransCount = HandField.childCount;
+
+        print(TransCount);
 
         for (int i = TransCount; i < TransCount+Cards.Count; i++)
         {
@@ -205,13 +207,16 @@ public class BattleManager : MonoBehaviour
             HandCardTrans[i].GetComponent<RectTransform>().anchoredPosition = new Vector3(MotoPosi + i * Kankaku, -35, 0);
             HandCardTrans[i].GetComponent<CardController>().HandNumber = i;
 
+            for (int u = 0; u < TransCount; u++)
+            {
+                HandCardTrans[u] = HandField.GetChild(u);
+            }
 
             //Šù‚É‘¶Ý‚µ‚Ä‚¢‚éƒJ[ƒh‚ð“®‚©‚·
             for (int u = 0; u < HandCardTrans.Count(Trans => Trans != null); u++)
             {
                 HandCardTrans[u].GetComponent<RectTransform>().DOAnchorPosX(MotoPosi + u * Kankaku, 0.3f);
                 HandCardTrans[u].GetComponent<CardController>().HandNumber = u;
-
             }
 
             yield return new WaitForSeconds(0.3f);
@@ -232,16 +237,6 @@ public class BattleManager : MonoBehaviour
     public void TurnChange()
     {
         int MyDraw = Chara.Para.DrawNum, EnemyDraw = Enemy.Para.DrawNum;
-
-        if (Chara.HandCard.Count>=9)
-        {
-            MyDraw = 0;
-        }
-
-        if (Enemy.HandCard.Count>=9)
-        {
-            EnemyDraw = 0;
-        }
 
         Chara.Draw(MyDraw);
         Enemy.Draw(EnemyDraw);
@@ -457,7 +452,26 @@ public class BattleManager : MonoBehaviour
 
     public void Clear()
     {
+        switch (BattleInfo.EndType)
+        {
+            case BattleInformation.BattleEndType.Battle:
+
+                SaveLoadManager.instance.NextBattle = BattleInfo.EndDetail;
+
+                SceneManager.LoadScene("Battle");
+
+                break;
+
+            case BattleInformation.BattleEndType.Novel:
+
+                SaveLoadManager.instance.NextNovel = int.Parse(BattleInfo.EndDetail);
+
+                SceneManager.LoadScene("Novel");
+
+                break;
+        }
+
         //Œã‚Å’¼‚·
-        SceneManager.LoadScene("Lounge");
+        //SceneManager.LoadScene("Lounge");
     }
 }

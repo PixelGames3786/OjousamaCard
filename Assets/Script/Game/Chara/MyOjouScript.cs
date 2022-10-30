@@ -99,6 +99,11 @@ public class MyOjouScript : CharaBase
         //ドロー処理&カード生成
         for (int i = 0; i < DrawNum; i++)
         {
+            if (HandCard.Count >= 9)
+            {
+                break;
+            }
+
             HandCard.Add(Deck[i]);
             AddCard.Add(Deck[i]);
         }
@@ -109,6 +114,7 @@ public class MyOjouScript : CharaBase
         Grave.AddRange(Deck.GetRange(0, DrawNum));
 
         Deck.RemoveRange(0, DrawNum);
+
     }
 
     public override void ChoiceUseCard()

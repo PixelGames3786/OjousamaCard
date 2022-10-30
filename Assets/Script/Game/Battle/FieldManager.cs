@@ -55,14 +55,14 @@ public class FieldManager : MonoBehaviour
             {
                 MyHP.text = HP + "<size=45>/" + BattleManager.BM.Chara.Para.MaxHP + "</size>";
 
-                int Width = 500 / BattleManager.BM.Chara.Para.MaxHP;
+                float Width = 500f / BattleManager.BM.Chara.Para.MaxHP;
                 MyHPGauge.sizeDelta = new Vector2(Width*HP,20);
             }
             else
             {
                 EnemyHP.text = HP + "<size=45>/" + BattleManager.BM.Enemy.Para.MaxHP + "</size>";
 
-                int Width = 500 / BattleManager.BM.Enemy.Para.MaxHP;
+                float Width = 500 / BattleManager.BM.Enemy.Para.MaxHP;
                 EnemyHPGauge.sizeDelta = new Vector2(Width * HP, 20);
             }
         });

@@ -30,6 +30,8 @@ public class NovelManager : MonoBehaviour
 
 	private void OnEnable()
 	{
+		CurrentSentenceID = SaveLoadManager.instance.NextNovel;
+
 		//最初の1行目を表示します。
 		ReadmoreMessage();
 	}
@@ -74,8 +76,6 @@ public class NovelManager : MonoBehaviour
 	//文章の続きを表示します。
 	public void ReadmoreMessage()
 	{
-		//文章番号をひとつだけ次に進めます。
-		CurrentSentenceID++;
 
 		//文章番号をもとに文を検索します。
 		Sentence result = SerchSentence(CurrentSentenceID);
@@ -92,6 +92,9 @@ public class NovelManager : MonoBehaviour
 		ShowingMassage(result);
 		ShowingMassageIsBranch(result);
 		Connect(result);
+
+		//文章番号をひとつだけ次に進めます。
+		CurrentSentenceID++;
 	}
 
 	//メッセージを表示させるだけです。

@@ -12,6 +12,8 @@ public class SaveLoadManager : MonoBehaviour
 
     public string NextBattle;
 
+    public int NextNovel;
+
     //ƒVƒ“ƒOƒ‹ƒgƒ“ˆ—
     void Awake()
     {
