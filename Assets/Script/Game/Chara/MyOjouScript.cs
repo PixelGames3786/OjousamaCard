@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UniRx;
 using Random = UnityEngine.Random;
 
 
@@ -44,6 +45,42 @@ public class MyOjouScript : CharaBase
 
         FieldManager.FM.CostChanger = false;
         FieldManager.FM.CostSub.OnNext(Cost);
+    }
+
+    public override void AddBuff(BuffBase Buff)
+    {
+        Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
+
+        NowBuffs.Add(Buff);
+
+        FieldManager.FM.BuffChanger = false;
+        Subject.OnNext(Buff);
+    }
+
+    public override void AddShield(int Num)
+    {
+        Subject<int> Subject = FieldManager.FM.ShieldSub;
+
+        if (NowBuffs.Find(Buff =>Buff.BuffName=="シールド"))
+        {
+            BuffBase Shield = NowBuffs.Find(Buff => Buff.BuffName == "シールド");
+
+            Shield.UseCount += Num;
+
+            FieldManager.FM.ShieldChanger = false;
+            Subject.OnNext(Shield.UseCount);
+        }
+        else
+        {
+            BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BattleManager.BM.BuffDataBase.GetBuffScript("Shield"));
+
+            AddBuff.UseCount = Num;
+
+            NowBuffs.Add(AddBuff);
+
+            FieldManager.FM.ShieldChanger = false;
+            Subject.OnNext(AddBuff.UseCount);
+        }
     }
 
     public override void DeckInitialize(List<int> deck = null)

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3542f80f196cca54cadb0092f926db6f, type: 3}
+  m_Name: doublestandard
+  m_EditorClassIdentifier: 
+  CardID: 4
+  Name: "\u30C0\u30D6\u30EB\u30B9\u30BF\u30F3\u30C0\u30FC\u30C9"
+  Description: 
+  Rare: 0
+  Cost: 2
+  MoveNum: 2
+  DisplayPower: 0
+  MinPowers: 0500000001000000
+  MaxPowers: 0900000008000000
+  WaitTime: 2.6
+  Icon: {fileID: 21300000, guid: 8434d8ce179fb2d4f8d104ab8a6cb2fb, type: 3}
+  UseSE: {fileID: 8300000, guid: 3fcd098abff3d3b49a5a59dee4bf904b, type: 3}
+  Types: 0000000000000000
+  MyChara: 1
+  Enemy: 3
+  ScriptName: NormalCard

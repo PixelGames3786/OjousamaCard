@@ -16,3 +16,9 @@ MonoBehaviour:
   PATKSprite: {fileID: 1841966289, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}
   MATKSprite: {fileID: 957891067, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}
   DamageSprite: {fileID: 422522891, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}
+  DifenseSprite: {fileID: 0}
+  NormalSize: {x: 400, y: 400}
+  PATKSize: {x: 400, y: 400}
+  MATKSize: {x: 400, y: 400}
+  DamageSize: {x: 400, y: 400}
+  DifenseSize: {x: 400, y: 400}

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Battle01
   m_EditorClassIdentifier: 
   BattleName: Battle01
-  MyCharaImageName: KariCharaImage
-  EnemyImageName: KariCharaImage
+  MyCharaImageName: MyCharaImage
+  EnemyImageName: DummyImage
   MyCharaParaName: MyOjou
   EnemyParaName: Dummy
   EnemyDeckNum: 0
   BeforeNovel: -1
   EndType: 1
-  EndDetail: 5
+  EndDetail: 90
+  BGM: {fileID: 8300000, guid: 189370f63cae4eb46b8d8b6368373c30, type: 3}

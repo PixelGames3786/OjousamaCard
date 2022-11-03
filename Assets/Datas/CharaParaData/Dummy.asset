@@ -20,5 +20,5 @@ MonoBehaviour:
   DrawNum: 1
   DeckSeed: 1,1,1,1,1,1,1,1,1
   ScriptName: DummyScript
-  Image: {fileID: 11400000, guid: fcb96ce3700e7494f8c70ed21df8a87f, type: 2}
+  Image: {fileID: 11400000, guid: 5c0c28e94716a9c4ca3b99f468d1bbfd, type: 2}
   AwakedPara: {fileID: 11400000}

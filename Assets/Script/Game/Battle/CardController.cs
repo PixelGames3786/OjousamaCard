@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
@@ -16,6 +17,7 @@ public class CardController : MonoBehaviour
 
     //選択されているかどうかのフラグ
     private bool ChoicedFlag, PointerFlag;
+    public bool WaitFlag;
 
     private CardParameter CardData;
     public CardParameterList CardDataBase;
@@ -23,15 +25,22 @@ public class CardController : MonoBehaviour
     public GameObject ChoicedFrame;
 
     public TextMeshProUGUI Name, Power, Cost;
+    public Image Image;
 
     public BattleManager BM;
     private CharaBase MyChara;
 
+    [NonSerialized]
     public Vector3 DefaultPosi;
+
+    public AudioClip ChoiceClip;
+
+    private AudioSource Audio;
 
     // Start is called before the first frame update
     void Start()
     {
+        Audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,8 +64,20 @@ public class CardController : MonoBehaviour
 
         //名前・コスト・ダメージセット
         Name.text = CardData.Name;
+
+        if (CardData.Name.Length>=7)
+        {
+            Name.fontSize = 23;
+        }
+        if (CardData.Name.Length >= 8)
+        {
+            Name.fontSize = 20;
+        }
+
         Cost.text = CardData.Cost.ToString();
-        Power.text = CardData.MaxPower.ToString();
+        Power.text = CardData.DisplayPower.ToString();
+
+        Image.sprite = CardData.Icon;
 
         MyChara = BattleManager.BM.Chara;
     }
@@ -68,6 +89,11 @@ public class CardController : MonoBehaviour
 
     public void CardChoiced()
     {
+        if (WaitFlag)
+        {
+            return;
+        }
+
         //既に選択済みならばとりはずす
         if (ChoicedFlag)
         {
@@ -114,21 +140,45 @@ public class CardController : MonoBehaviour
 
     public void PointerEnter()
     {
-        GetComponent<RectTransform>().DOScale(new Vector3(1,1,1),0.3f);
-        GetComponent<RectTransform>().DOLocalMoveY(0f,0.3f);
+        if (WaitFlag)
+        {
+            PointerFlag = true;
 
-        PointerFlag = true;
+        }
+        else
+        {
+            GetComponent<RectTransform>().DOScale(new Vector3(1, 1, 1), 0.3f);
+            GetComponent<RectTransform>().DOLocalMoveY(0f, 0.3f);
+
+            PointerFlag = true;
+
+            Audio.clip = ChoiceClip;
+            Audio.Play();
+        }
+
+        
     }
 
     public void PointerExit()
     {
-        GetComponent<RectTransform>().DOScale(new Vector3(0.8f, 0.8f, 1), 0.3f);
-        GetComponent<RectTransform>().DOLocalMoveY(-35f, 0.3f);
+        if (WaitFlag)
+        {
+            PointerFlag = false;
+            PointerTime = 0;
 
-        PointerFlag = false;
-        PointerTime = 0;
+        }
+        else
+        {
+            GetComponent<RectTransform>().DOScale(new Vector3(0.8f, 0.8f, 1), 0.3f);
+            GetComponent<RectTransform>().DOLocalMoveY(-35f, 0.3f);
 
-        BattleManager.BM.MDC.Close();
+            PointerFlag = false;
+            PointerTime = 0;
+
+            BattleManager.BM.MDC.Close();
+        }
+
+        
     }
 
     public void MakeCardDiscription()

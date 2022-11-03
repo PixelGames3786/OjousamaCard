@@ -45,6 +45,7 @@ public class MoveOrderManager : MonoBehaviour
                     Card.GetComponent<RectTransform>().localScale = new Vector3(0.4f, 0.4f, 1);
 
                     Card.enabled = false;
+                    Card.WaitFlag = true;
 
                     Destroy(Cards[i].gameObject);
 
@@ -82,6 +83,7 @@ public class MoveOrderManager : MonoBehaviour
         CharaBase Enemy = BattleManager.BM.Enemy;
 
         ShortOrder = new List<bool>();
+        DefaultPosi = new List<Vector2>();
 
         int EnemyChoiceCount = 0;
         float KanKaku = 0,Motoposi=0;
@@ -106,7 +108,10 @@ public class MoveOrderManager : MonoBehaviour
         }
 
         KanKaku = 110f;
-        Motoposi = ShortOrder.Count * -41.25f;
+
+        int Full=(ShortOrder.Count - 1) * 110;
+
+        Motoposi = (Full/2)*-1;
 
         for (int i=0;i<ShortOrder.Count;i++)
         {
@@ -124,12 +129,12 @@ public class MoveOrderManager : MonoBehaviour
 
             Cards[i]=(Instantiate(Instance, transform).GetComponent<RectTransform>());
 
-            Cards[i].anchoredPosition = new Vector2(Motoposi + i * KanKaku + 50, 0);
+            Cards[i].anchoredPosition = new Vector2(Motoposi + (i * KanKaku) + 50, 0);
 
             Cards[i].DOAnchorPosX(Motoposi + i * KanKaku, 0.3f);
             Cards[i].GetComponent<CanvasGroup>().DOFade(1f,0.3f);
 
-            DefaultPosi.Add(new Vector2(Motoposi+i*KanKaku,0));
+            DefaultPosi.Add(new Vector2(Motoposi+(i*KanKaku),0));
 
             yield return new WaitForSeconds(0.3f);
         }

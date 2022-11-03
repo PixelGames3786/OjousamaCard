@@ -30,6 +30,8 @@ public class BattleManager : MonoBehaviour
     public GameObject CardPrefab;
     public TextMeshProUGUI TurnText;
 
+    public GameObject Fader;
+
     public MiniDiscriptionController MDC;
     public SpeechBubbleManager SBM;
     public MoveOrderManager MOM;
@@ -37,16 +39,15 @@ public class BattleManager : MonoBehaviour
     [NonSerialized]
     public CharaBase Chara, Enemy;
 
-    //カードを手札で管理する
-    [NonSerialized]
-    public List<int> Deck = new List<int>(), HandCard = new List<int>(), ChoicedCard = new List<int>();
-
-    [NonSerialized]
-    public List<int> EnemyDeck = new List<int>(), EnemyHand = new List<int>(), EnemyChoiced = new List<int>();
-
     public Transform[] HandCardTrans = new Transform[9];
 
-    public bool EnemyAttackSkip,CanNext=true;
+    [NonSerialized]
+    public TurnInformation TurnInfo=new TurnInformation();
+
+    private AudioSource Audio;
+
+    [NonSerialized]
+    public bool EnemyAttackSkip,ClearFlag,CanNext=true;
 
     private bool[] MoveOrder;
 
@@ -83,6 +84,8 @@ public class BattleManager : MonoBehaviour
         Chara.Enemy = Enemy;
         Enemy.Enemy = Chara;
 
+        Audio = GetComponent<AudioSource>();
+
         Chara.Initialize();
         Enemy.Initialize();
 
@@ -93,15 +96,23 @@ public class BattleManager : MonoBehaviour
         CharaMaxCost = Chara.Para.FirstMaxCost;
         EnemyMaxCost = Chara.Para.FirstMaxCost;
 
-        if (BattleInfo.BeforeNovel >= 0)
+        Fader.GetComponent<Image>().DOFade(0f, 1f).OnComplete(() =>
         {
-            SBM.gameObject.SetActive(true);
-            SBM.MessageStart(BattleInfo.BeforeNovel);
+            Fader.SetActive(false);
 
-            return;
-        }
+            if (BattleInfo.BeforeNovel >= 0)
+            {
+                SBM.gameObject.SetActive(true);
+                SBM.MessageStart(BattleInfo.BeforeNovel);
 
-        BattleStart();
+                return;
+            }
+
+            BGMManager.instance.BGMPlay("a",1,BattleInfo.BGM);
+
+            BattleStart();
+        });
+
     }
 
     //デュエルが始まった時
@@ -109,39 +120,6 @@ public class BattleManager : MonoBehaviour
     {
         Chara.DeckInitialize(SaveLoadManager.instance.Data.MyDecks);
         Enemy.DeckInitialize(EnemyDecks.GetDeck(BattleInfo.EnemyDeckNum));
-
-        //テストのために一旦変更　後で直す
-        //Deck = SaveLoadManager.instance.Data.MyDecks;
-        Deck = EnemyDecks.GetDeck(1);
-        EnemyDeck = EnemyDecks.GetDeck(BattleInfo.EnemyDeckNum);
-
-        //相手と自分のシャッフル処理
-        {
-            // 整数 n の初期値はデッキの枚数
-            int n = 20;
-
-            // nが1より小さくなるまで繰り返す
-            while (n > 1)
-            {
-                n--;
-
-                // kは 0 ～ n+1 の間のランダムな値
-                int k = Random.Range(0, n + 1);
-
-                // k番目のカードをtempに代入
-                int temp = Deck[k];
-                Deck[k] = Deck[n];
-                Deck[n] = temp;
-
-                // kは 0 ～ n+1 の間のランダムな値
-                k = Random.Range(0, n + 1);
-
-                // k番目のカードをtempに代入
-                int EnemyTemp = EnemyDeck[k];
-                EnemyDeck[k] = EnemyDeck[n];
-                EnemyDeck[n] = EnemyTemp;
-            }
-        }
 
         Chara.Draw(5);
         Enemy.Draw(5);
@@ -180,8 +158,6 @@ public class BattleManager : MonoBehaviour
     public IEnumerator MakeCards(List<int> Cards)
     {
         int TransCount = HandField.childCount;
-
-        print(TransCount);
 
         for (int i = TransCount; i < TransCount+Cards.Count; i++)
         {
@@ -236,6 +212,13 @@ public class BattleManager : MonoBehaviour
     //ターンカウント増やしたりドローしたり
     public void TurnChange()
     {
+        if (ClearFlag)
+        {
+            Clear();
+
+            return;
+        }
+
         int MyDraw = Chara.Para.DrawNum, EnemyDraw = Enemy.Para.DrawNum;
 
         Chara.Draw(MyDraw);
@@ -321,8 +304,40 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
 
+        TurnInfo = new TurnInformation();
+
         for (int i = 0; i < 4; i++)
         {
+            TurnInfo.NowMoveNum = i;
+
+            if (TurnInfo.CancelFlag)
+            {
+                TurnInfo.CancelFlag = false;
+
+                if (i==3)
+                {
+                    break;
+                }
+
+                if (MoveOrder[i+1])
+                {
+                    if (Chara.Choiced.Count != 0)
+                    {
+                        Chara.Choiced.RemoveAt(0);
+                    }
+                }
+                else
+                {
+                    if (Enemy.Choiced.Count!=0)
+                    {
+                        Enemy.Choiced.RemoveAt(0);
+                    }
+                    
+                }
+
+                continue;
+            }
+
             //自分行動
             if (MoveOrder[i])
             {
@@ -332,17 +347,45 @@ public class BattleManager : MonoBehaviour
 
                     Type type = Type.GetType(CardDataBase.GetCardParameter(CardNumber).ScriptName);
 
+                    print(CardDataBase.GetCardParameter(CardNumber).ScriptName);
+
                     CardBase Card = (CardBase)Activator.CreateInstance(type);
+
                     Card.Parameter = CardDataBase.GetCardParameter(CardNumber);
+
+                    //音を鳴らす
+                    Audio.clip = Card.Parameter.UseSE;
+                    Audio.Play();
+
+                    print(Card.Parameter.Name);
 
                     Card.Coroutine(this, true);
 
                     yield return new WaitForSeconds(Card.Parameter.WaitTime);
 
+                    //処理が終わった後に手札を消す
                     Destroy(HandCardTrans[Chara.Choiced[0]].gameObject);
 
-                    Chara.HandCard.RemoveAt(Chara.Choiced[0]);
-                    Chara.Choiced.RemoveAt(0);
+                    if (Chara.Choiced.Count>1&&Chara.Choiced[1]>Chara.Choiced[0])
+                    {
+
+                        for (int u = Chara.Choiced[0]; u < 8; u++)
+                        {
+                            HandCardTrans[u] = HandCardTrans[u + 1];
+                        }
+
+                        HandCardTrans[8] = null;
+
+                        Chara.HandCard.RemoveAt(Chara.Choiced[0]);
+                        Chara.Choiced.RemoveAt(0);
+
+                        Chara.Choiced[0]--;
+                    }
+                    else
+                    {
+                        Chara.HandCard.RemoveAt(Chara.Choiced[0]);
+                        Chara.Choiced.RemoveAt(0);
+                    }
                 }
             }
             //敵行動
@@ -350,19 +393,37 @@ public class BattleManager : MonoBehaviour
             {
                 if (Enemy.Choiced.Count != 0)
                 {
+
                     int CardNumber = Enemy.HandCard[Enemy.Choiced[0]];
 
                     Type type = Type.GetType(CardDataBase.GetCardParameter(CardNumber).ScriptName);
 
                     CardBase Card = (CardBase)Activator.CreateInstance(type);
+
                     Card.Parameter = CardDataBase.GetCardParameter(CardNumber);
+
+                    //音を鳴らす
+                    Audio.clip = Card.Parameter.UseSE;
+                    Audio.Play();
+
+                    print(Card.Parameter.Name);
 
                     Card.Coroutine(this, false);
 
                     yield return new WaitForSeconds(Card.Parameter.WaitTime);
 
-                    Enemy.HandCard.RemoveAt(Enemy.Choiced[0]);
-                    Enemy.Choiced.RemoveAt(0);
+                    if (Enemy.Choiced.Count > 1 && Enemy.Choiced[1] > Enemy.Choiced[0])
+                    {
+                        Enemy.HandCard.RemoveAt(Enemy.Choiced[0]);
+                        Enemy.Choiced.RemoveAt(0);
+
+                        Enemy.Choiced[0]--;
+                    }
+                    else
+                    {
+                        Enemy.HandCard.RemoveAt(Enemy.Choiced[0]);
+                        Enemy.Choiced.RemoveAt(0);
+                    }
                 }
             }
         }
@@ -446,30 +507,44 @@ public class BattleManager : MonoBehaviour
 
     public void GameOver()
     {
-        //後で直す
-        SceneManager.LoadScene("Title");
+        Fader.SetActive(true);
+
+        Fader.GetComponent<Image>().DOFade(1f, 1f).OnComplete(() =>
+        {
+            //後で直す
+            SceneManager.LoadScene("Title");
+        });
+
     }
 
     public void Clear()
     {
-        switch (BattleInfo.EndType)
+        Fader.SetActive(true);
+
+        Fader.GetComponent<Image>().DOFade(1f, 1f).OnComplete(() =>
         {
-            case BattleInformation.BattleEndType.Battle:
+            switch (BattleInfo.EndType)
+            {
+                case BattleInformation.BattleEndType.Battle:
 
-                SaveLoadManager.instance.NextBattle = BattleInfo.EndDetail;
+                    SaveLoadManager.instance.NextBattle = BattleInfo.EndDetail;
 
-                SceneManager.LoadScene("Battle");
+                    SceneManager.LoadScene("Battle");
 
-                break;
+                    break;
 
-            case BattleInformation.BattleEndType.Novel:
+                case BattleInformation.BattleEndType.Novel:
 
-                SaveLoadManager.instance.NextNovel = int.Parse(BattleInfo.EndDetail);
+                    SaveLoadManager.instance.NextNovel = int.Parse(BattleInfo.EndDetail);
 
-                SceneManager.LoadScene("Novel");
+                    SceneManager.LoadScene("Novel");
 
-                break;
-        }
+                    break;
+            }
+        });
+
+
+        
 
         //後で直す
         //SceneManager.LoadScene("Lounge");

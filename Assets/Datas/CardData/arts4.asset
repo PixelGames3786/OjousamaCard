@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3542f80f196cca54cadb0092f926db6f, type: 3}
+  m_Name: arts4
+  m_EditorClassIdentifier: 
+  CardID: 11
+  Name: "\u4EE3\u511F\u578B\u653B\u6483\u30A2\u30FC\u30C4"
+  Description: 
+  Rare: 0
+  Cost: 1
+  MoveNum: 3
+  DisplayPower: 0
+  MinPowers: 040000000200000003000000
+  MaxPowers: 070000000700000004000000
+  WaitTime: 2.5
+  Icon: {fileID: 21300000, guid: 19ad9d63b253a494886f29fb095a32d8, type: 3}
+  UseSE: {fileID: 8300000, guid: 374ef85531f9d8744a4a7a1530b3ba14, type: 3}
+  Types: 000000000000000005000000
+  MyChara: 1
+  Enemy: 3
+  ScriptName: NormalCard

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentences:
   - id: 0
-    message: "\u3053\u308C\u306F\u30C6\u30B9\u30C8\u30C6\u30AD\u30B9\u30C8\u3060\u3088"
+    message: 
     branch: 0
     yesMessage: 
     noMessage: 
@@ -25,26 +25,15 @@ MonoBehaviour:
     endOfTalk: 0
     sceneChange: 
     nextBattle: 
-    Talker: "\u558B\u308A\u624BA,Left"
-    Tatie: Ojou_Normal,Left
-    BackGround: Black
-  - id: 1
-    message: "\u4ECA\u306F\u30C6\u30B9\u30C8\u7248\u3060\u3051\u3069\u6587\u5B57\u9001\u308A\u3068\u304B\u8272\u3005\u5B9F\u88C5\u3059\u308B\u4E88\u5B9A\u3060\u3088"
-    branch: 0
-    yesMessage: 
-    noMessage: 
-    choseYes: 0
-    choseNo: 0
-    doConnect: 0
-    skipId: 0
-    endOfTalk: 0
-    sceneChange: 
-    nextBattle: 
-    Talker: "\u558B\u308A\u624BB,Right"
+    Talker: 
     Tatie: 
-    BackGround: 
-  - id: 2
-    message: "\u30FB\u30FB\u30FB"
+    BackGround: Black,1
+    SE: 
+    BGM: Play,intro,1
+    Special: SceneFadeIn,1
+    NeedClick: 0
+  - id: 1
+    message: "\u304A\u5B22\u69D8\u3002"
     branch: 0
     yesMessage: 
     noMessage: 
@@ -58,8 +47,12 @@ MonoBehaviour:
     Talker: 
     Tatie: 
     BackGround: 
-  - id: 3
-    message: "\u3053\u3093\u306A\u3075\u3046\u306B\u558B\u308A\u624B\u306B\u5909\u66F4\u304C\u3042\u308B\u3068\u304D\u3060\u3051Talker\u3092\u3044\u3058\u3063\u3066\u306D"
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 2
+    message: "\u305D\u308C\u306F\u9AD8\u8CB4\u306A\u751F\u307E\u308C\u3092\u6301\u3064\u5973\u6027\u306B\u5BFE\u3059\u308B\u656C\u79F0\u3067\u3042\u308B\u3002"
     branch: 0
     yesMessage: 
     noMessage: 
@@ -70,10 +63,1650 @@ MonoBehaviour:
     endOfTalk: 0
     sceneChange: 
     nextBattle: 
-    Talker: "\u3042\u3042\u3042,Left"
+    Talker: 
     Tatie: 
     BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 3
+    message: "\u3057\u304B\u3057\u3001\u9AD8\u8CB4\u306A\u751F\u307E\u308C\u3060\u3051\u3067\u306F\u666E\u901A\u306E\u4EBA\u9593\u306F\u304A\u5B22\u69D8\u8DB3\u308A\u3048\u306A\u3044\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
   - id: 4
+    message: "\u9AD8\u8CB4\u306A\u632F\u308B\u821E\u3044\u3001\u9AD8\u8CB4\u306A\u793C\u7BC0\u3001\u9AD8\u8CB4\u306A\u5FC3\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 5
+    message: "\u9AD8\u8CB4\u306A\u9854\u7ACB\u3061\u3002\u9AD8\u8CB4\u306A\u982D\u8133\u3002\u9AD8\u8CB4\u306A\u91D1\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 6
+    message: "\u305D\u3057\u3066\u4F55\u3088\u308A\u3001\u9AD8\u8CB4\u306A\u30D1\u30EF\u30FC\u3002\u3053\u308C\u3089\u304C\u4E00\u3064\u3067\u3082\u6B20\u3051\u3066\u306F\u306A\u3089\u306A\u3044\u3057\u3001\u9006\u306B\u3053\u308C\u3089\u304C\u3042\u308B\u8005\u306B\u306F\u3001\u300C\u304A\u5B22\u69D8\u300D\u3068\u656C\u610F\u3092\u8FBC\u3081\u3066\u4EBA\u3005\u304B\u3089\u305D\u3046\u547C\u3070\u308C\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 7
+    message: "\u304A\u5B22\u69D8\u306F\u9AD8\u8CB4\u306A\u5B58\u5728\u3067\u3042\u308B\u3068\u5168\u4EBA\u985E\u304C\u305D\u3046\u8A8D\u8B58\u3057\u3066\u3044\u305F\n\u6642\u3001\u3042\u308B\u7537\u304C\u3053\u3046\u8A00\u3063\u305F\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 8
+    message: "\u300C\u4FFA\u306E\u304A\u5B22\u304C\u4E16\u754C\u3067\u4E00\u756A\u9AD8\u8CB4\u306A\u304A\u5B22\u3060\u3002\u3060\u304B\u3089\u4FFA\u306E\u304A\u5B22\n\u304C\u4E16\u754C\u3067\u4E00\u756A\u306E\u304A\u5B22\u69D8\u3060\u300D\u3001\u3068\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 9
+    message: "\u3057\u304B\u3057\u305D\u308C\u3092\u805E\u3044\u305F\u9055\u3046\u7537\u304C\u3053\u3046\u8A00\u3044\u8FD4\u3059\u3002\u300C\u3044\u3084\u3001\u79C1\u306E\u304A\u5B22\u69D8\u304C\u4E16\u754C\u3067\u4E00\u756A\u53EF\u611B\u3044\u3002\u3060\u304B\u3089\u79C1\u306E\u304A\u5B22\u69D8\u3053\u305D\u304C\u3001\u4E16\u754C\u3067\u4E00\u756A\u306E\u304A\u5B22\u69D8\u3060\u300D\u3001\u3068\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 10
+    message: "\u305D\u3057\u30662\u4EBA\u306E\u3084\u308A\u53D6\u308A\u3092\u805E\u3044\u3066\u3044\u305F\u3042\u308B\u7537\u304C2\u4EBA\u306E\u304F\u3060\u3089\u306A\u3044\u4E89\u3044\u3092\u6B62\u3081\u308B\u305F\u3081\u3001\u3053\u3046\u8A00\u3063\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 11
+    message: "\u300C\u307E\u3042\u307E\u3042\u3001\u919C\u3044\u4E89\u3044\u306F\u3084\u3081\u305F\u307E\u3048\u3002\u79C1\u306E\u304A\u5B22\u69D8\u304C\u4E00\u756A\u30D1\u30EF\u30FC\u304C\u3042\u308B\u3093\u3060\u304B\u3089\u4E00\u756A\u306E\u304A\u5B22\u69D8\u306B\u6C7A\u307E\u3063\u3066\u3044\u308B\u3060\u308D\u3046\uFF1F\u8AB0\u304C\u4E00\u756A\u304B\u306F\u4E00\u76EE\u77AD\u7136\u306A\u306E\u3060\u304B\u3089\u3001\u7121\u99C4\u306A\u3053\u3068\u3067\u8A00\u3044\u4E89\u3063\u3066\u306A\u3044\u3067\u5E73\u548C\u7684\u306B\u89E3\u6C7A\u3057\u3088\u3046\u300D\u3001\u3068\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 12
+    message: "\u305D\u3053\u304B\u3089\u306F\u8272\u3093\u306A\u4EBA\u304C\u81EA\u5206\u306E\u304A\u5B22\u69D8\u3053\u305D\u304C\u4E00\u756A\u3068\u4E3B\u5F35\u3057\u3001\u3042\u308B\u6642\u306F\u8840\u304C\u6D41\u308C\u3001\u3042\u308B\u6642\u306F\u6226\u4E89\u304C\u8D77\u3053\u308A\u3001\u3042\u308B\u6642\u306F\u56FD\u304C\u6EC5\u3093\u3060\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: PlayLoop,war,0.5
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 13
+    message: "\u304A\u5B22\u69D8\u304C\u8AB0\u304C\u4E00\u756A\u3067\u3042\u308B\u304B\u306F\u6C38\u9060\u306E\u4EBA\u985E\u306E\u8AB2\u984C\u3067\u3042\u308A\u3001\u4EBA\u985E\u6700\u7D42\u5B9A\u7406\u3068\u540C\u7FA9\u3067\u3042\u308A\u3001\u305D\u308C\u3092\u89E3\u6C7A\u3059\u308B\u305F\u3081\u306B\u4E16\u754C\u306F\u30AB\u30AA\u30B9\u306A\u6DF7\u6C8C\u3092\u6975\u3081\u3001\u3042\u307E\u308A\u306B\u3082\u591A\u304F\u306E\u8840\u304C\u6D41\u308C\u305F\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 14
+    message: "\u305D\u3057\u3066\u3001\u4EBA\u3005\u304C\u89E3\u6C7A\u306B\u56F0\u618A\u3057\u3001\u8352\u3093\u3067\u3044\u305F\u6642\u306B\u3001\u3042\u308B\u4E00\u4EBA\u304C\u8840\u3092\u6D41\u3055\u306A\u3044\u3001\u5E73\u548C\u7684\u306A\u89E3\u6C7A\u306E\u624B\u6BB5\u3092\u63D0\u5531\u3057\u305F\u3002\u305D\u308C\u304C\u3001"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: Stop,0.5
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 15
+    message: "\u300C\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u300D"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 16
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Big,1
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 17
+    message: "\u304A\u5B22\u69D8\u540C\u58EB\u304C\u6226\u3048\u3070\u3001\u8AB0\u304C\u4E00\u756A\u304B\u7C21\u5358\u306B\u6C7A\u307E\u308B\u3058\u3083\u3093\u3068\u3044\u3046\u5B89\u76F4\u306A\u8003\u3048\u3067\u3042\u3063\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: PlayLoop,stadium,0.5
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 18
+    message: "\u3057\u304B\u3057\u305D\u306E\u5B89\u76F4\u3055\u306B\u5BFE\u3057\u3001\u4EBA\u3005\u306F\u597D\u8272\u3092\u793A\u3057\u3001\u305D\u306E\u63D0\u5531\u8005\u306E\u5468\u308A\u3067\u8CDB\u540C\u8005\u3001\u53C2\u52A0\u8005\u304C\u3069\u3093\u3069\u3093\u5897\u3048\u3066\u3044\u304D\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 19
+    message: "\u56FD\u304C\u300C\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u300D\u3092\u516C\u8A8D\u3057\u305F\u6642\u306B\u306F\u3001\u300C\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u300D\u4F1A\u5834\u306B\u306F\u4E16\u754C\u4E2D\u306E\u304A\u5B22\u69D8\u304C\u305D\u3053\u306B\u96C6\u307E\u308A\u3001\u4E00\u756A\u3092\u6C7A\u3081\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 20
+    message: "\u3053\u308C\u304C\u4E16\u754C\u6700\u521D\u306E\u300C\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u300D\u306E\u5927\u4F1A\u3001\u300CLady's
+      taste\u300D\u306E\u8A95\u751F\u7D4C\u7DEF\u3068\u8A00\u308F\u308C\u3066\u3044\u308B\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 21
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Black,0.5
+    SE: Stop,0.5
+    BGM: Stop,0.5
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 22
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 23
+    message: "\u305D\u3057\u3066\u4ECA\u3001\u3053\u306E\u5927\u4F1A\u306B\u53C2\u52A0\u3057\u3088\u3046\u3068\u3057\u3066\u3044\u308B\u4E00\u4EBA\u306E\u304A\u5B22\u69D8\u304C\u3001\u3053\u306E\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 24
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,1
+    NeedClick: 0
+  - id: 25
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Corridor,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,1
+    NeedClick: 0
+  - id: 26
+    message: "\uFF7A\uFF9D\uFF7A\uFF9D"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: PlayStopLoop,knock1,0
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 27
+    message: "\u2026\u30A2\u30E4\u30B5\u69D8\u3002\u64AE\u5F71\u306E\u7528\u610F\u304C\u6574\u3044\u307E\u3057\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 28
+    message: "\u2026\u2026\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\uFF1F\uFF1F\uFF1F,Left"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 29
+    message: "\uFF7A\uFF9D\uFF7A\uFF9D"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Both
+    Tatie: 
+    BackGround: 
+    SE: Play,knock2,0
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 30
+    message: "\u30A2\u30E4\u30B5\u69D8\u3002\u30A2\u30E4\u30B5\u304A\u5B22\u69D8\u3002\u64AE\u5F71\u306E\u7528\u610F\u304C\u6574\u3044\u307E\u3057\u305F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 31
+    message: "\u2026\u2026\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\uFF1F\uFF1F\uFF1F,Left"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 32
+    message: "\u2026\u304A\u5B22\u69D8\u3001\u5931\u793C\u3044\u305F\u3057\u307E\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 33
+    message: "\uFF76\uFF9E\uFF81\uFF6C"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Both
+    Tatie: 
+    BackGround: 
+    SE: Play,open,0
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 34
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,1
+    NeedClick: 0
+  - id: 35
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Waiting,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,1
+    NeedClick: 0
+  - id: 36
+    message: "\u2026\u2026\u2026ZZZ"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: FadeIn,1L sleepy,Left
+    BackGround: 
+    SE: 
+    BGM: Play,neutral,1
+    Special: 
+    NeedClick: 1
+  - id: 37
+    message: "\u3042\u3041\u3082\u3046\u3001\u30A2\u30E4\u30B5\u69D8\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 38
+    message: "\u2026\u2026\u3093\u3042\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 39
+    message: "\u4F55\u6545\u30BD\u30D5\u30A1\u304C\u3042\u308B\u306E\u306B\u5E8A\u306E\u4E0A\u3067\u5927\u306E\u5B57\u306B\u5BDD\u3066\u3093\u3067\u3059\u304B\uFF01\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 40
+    message: "\u3093\u3093\u2026\u8D77\u304D\u629C\u3051\u304B\u3089\u3084\u304B\u307E\u3057\u3044\u3067\u3059\u308F\u306D\u3001\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC\u306F\u2026\u3002\u6E96\u5099\u304C\u7D42\u308F\u308B\u307E\u3067\u90E8\u5C4B\u3067\u5F85\u3066\u3068\u8A00\u3063\u305F\u306E\u306F\u305D\u3061\u3089\u3067\u306F\u306A\u304F\u3066\u2026\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 41
+    message: "\u3060\u304B\u3089\u3068\u3044\u3063\u3066\u3001\u3053\u3053\u307E\u3067\u3060\u3089\u3057\u306A\u3044\u5C45\u7720\u308A\u3092\u306A\u3055\u3089\u306A\u3044\u3067\u304F\u3060\u3055\u3044\uFF01\u3042\u3041\u3001\u6D8E\u304C\u5E8A\u306B\u5782\u308C\u3066\u308B\u3057\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 42
+    message: "\u4ED5\u65B9\u306A\u3044\u3058\u3083\u306A\u3044\u3067\u3059\u304B\u3001\u79C1\u304C\u3068\u3063\u3066\u3082\u75B2\u308C\u3066\u3044\u308B\u3053\u3068\u3001\u3042\u306A\u305F\u3082\u304A\u308F\u304B\u308A\u3067\u306F\u306A\u304F\u3066\uFF1F\u5143\u3005\u4ECA\u65E5\u306F\u30AA\u30D5\u306E\u4E88\u5B9A\u3067\u3001\u3060\u304B\u3089\u6628\u65E5\u306F\u9045\u304F\u307E\u3067\u3042\u306E\u30CF\u30B2\u306B\u6355\u307E\u3063\u3066\u3044\u305F\u3068\u3044\u3046\u306E\u306B\u3001\u7A81\u7136\u30B8\u30E5\u30F3\u30B3\u306E\u3068\u3053\u304B\u3089\u4ED5\u4E8B\u306E\u4F9D\u983C\u306A\u3093\u3066\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired1,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 43
+    message: "\u304A\u6C17\u6301\u3061\u306F\u308F\u304B\u308A\u307E\u3059\u304C\u3001\u3042\u3061\u3089\u306E\u30B9\u30BF\u30C3\u30D5\u306E\u7686\u69D8\u3082\u4ECA\u65E5\u306F\u3044\u3089\u3057\u3066\u307E\u3059\u304B\u3089\u3001\u3069\u3046\u304B\u6211\u6162\u306A\u3055\u3063\u3066\u304F\u3060\u3055\u3044\u3002\u305D\u308C\u304B\u3089\u5263\u8853\u30B3\u30FC\u30C1\u3092\u30CF\u30B2\u3068\u547C\u3070\u306A\u3044\u3067\u3042\u3052\u3066\u304F\u3060\u3055\u3044\u3002\u5F7C\u3001\u7D50\u69CB\u6C17\u306B\u3057\u3066\u308B\u3093\u3067\u3059\u304B\u3089\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 44
+    message: "\u3042\u30FC\u3001\u80A9\u304C\u91CD\u3044\u3067\u3059\u308F\u3041\u3002\u3053\u306E\u3088\u3046\u306A\u30B3\u30F3\u30C7\u30A3\u30B7\u30E7\u30F3\u3067\u5200\u306A\u3069\u632F\u308A\u305F\u304F\u306F\u3042\u308A\u307E\u305B\u3093\u304C\u2026\u307E\u3041\u79C1\u306E\u5BA3\u6750\u52D5\u753B\u306E\u305F\u3081\u3068\u3042\u308C\u3070\u3001\u4ED5\u65B9\u3042\u308A\u307E\u305B\u3093\u308F\u306D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired3,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 45
+    message: "\u30A2\u30E4\u30B5\u69D8\u306E\u5BA3\u6750\u52D5\u753B\u3067\u306F\u306A\u304F\u3001\u30B9\u30DD\u30F3\u30B5\u30FC\u4F1A\u793E\u306E\u300E\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u300F\u306E\u5BA3\u6750\u52D5\u753B\u3067\u3059\u3002\u304A\u9593\u9055\u3048\u7121\u304D\u3088\u3046\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 46
+    message: "\u306F\u3044\u306F\u3044\u3001\u308F\u304B\u3063\u3066\u3044\u307E\u3059\u308F\u3002\u30E1\u30A4\u30AF\u3082\u8863\u88C5\u3082\u4E88\u3081\u6E96\u5099\u3057\u3066\u30D0\u30C3\u30C1\u30EA\u3067\u3059\u3057\u3001\u3055\u3063\u3055\u3068\u884C\u304D\u307E\u3059\u308F\u3088\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired1,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 47
+    message: "\u304A\u5F85\u3061\u4E0B\u3055\u3044\u3001\u79C1\u306E\u65B9\u3067\u8863\u88C5\u306E\u78BA\u8A8D\u3092\u2026\u3063\u3066\u3001\u3042\uFF01\u3055\u3063\u304D\u305D\u306E\u8863\u88C5\u7740\u305F\u307E\u307E\u5E8A\u3067\u5BDD\u3066\u307E\u3057\u305F\u306D\uFF01\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 48
+    message: "\u3042\u3001\u3084\u3079"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L impatience,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 49
+    message: "\u30A2\u30E4\u30B5\u69D8\uFF1F\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 50
+    message: "\u3075\u3063\u3075\u3063\u3075\u2026\u4E09\u5341\u516D\u8A08\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L warusou,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 51
+    message: "\u306A\u3093\u3068\u3084\u3089\u3067\u3059\u308F\uFF01\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L yummy,Left
+    BackGround: 
+    SE: Play,don,1
+    BGM: Play,shady,1
+    Special: 
+    NeedClick: 1
+  - id: 52
+    message: "\uFF8B\uFF9E\uFF6D\uFF70\uFF9D"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Left
+    Tatie: FadeOut,,Left
+    BackGround: 
+    SE: Play,run,1
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 53
+    message: "\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 54
+    message: "\u3042\u3063\u5F85\u3066\u3063\uFF01\u8AB0\u304B\u304A\u5B22\u69D8\u6355\u307E\u3048\u3066\u3047\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 55
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: FadeOut,,Right
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 56
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Both
+    Tatie: 
+    BackGround: Corridor,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 57
+    message: "\u9727\u5207 \u30A2\u30E4\u30B5\u3002\u30B3\u30A6\u30D0\u30B7\u5730\u65B9\u304B\u3089\u8EE2\u6821\u3057\u3066\u304D\u305F\u304A\u5B22\u69D8\u3002\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u306B\u5F37\u3044\u95A2\u5FC3\u304C\u3042\u308A\u3001\u8EE2\u6821\u3057\u305F\u5B66\u6821\u306E\u304A\u5B22\u69D8\u30D0\u30C8\u30EB\u90E8\u306E\u4F53\u9A13\u5165\u90E8\u3092\u3057\u3066\u3044\u308B\u6642\u306BCE(\u30AF\u30EA\u30A2\u30A8\u30F3\u30B8\u30CB\u30A2\u30EA\u30F3\u30B0)\u793E\u306E\u793E\u9577\u4EE4\u5B22\u3067\u3042\u308B\u660E\u6708\u30B8\u30E5\u30F3\u30B3\u3068\u3044\u3046\u304A\u5B22\u69D8\u306B\u624D\u80FD\u3092\u898B\u51FA\u3055\u308C\u3001CE\u793E\u306E\u30B9\u30DD\u30F3\u30B5\u30FC\u9078\u624B\u306B\u30B9\u30AB\u30A6\u30C8\u3055\u308C\u308B\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: FadeIn,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 58
+    message: "\u5727\u5012\u7684\u306A\u30B9\u30D4\u30FC\u30C9\u3068\u5929\u624D\u7684\u306A\u6210\u9577\u6027\u3092\u517C\u306D\u5099\u3048\u3066\u304A\u308A\u3001\u305D\u308C\u3067\u4ED6\u306E\u304A\u5B22\u69D8\u3092\u8599\u304E\u6255\u3044\u3001\u5927\u4F1A\u3092\u512A\u52DD\u3059\u308B\u2026\u3068\u672C\u4EBA\u306F\u8C6A\u8A9E\u3057\u3066\u3044\u308B\u3002\u4ECA\u306F\u76F4\u8FD1\u306E\u5927\u578B\u5927\u4F1A\u300CLady's
+      taste\u300D\u306B\u5411\u3051\u3066\u7DF4\u7FD2\u4E2D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 59
+    message: "\u3075\u3063\u3075\u30FC\u3093"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 60
+    message: "\uFF82\uFF99\uFF6F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Left
+    Tatie: 
+    BackGround: 
+    SE: Play,banana,1
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 61
+    message: "\u3042\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: Change,1L impatience,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 62
+    message: "\u308F\u3068\u3068\u3001\u308F\u3068\u3068\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: Play,watoto,1
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 63
+    message: "(\u7834\u58CA\u7684\u306A\u97F3)"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Left
+    Tatie: FadeOut,,Left
+    BackGround: 
+    SE: Play,hakai,1
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 64
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 65
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Studio,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 66
+    message: "\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: FadeIn,1L tired2,Left
+    BackGround: 
+    SE: 
+    BGM: Play,dozi,1
+    Special: 
+    NeedClick: 1
+  - id: 67
+    message: "\u3068\u3044\u3046\u308F\u3051\u3067\u30B9\u30DD\u30F3\u30B5\u30FC\u5BA3\u6750\u52D5\u753B\u306E\u305F\u3081\u306B\u52D5\u304D\u3092\u64AE\u5F71\u3057\u307E\u3059\u306E\u3067\u3001\u653B\u6483\u52D5\u4F5C\u3092\u30AB\u30E1\u30E9\u306B\u5411\u304B\u3063\u3066\u304A\u9858\u3044\u3057\u307E\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 68
+    message: "\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 69
+    message: "\u307E\u305F\u3001\u653B\u6483\u5BFE\u8C61\u304C\u3044\u306A\u3044\u3068\u653B\u6483\u3057\u3065\u3089\u3044\u3067\u3057\u3087\u3046\u306E\u3067\u3053\u3061\u3089\u306E\u65B9\u3067\u4EBA\u5F62\u3092\u7528\u610F\u3057\u307E\u3057\u305F\u3002\u4EBA\u5F62\u306B\u5411\u304B\u3063\u3066\u653B\u6483\u3092\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 70
+    message: "\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 71
+    message: "\u2026\u30A2\u30E4\u30B5\u69D8\u3001\u79C1\u304C\u53F1\u3063\u305F\u306E\u306F\u30A2\u30E4\u30B5\u69D8\u304C\u5C06\u6765\u6709\u540D\u306A\u9078\u624B\u306B\u306A\u3063\u305F\u6642\u306B\u7C97\u76F8\u3092\u3057\u3066\u3001\u30D5\u30A1\u30F3\u306E\u65B9\u3005\u306B\u5931\u671B\u3055\u308C\u306A\u3044\u3088\u3046\u306B\u304D\u3064\u304F\u8A00\u3063\u3066\u3044\u308B\u3093\u3067\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 72
+    message: "\u3057\u304B\u3082\u3042\u3093\u306A\u306B\u8A2D\u5099\u3092\u7C89\u3005\u306B\u7834\u58CA\u3057\u3066\u3001\u3082\u3057\u6255\u3048\u306A\u3044\u91D1\u984D\u3060\u3063\u305F\u3089\u4ECA\u9803\u79C1\u3082\u30A2\u30E4\u30B5\u69D8\u3082\u30AF\u30D3\u304C\u98DB\u3073\u304B\u306D\u307E\u305B\u3093\u3067\u3057\u305F\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 73
+    message: "\u5225\u306B\u304A\u5B22\u69D8\u3092\u53F1\u308A\u305F\u304F\u3066\u53F1\u3063\u3066\u3044\u308B\u308F\u3051\u3067\u306F\u306A\u3044\u3093\u3067\u3059\u3002\u305F\u3060\u304A\u5B22\u69D8\u304C\u5C06\u6765\u30C8\u30E9\u30D6\u30EB\u306B\u5DFB\u304D\u8FBC\u307E\u308C\u306A\u3044\u305F\u3081\u306B\u8A00\u3063\u3066\u3044\u308B\u3093\u3067\u3059\u3002\u3060\u304B\u3089\u3044\u3044\u52A0\u6E1B\u6A5F\u5ACC\u3092\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u2026\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 74
+    message: "\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: Stop,1
+    Special: 
+    NeedClick: 1
+  - id: 75
+    message: "\u3051\u3063\u3002\u3042\u3044\u3042\u3044\u5206\u304B\u3063\u3066\u307E\u3059\u308F\u3088\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired3,Left
+    BackGround: 
+    SE: 
+    BGM: Play,neutral1,1
+    Special: 
+    NeedClick: 1
+  - id: 76
+    message: "(\u826F\u304B\u3063\u305F\u3001\u3053\u308C\u3067\u306A\u3093\u3068\u304B\u64AE\u5F71\u306F\u51FA\u6765\u305D\u3046\u2026)"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 77
+    message: "\u3093\u3067\u3001\u3053\u306E\u30B9\u30BF\u30B8\u30AA\u3092\u3076\u3063\u58CA\u305B\u3070\u3044\u3044\u3093\u3067\u3059\u306E\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L warusou,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 78
+    message: "\u5206\u304B\u3063\u3066\u307E\u3059\u304B\uFF01\uFF1F\uFF01\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 79
+    message: "\u30AA\u30C3\u30DB\u30C3\u30DB\u3001\u5197\u8AC7\u3067\u3059\u308F\u3088\u3002\u30AB\u30EB\u30B7\u30A6\u30E0\u304C\u8DB3\u308A\u3066\u306A\u3044\u3093\u3067\u306F\u306A\u304F\u3066\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 80
+    message: "(\u30B3\u30A4\u30C4\u3001\u6905\u5B50\u306B\u7E1B\u308A\u4ED8\u3051\u3066\u3084\u308D\u3046\u304B\uFF1F)"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 81
+    message: "\u3067\u3082\u3001\u3053\u308C\u4EE5\u4E0A\u4E0D\u6A5F\u5ACC\u306B\u306A\u3063\u305F\u3089\u672C\u5F53\u306B\u58CA\u3057\u3066\u3057\u307E\u3046\u304B\u3082\u3057\u308C\u307E\u305B\u3093\u308F\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L yummy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 82
+    message: "\u2026\u2026\u2026\u3002\u306F\u3044\u3001\u6C17\u3092\u3064\u3051\u307E\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 83
+    message: "\u3046\u3093\u3001\u3088\u308D\u3057\u3044\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 84
+    message: "\u305D\u308C\u3067\u306F\u3001\u884C\u3063\u3066\u304D\u307E\u3059\u308F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 85
+    message: "\u672C\u5F53\u306B\u6C17\u3092\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u306D\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 86
+    message: "\u4EFB\u305B\u3066\u304F\u3060\u3055\u3044\u307E\u3057\u3002\u3060\u3063\u3066\u79C1\u306F\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L warusou,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 87
+    message: "\u4E16\u754C\u3067\u4E00\u756A\u306E\u304A\u5B22\u69D8\u3060\u3082\u306E"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L neutaral,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 88
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: FadeOut,,Both
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,1
+    NeedClick: 0
+  - id: 89
     message: 
     branch: 0
     yesMessage: 
@@ -88,3 +1721,1016 @@ MonoBehaviour:
     Talker: 
     Tatie: 
     BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 90
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Studio,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,1
+    NeedClick: 0
+  - id: 91
+    message: "\u304A\u75B2\u308C\u3055\u307E\u3067\u3057\u305F\u3001\u304A\u5B22\u69D8\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: 
+    SE: 
+    BGM: Play,neutral2,1
+    Special: 
+    NeedClick: 1
+  - id: 92
+    message: "\u306F\u3041\u3002\u308F\u304B\u3063\u3066\u3044\u305F\u3053\u3068\u3067\u306F\u3042\u308A\u307E\u3059\u304C\u3001\u3053\u308C\u3067\u306F\u7D20\u632F\u308A\u3068\u4F55\u3089\u5909\u308F\u3089\u306A\u304F\u3066\u9000\u5C48\u6975\u307E\u308A\u306A\u3044\u3067\u3059\u308F\u306D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: FadeIn,1L tired3,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 93
+    message: "\u52D5\u304B\u306A\u3044\u4EBA\u5F62\u76F8\u624B\u3067\u306F\u305D\u3046\u3067\u3057\u3087\u3046\u306D\u3002\u3067\u3059\u304C\u3001\u5148\u7A0B\u307E\u3067\u3042\u308C\u307B\u3069\u75B2\u308C\u305F\u3068\u304A\u3063\u3057\u3083\u3063\u3066\u3044\u305F\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u304B\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 94
+    message: "\u305D\u308C\u306F\u305D\u308C\u3001\u3053\u308C\u306F\u3053\u308C\u3002\u3069\u3046\u305B\u6B66\u5668\u3092\u632F\u308B\u3046\u306A\u3089\u3001\u3082\u3046\u5C11\u3057\u7DCA\u5F35\u611F\u304C\u3042\u308A\u307E\u305B\u3093\u3068\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired1,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 95
+    message: "\u3067\u3057\u305F\u3089\u3001\u6B21\u306E\u30AB\u30C3\u30C8\u306E\u64AE\u5F71\u306F\u3061\u3087\u3046\u3069\u3044\u3044\u304B\u3082\u77E5\u308C\u307E\u305B\u3093\u306D\u3002\u4E88\u5B9A\u3067\u3059\u3068\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 96
+    message: "\u6A21\u64EC\u6226\u3067\u3059\u308F\u306D\uFF01\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L interesting,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 97
+    message: "\u2026\u306F\u3001\u306F\u3044\u3002\u30A2\u30E4\u30B5\u69D8\u3068\u540C\u3058\u304F\u30AF\u30EA\u30A2\u30FB\u30A8\u30F3\u30B8\u30CB\u30A2\u30EA\u30F3\u30B0\u6240\u5C5E\u306E\u9078\u624B\u3068\u306E\u6A21\u64EC\u6226\u3092\u64AE\u5F71\u3059\u308B\u4E88\u5B9A\u3067\u3054\u3056\u3044\u307E\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 98
+    message: "\u3088\u3063\u3057\u6765\u307E\u3057\u305F\u308F\u306D\uFF01\u3069\u3093\u306A\u76F8\u624B\u3060\u308D\u3046\u3068\u65AC\u308A\u4F0F\u305B\u3066\u3001\u3053\u306E\u5200\u306E\u9306\u306B\u3057\u3066\u3084\u308A\u307E\u3059\u308F\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L yummy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 99
+    message: "\u3042\u304F\u307E\u3067\u7DF4\u7FD2\u8A66\u5408\u3067\u3059\u304B\u3089\uFF01\u7269\u9A12\u306A\u3053\u3068\u304A\u3063\u3057\u3083\u3089\u306A\u3044\u3067\u304F\u3060\u3055\u3044\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 100
+    message: "\u3042\u3089\u3001\u3067\u306F\u8A00\u8449\u3092\u6539\u3081\u3066\u3002\n\u3069\u3093\u306A\u76F8\u624B\u3060\u308D\u3046\u3068\u3001\u306A\u307E\u3059\u5207\u308A\u306B\u3057\u3066\u3084\u308A\u307E\u3059\u308F\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 101
+    message: "\u7D76\u5BFE\u3084\u3081\u3066\u304F\u3060\u3055\u3044\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 102
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: FadeOut,,Both
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,1
+    NeedClick: 0
+  - id: 103
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 1
+    sceneChange: Battle
+    nextBattle: Battle02
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 104
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Studio,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.3
+    NeedClick: 0
+  - id: 105
+    message: "\u3046\u3046\u3093\uFF01\u30A2\u30AC\u3063\u3066\u6765\u307E\u3057\u305F\u308F\uFF01\u30A2\u30AC\u3063\u3066\u6765\u307E\u3057\u305F\u308F\uFF01\u30AA\u30FC\u30DB\u30DB\u30DB\u30DB\u30DB\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: FadeIn,1L interesting,Left
+    BackGround: 
+    SE: 
+    BGM: Play,shady bver,1
+    Special: 
+    NeedClick: 1
+  - id: 106
+    message: "\u30A2\u30E4\u30B5\u69D8\uFF01\u30B9\u30C8\u30C3\u30D7\u30B9\u30C8\u30C3\u30D7\uFF01\uFF01\u66B4\u308C\u3059\u304E\u3067\u3059\u3063\u3066\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 107
+    message: "\u3048\u3047\u30FC\u3001\u7D42\u308F\u308A\u3067\u3059\u306E\uFF1F\u305B\u3063\u304B\u304F\u697D\u3057\u304F\u306A\u3063\u3066\u304D\u305F\u3068\u3053\u3067\u3059\u306E\u306B\u2026\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Both
+    Tatie: Change,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 108
+    message: "\u30A2\u30E4\u30B5\u69D8\u306E\u653B\u6483\u306E\u6D41\u308C\u5F3E\u304C\u98DB\u3073\u307E\u304F\u3063\u3066\u3001\u64AE\u5F71\u6A5F\u6750\u306B\u88AB\u5BB3\u304C\u53CA\u3093\u3067\u308B\u3093\u3067\u3059\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 109
+    message: "\u3042\u3089\u5927\u5909\u3002\u9053\u7406\u3067\u5929\u4E95\u304B\u3089\u4F55\u304B\u843D\u3061\u3066\u304F\u308B\u308F\u3051\u3067\u3059\u306E\u306D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L neutaral,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 110
+    message: "\u3061\u3087\u3063\u30DB\u30F3\u30C8\u306B\u5929\u4E95\u5D29\u308C\u3066\u308B\u3057\uFF01\uFF01\u907F\u96E3\uFF01\u5168\u54E1\u907F\u96E3\u3060\u3041\uFF01\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 111
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: FadeOut,,Both
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,1
+    NeedClick: 0
+  - id: 112
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Black,0.5
+    SE: 
+    BGM: Play,bomber,0.5
+    Special: SceneFadeIn,2
+    NeedClick: 0
+  - id: 113
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 114
+    message: "\u3042\u3041\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: Fire,1
+    SE: PlayStopLoop,aa,0.1
+    BGM: 
+    Special: SceneFadeIn,1.5
+    NeedClick: 1
+  - id: 115
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Right
+    Tatie: FadeOut,,Right
+    BackGround: 
+    SE: Stop,0.5
+    BGM: 
+    Special: SceneFadeOut,1.5
+    NeedClick: 0
+  - id: 116
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Black,0.5
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 117
+    message: "\uFF5E\u7FCC\u65E5\uFF5E"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 118
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.5
+    NeedClick: 0
+  - id: 119
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Living,0.5
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.5
+    NeedClick: 0
+  - id: 120
+    message: "\u2026\u3068\u3044\u3046\u308F\u3051\u3067\u3001\u660E\u65E5\u306E\u64AE\u5F71\u306F\u5348\u5F8C1\u6642\u304B\u3089\u3067\u3059\u3002\u6570\u679A\u306E\u5199\u771F\u306E\u64AE\u5F71\u3060\u3051\u3067\u3059\u306E\u3067\u3001\u4E00\u6642\u9593\u3082\u3057\u306A\u3044\u3046\u3061\u306B\u7D42\u308F\u308B\u3068\u306E\u3053\u3068\u3067\u3059\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC,Right"
+    Tatie: FadeIn,mane,Right
+    BackGround: 
+    SE: 
+    BGM: Play,ending,1
+    Special: 
+    NeedClick: 1
+  - id: 121
+    message: "\u307E\u305F\u9000\u5C48\u305D\u3046\u306A\u4ED5\u4E8B\u3067\u3059\u308F\u306D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "Rise,\u30A2\u30E4\u30B5,Left"
+    Tatie: FadeIn,1L tired2,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 122
+    message: "\u30A2\u30E4\u30B5\u69D8\u306B\u3082\u8CAC\u4EFB\u306E\u4E00\u7AEF\u2026\u3044\u3048\u3001\u8CAC\u4EFB\u306E10\u5272\u307B\u3069\u3092\u80CC\u8CA0\u3063\u3066\u3044\u308B\u3053\u3068\u3092\u3086\u3081\u3086\u3081\u5FD8\u308C\u3066\u306F\u306A\u308A\u307E\u305B\u3093\u3002\u65E6\u90A3\u69D8\u3082\u3042\u308C\u3060\u3051\u304A\u53F1\u308A\u306B\u306A\u3089\u308C\u305F\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u304B\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 123
+    message: "\u304A\u7236\u69D8\u306B\u53F1\u3089\u308C\u305A\u3068\u3082\u3001\u30B9\u30BF\u30B8\u30AA\u7834\u58CA\u306F\u3084\u308A\u3059\u304E\u305F\u81EA\u899A\u304C\u3042\u308A\u307E\u3059\u3057\u3001\u53CD\u7701\u3082\u3057\u3066\u307E\u3059\u308F\u3002\u305F\u3060\u5C11\u3057\u4E0D\u5B8C\u5168\u71C3\u713C\u306A\u3060\u3051\u3067\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L tired1,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 124
+    message: "\u305D\u308C\u306F\u30C8\u30EC\u30FC\u30CB\u30F3\u30B0\u306A\u3069\u3067\u4E0A\u624B\u304F\u767A\u6563\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u305F\u3060\u3057\u3001\u6628\u65E5\u307F\u305F\u3044\u306B\u30D2\u30FC\u30C8\u30A2\u30C3\u30D7\u3057\u3059\u304E\u306A\u3044\u3088\u3046\u306B\u3057\u3066\u304F\u3060\u3055\u3044\u306D\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 125
+    message: "\u305D\u3046\u5FC3\u914D\u3057\u306A\u304F\u3066\u3082\u3001\u30C8\u30EC\u30FC\u30CB\u30F3\u30B0\u5834\u306F\u3042\u306E\u30B9\u30BF\u30B8\u30AA\u3068\u9055\u3063\u3066\u5E83\u3044\u3093\u3067\u3059\u304B\u3089\u3001\u3042\u3093\u306A\u3053\u3068\u306B\u306F\u306A\u308A\u307E\u305B\u3093\u308F\u3088\u3002\u7B2C\u4E00\u3001\u3042\u306E\u30B9\u30BF\u30B8\u30AA\u304C\u79C1\u306B\u306F\u72ED\u3059\u304E\u305F\u3093\u3067\u3059\u3002\u3048\u3047\u3001\u305D\u3046\u3044\u3046\u3053\u3068\u3067\u3059\u308F\u3002"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L neutaral,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 126
+    message: "\u2026\u2026\u30A2\u30E4\u30B5\u69D8\uFF1F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 127
+    message: "\u305D\u3046\u3001\u3082\u3063\u3068\u5E83\u3044\u30B9\u30BF\u30B8\u30AA\u3092\u7528\u610F\u3059\u308C\u3070\u30C8\u30E9\u30D6\u30EB\u7121\u304F\u52D5\u753B\u64AE\u5F71\u3067\u304D\u308B\u306F\u305A\u3067\u3059\u308F\u3002\u30DE\u30CD\u30FC\u30B8\u30E3\u30FC\u3001\u3055\u3063\u305D\u304F\u5411\u3053\u3046\u306B\u9023\u7D61\u3092\u5165\u308C\u307E\u3057\u3087\u3046\uFF01\u305D\u3046\u3059\u308C\u3070\u81EA\u52D5\u7684\u306B\u3082\u3046\u4E00\u5EA6\u30D0\u30C8\u30EB\u3067\u304D\u307E\u3059\u308F\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L interesting,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 128
+    message: "\u2026\u2026\u2026"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 129
+    message: "(\u30CB\u30B3\u30C3)"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 130
+    message: "(\u30CB\u30C3\u30B3\u30EA\uFF01)"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: Change,1L happy,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 131
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: SceneFadeOut,0.1
+    NeedClick: 0
+  - id: 132
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: Black,1
+    SE: 
+    BGM: 
+    Special: SceneFadeIn,0.1
+    NeedClick: 0
+  - id: 133
+    message: "\u305D\u306E\u5F8C\u30A2\u30E4\u30B5\u306F\u6905\u5B50\u306B\u7E1B\u308A\u4ED8\u3051\u3089\u308C\u305F\u307E\u307E\u64AE\u5F71\u306E\u65E5\u307E\u3067\u653E\u7F6E\u3055\u308C\u305F\u306E\u3060\u3063\u305F"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Both
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: Stop,0.1
+    Special: 
+    NeedClick: 1
+  - id: 134
+    message: "<size=100>\u3082\u3046\u3057\u307E\u305B\u3093\u304B\u3089\u307B\u3069\u3044\u3066\u3048\u3048\uFF01\uFF01\uFF01</size>"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: "\u30A2\u30E4\u30B5,Left"
+    Tatie: Change,1L surprised2,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 135
+    message: "\u25BC"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: Close,Left
+    Tatie: FadeOut,,Left
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 136
+    message: "\u5927\u5B66\u796D\u3067\u308F\u3056\u308F\u3056\u3053\u3053\u307E\u3067\u8DB3\u3092\u904B\u3093\u3067\u30D7\u30EC\u30A4\u3057\u3066\u3044\u305F\u3060\u304D\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\uFF01\u307E\u3060\u62D9\u3044\u90E8\u5206\u3082\u3042\u308B\u3068\u306F\u601D\u3044\u307E\u3059\u304C\u3001\u3082\u3057\u3053\u306E\u5927\u5B66\u306E\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u30FC\u30B5\u30FC\u30AF\u30EB\u3092\u61B6\u3048\u3066\u3066\u4E0B\u3055\u308B\u3068\u3081\u3061\u3083\u3081\u3061\u3083\u5B09\u3057\u3044\u3067\u3059\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: Play,credit,1
+    Special: 
+    NeedClick: 1
+  - id: 137
+    message: "\u4F53\u9A13\u7248\u306E\u30D7\u30EC\u30A4\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\uFF01\u6C17\u3092\u4ED8\u3051\u3066\u304A\u5E30\u308A\u4E0B\u3055\u3044\uFF01\u305D\u308C\u3067\u306F\uFF01"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 138
+    message: "\u30AF\u30EC\u30B8\u30C3\u30C8"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 139
+    message: "\u30D7\u30ED\u30B0\u30E9\u30DE\u30FC\u3000\u53CB\u6FA4\n\u30B7\u30CA\u30EA\u30AA\u3000\u9AD8\u6A4B\n\u30C7\u30B6\u30A4\u30CA\u30FC\u3000\u96E8\u5929\u3069\u30FC\u3093(@U10_dawn)\n\u7D71\u62EC\u3000\u6B63\u7530"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 140
+    message: "\u5236\u4F5C\u5354\u529B\u3000\u5C0F\u6749\u3001\u9AD8\u702C\u3001\u798F\u5BB6\u3001\u6A4B\u672C"
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 141
+    message: 'Thank you for playing !
+
+      See you next experience !'
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 0
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 1
+  - id: 142
+    message: 
+    branch: 0
+    yesMessage: 
+    noMessage: 
+    choseYes: 0
+    choseNo: 0
+    doConnect: 0
+    skipId: 0
+    endOfTalk: 1
+    sceneChange: 
+    nextBattle: 
+    Talker: 
+    Tatie: 
+    BackGround: 
+    SE: 
+    BGM: 
+    Special: 
+    NeedClick: 0

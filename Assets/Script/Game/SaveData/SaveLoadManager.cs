@@ -26,12 +26,14 @@ public class SaveLoadManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        AllLoad();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        AllLoad();
     }
 
     private void AllLoad()

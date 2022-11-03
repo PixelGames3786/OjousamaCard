@@ -8,7 +8,7 @@ public class CardTest01 : CardBase
 {
     public override IEnumerator CardProcess(BattleManager BM, bool MeOrEnemy)
     {
-        int Power = Parameter.MaxPower;
+        int Power = 0;
 
         CharaBase Target=MeOrEnemy ? BM.Enemy : BM.Chara;
         CharaBase BuffTarget=MeOrEnemy ? BM.Chara : BM.Enemy;
@@ -16,7 +16,7 @@ public class CardTest01 : CardBase
         //攻撃時発動のバフの処理
         List<BuffBase> Buffs = BuffTarget.NowBuffs.FindAll(Buff => Buff.UseType == BuffBase.BuffUseType.OnAttack);
 
-        Power = Random.Range(Parameter.MinPower,Parameter.MaxPower);
+        Power = Random.Range(Parameter.MinPowers[0],Parameter.MaxPowers[0]);
 
         foreach (BuffBase Buff in Buffs)
         {
@@ -40,11 +40,11 @@ public class CardTest01 : CardBase
 
         if (MeOrEnemy)
         {
-            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy);
+            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy, Parameter.WaitTime);
         }
         else
         {
-            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara);
+            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara, Parameter.WaitTime);
         }
 
 

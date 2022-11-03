@@ -6,5 +6,9 @@ using UnityEngine;
 
 public class CharaImage : ScriptableObject
 {
-    public Sprite NormalSprite,PATKSprite,MATKSprite,DamageSprite;
+    public Sprite NormalSprite,PATKSprite,MATKSprite,DamageSprite,DifenseSprite;
+
+    public Vector2 NormalSize, PATKSize, MATKSize, DamageSize, DifenseSize;
+
+    public Vector2 NormalPosi, PATKPosi, DamagePosi;
 }

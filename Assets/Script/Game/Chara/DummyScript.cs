@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UniRx;
 
 public class DummyScript : CharaBase
 {
@@ -21,7 +22,7 @@ public class DummyScript : CharaBase
             {
                 HP = 0;
 
-                BattleManager.BM.Clear();
+                BattleManager.BM.ClearFlag=true;
             }
         }
 
@@ -44,6 +45,42 @@ public class DummyScript : CharaBase
 
         FieldManager.FM.CostChanger = true;
         FieldManager.FM.CostSub.OnNext(Cost);
+    }
+
+    public override void AddBuff(BuffBase Buff)
+    {
+        Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
+
+        NowBuffs.Add(Buff);
+
+        FieldManager.FM.BuffChanger = false;
+        Subject.OnNext(Buff);
+    }
+
+    public override void AddShield(int Num)
+    {
+        Subject<int> Subject = FieldManager.FM.ShieldSub;
+
+        if (NowBuffs.Find(Buff => Buff.BuffName == "シールド"))
+        {
+            BuffBase Shield = NowBuffs.Find(Buff => Buff.BuffName == "シールド");
+
+            Shield.UseCount += Num;
+
+            FieldManager.FM.ShieldChanger = true;
+            Subject.OnNext(Shield.UseCount);
+        }
+        else
+        {
+            BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BattleManager.BM.BuffDataBase.GetBuffScript("Shield"));
+
+            AddBuff.UseCount = Num;
+
+            NowBuffs.Add(AddBuff);
+
+            FieldManager.FM.ShieldChanger = true;
+            Subject.OnNext(AddBuff.UseCount);
+        }
     }
 
     public override void DeckInitialize(List<int> deck = null)
@@ -119,6 +156,7 @@ public class DummyScript : CharaBase
 
     public override void ChoiceUseCard()
     {
+        /*
         CardParameterList DataBase = BattleManager.BM.CardDataBase;
 
         int LoopCount = 0, CostCount = 0;
@@ -131,7 +169,7 @@ public class DummyScript : CharaBase
             //もし追加しようとしているカードのコストが上限を超えていたら追加しない
             if ((DataBase.GetCardParameter(HandCard[LoopCount]).Cost + CostCount) <= Cost)
             {
-                Choiced.Add(HandCard[LoopCount]);
+                Choiced.Add(LoopCount);
 
                 CostCount += DataBase.GetCardParameter(HandCard[LoopCount]).Cost;
             }
@@ -146,6 +184,8 @@ public class DummyScript : CharaBase
 
         Cost -= CostCount;
         FieldManager.FM.CostChanger=true;
+
+        */
 
     }
 }

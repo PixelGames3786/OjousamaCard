@@ -21,4 +21,8 @@ public class Sentence   //センテンスと読みます。文章という意味です。シナリオは文
     public string Talker;
     public string Tatie;
     public string BackGround;
+    public string SE;
+    public string BGM;
+    public string Special;
+    public bool NeedClick;
 }

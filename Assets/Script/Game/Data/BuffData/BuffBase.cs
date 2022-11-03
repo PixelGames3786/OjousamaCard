@@ -24,13 +24,16 @@ abstract public class BuffBase : ScriptableObject
     public enum BuffEffectType
     {
         AttackEnhance,
-        AddBuff
+        AddBuff,
+        Shield
     }
 
     public BuffUseType UseType;
     public BuffDecreaseType DecreaseType;
     public BuffEffectType EffectType;
     public CharaDisplayManager.MoveType MyChara, Enemy;
+
+    public string BuffName;
 
     public string BuffDescription;
 
@@ -45,6 +48,8 @@ abstract public class BuffBase : ScriptableObject
     abstract public void BuffProcess(BattleManager BM,bool MeOrEnemy);
 
     abstract public int BuffEnhanceProcess();
+
+    abstract public int ShieldPowerChange(int MotoPower);
 
     public void TurnCountDecrease(CharaBase Target,bool MeOrEnemy)
     {

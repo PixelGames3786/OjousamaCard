@@ -51,6 +51,10 @@ abstract public class CharaBase
 
     abstract public void CostChange(int Change,bool PlusMinus);
 
+    abstract public void AddBuff(BuffBase Buff);
+
+    abstract public void AddShield(int Num);
+
     //デッキセット＆シャッフル
     abstract public void DeckInitialize(List<int> Deck = null);
 

@@ -9,6 +9,11 @@ public class CardParameter : ScriptableObject
     public enum CardType
     {
         Attack,
+        Shield,
+        Draw,
+        CostRecover,
+        Recover,
+        SelfDamage,
         BuffToMe,
         BuffToEne
     }
@@ -28,11 +33,17 @@ public class CardParameter : ScriptableObject
     public string Description;
     public Rarity Rare;
     public int Cost;
-    public int MinPower,MaxPower;
+
+    //çUåÇâÒêî
+    public int MoveNum;
+    public int DisplayPower;
+    public List<int> MinPowers=new List<int>(), MaxPowers=new List<int>();
+
     public float WaitTime;
     public Sprite Icon;
+    public AudioClip UseSE;
 
-    public CardType Type;
+    public List<CardType> Types=new List<CardType>();
     public CharaDisplayManager.MoveType MyChara, Enemy;
 
     public string ScriptName;

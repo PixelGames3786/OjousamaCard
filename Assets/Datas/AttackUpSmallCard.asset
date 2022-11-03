@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3542f80f196cca54cadb0092f926db6f, type: 3}
+  m_Name: AttackUpSmallCard
+  m_EditorClassIdentifier: 
+  CardID: 4
+  Name: "\u30D0\u30D5\u30C6\u30B9\u30C8"
+  Description: "\u81EA\u5206\u306B\u653B\u6483\u529B\u30A2\u30C3\u30D7\u72B6\u614B\u3092\u4E0E\u3048\u308B"
+  Rare: 0
+  Cost: 2
+  MoveNum: 1
+  MinPower: 0
+  MaxPower: 0
+  MinPowers: 
+  MaxPowers: 
+  WaitTime: 0.5
+  Icon: {fileID: 0}
+  Type: 1
+  Types: 01000000
+  MyChara: 2
+  Enemy: 0
+  ScriptName: AttackUpSmallCard

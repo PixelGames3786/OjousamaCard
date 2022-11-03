@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3542f80f196cca54cadb0092f926db6f, type: 3}
+  m_Name: gearchange
+  m_EditorClassIdentifier: 
+  CardID: 1
+  Name: "\u30AE\u30A2\u30C1\u30A7\u30F3\u30B8"
+  Description: 
+  Rare: 0
+  Cost: 0
+  MoveNum: 2
+  DisplayPower: 0
+  MinPowers: 0100000001000000
+  MaxPowers: 0200000002000000
+  WaitTime: 2.3
+  Icon: {fileID: 21300000, guid: e596d99e12eb2ba408c61facbcb1392c, type: 3}
+  UseSE: {fileID: 8300000, guid: 5e9dbc077d7686e4c921c681ea630afa, type: 3}
+  Types: 0300000002000000
+  MyChara: 1
+  Enemy: 3
+  ScriptName: NormalCard

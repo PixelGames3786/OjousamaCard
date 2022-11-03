@@ -22,4 +22,6 @@ public class BattleInformation : ScriptableObject
     public BattleEndType EndType;
 
     public string EndDetail;
+
+    public AudioClip BGM;
 }

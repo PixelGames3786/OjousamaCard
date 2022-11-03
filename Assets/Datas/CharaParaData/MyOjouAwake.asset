@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: MyOjouAwake
   m_EditorClassIdentifier: 
   CharaName: 
-  MaxHP: 80
+  MaxHP: 75
   FirstMaxCost: 0
   EndMaxCost: 8
   CostRecover: 2
   DrawNum: 2
   DeckSeed: 
   ScriptName: MyOjouScript
-  Image: {fileID: 11400000, guid: 01cceafa95620c74ca9dabc040c75a93, type: 2}
+  Image: {fileID: 11400000, guid: b54d80bfec3349b46bacb542d391d7de, type: 2}
   AwakedPara: {fileID: 0}

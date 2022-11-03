@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e32f216f54192e47828e24c2fc8e3e7, type: 3}
+  m_Name: MyCharaImage
+  m_EditorClassIdentifier: 
+  NormalSprite: {fileID: 21300000, guid: 58b852f6ad96fec40ab5dc00d93bebed, type: 3}
+  PATKSprite: {fileID: 21300000, guid: 1c389bbe964451341be418aed8a55b70, type: 3}
+  MATKSprite: {fileID: 957891067, guid: 7fd4fb54f4b6fbc4d98b0a7855ea8a46, type: 3}
+  DamageSprite: {fileID: 21300000, guid: de03dd427fa0bf4408492731305c7bde, type: 3}
+  DifenseSprite: {fileID: -201173742, guid: 6a3ba34a1002f6f489eaa7758dd664ce, type: 3}
+  NormalSize: {x: 527.6, y: 400}
+  PATKSize: {x: 573, y: 463}
+  MATKSize: {x: 0, y: 0}
+  DamageSize: {x: 573, y: 463}
+  DifenseSize: {x: 573, y: 463}
+  NormalPosi: {x: -550, y: 250}
+  PATKPosi: {x: 200, y: 280}
+  DamagePosi: {x: -550, y: 280}

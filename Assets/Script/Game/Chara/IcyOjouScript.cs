@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UniRx;
 
 public class IcyOjouScript : CharaBase
 {
@@ -44,6 +45,42 @@ public class IcyOjouScript : CharaBase
 
         FieldManager.FM.CostChanger = true;
         FieldManager.FM.CostSub.OnNext(Cost);
+    }
+
+    public override void AddBuff(BuffBase Buff)
+    {
+        Subject<BuffBase> Subject = FieldManager.FM.BuffSub;
+
+        NowBuffs.Add(Buff);
+
+        FieldManager.FM.BuffChanger = true;
+        Subject.OnNext(Buff);
+    }
+
+    public override void AddShield(int Num)
+    {
+        Subject<int> Subject = FieldManager.FM.ShieldSub;
+
+        if (NowBuffs.Find(Buff => Buff.BuffName == "シールド"))
+        {
+            BuffBase Shield = NowBuffs.Find(Buff => Buff.BuffName == "シールド");
+
+            Shield.UseCount += Num;
+
+            FieldManager.FM.ShieldChanger = true;
+            Subject.OnNext(Shield.UseCount);
+        }
+        else
+        {
+            BuffBase AddBuff = (BuffBase)GameObject.Instantiate(BattleManager.BM.BuffDataBase.GetBuffScript("Shield"));
+
+            AddBuff.UseCount = Num;
+
+            NowBuffs.Add(AddBuff);
+
+            FieldManager.FM.ShieldChanger = true;
+            Subject.OnNext(AddBuff.UseCount);
+        }
     }
 
     public override void DeckInitialize(List<int> deck = null)

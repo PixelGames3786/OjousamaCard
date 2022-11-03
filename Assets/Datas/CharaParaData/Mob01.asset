@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768341bccaea19e429ab47aafdbdb115, type: 3}
+  m_Name: Mob01
+  m_EditorClassIdentifier: 
+  CharaName: "\u30E2\u30D601"
+  MaxHP: 80
+  FirstMaxCost: 3
+  EndMaxCost: 6
+  CostRecover: 1
+  DrawNum: 1
+  DeckSeed: 8,9,10,10,11,11,12,13,14
+  ScriptName: Mob01Script
+  Image: {fileID: 11400000, guid: 3872bcc7fab536341af3303f48f5e6ff, type: 2}
+  AwakedPara: {fileID: 11400000}

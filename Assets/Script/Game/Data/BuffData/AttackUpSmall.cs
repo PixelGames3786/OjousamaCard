@@ -19,4 +19,9 @@ public class AttackUpSmall : BuffBase
     {
         return 1;
     }
+
+    public override int ShieldPowerChange(int MotoPower)
+    {
+        throw new System.NotImplementedException();
+    }
 }

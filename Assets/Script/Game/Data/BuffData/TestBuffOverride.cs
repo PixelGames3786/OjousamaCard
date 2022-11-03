@@ -18,4 +18,9 @@ public class TestBuffOverride : BuffBase
     {
         throw new System.NotImplementedException();
     }
+
+    public override int ShieldPowerChange(int MotoPower)
+    {
+        throw new System.NotImplementedException();
+    }
 }

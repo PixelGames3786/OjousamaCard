@@ -6,24 +6,25 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using UniRx;
+using DG.Tweening;
 
 public class FieldManager : MonoBehaviour
 {
     public static FieldManager FM;
 
-    public TextMeshProUGUI MyHP, EnemyHP,MyCost,EnemyCost;
-    public Transform MyBuffParent, EnemyBuffParent;
+    public TextMeshProUGUI MyHP, EnemyHP,MyCost,EnemyCost,MyShield,EnemyShield;
+    public Transform MyBuffParent, EnemyBuffParent,OnePointParent;
     public RectTransform MyHPGauge, EnemyHPGauge;
 
     private List<Transform> MyBuffs=new List<Transform>(), EnemyBuffs=new List<Transform>();
 
-    public GameObject BuffIconPrefab;
+    public GameObject BuffIconPrefab,OnePointPrefab;
 
     //true ìGÅ@false é©ï™
     [NonSerialized]
-    public bool HPChanger,BuffChanger,CostChanger;
+    public bool HPChanger,BuffChanger,CostChanger,ShieldChanger;
 
-    public Subject<int> HPSub = new Subject<int>(),CostSub=new Subject<int>();
+    public Subject<int> HPSub = new Subject<int>(),CostSub=new Subject<int>(), ShieldSub = new Subject<int>();
     public Subject<BuffBase> BuffSub = new Subject<BuffBase>();
 
     public IObservable<int> OnHPChanged
@@ -39,6 +40,11 @@ public class FieldManager : MonoBehaviour
     public IObservable<BuffBase> OnBuffChanged
     {
         get { return BuffSub; }
+    }
+
+    public IObservable<int> OnShieldChanged
+    {
+        get { return ShieldSub; }
     }
 
     private void Awake()
@@ -62,7 +68,7 @@ public class FieldManager : MonoBehaviour
             {
                 EnemyHP.text = HP + "<size=45>/" + BattleManager.BM.Enemy.Para.MaxHP + "</size>";
 
-                float Width = 500 / BattleManager.BM.Enemy.Para.MaxHP;
+                float Width = 500f / BattleManager.BM.Enemy.Para.MaxHP;
                 EnemyHPGauge.sizeDelta = new Vector2(Width * HP, 20);
             }
         });
@@ -82,6 +88,11 @@ public class FieldManager : MonoBehaviour
             {
                 EnemyCost.text = Cost.ToString();
             }
+        });
+
+        OnShieldChanged.Subscribe(Shield=>
+        {
+            ShieldChange(Shield);
         });
     }
 
@@ -115,6 +126,24 @@ public class FieldManager : MonoBehaviour
         Buffs.Add(Icon);
     }
 
+    private void ShieldChange(int Shield)
+    {
+        TextMeshProUGUI ShieldText;
+
+        if (!ShieldChanger)
+        {
+            ShieldText = MyShield;
+        }
+        else
+        {
+            ShieldText = EnemyShield;
+        }
+
+
+        ShieldText.text = Shield.ToString();
+
+    }
+
     public void RemoveBuff(int Num,bool MeOrEnemy)
     {
         List<Transform> Buffs;
@@ -135,6 +164,20 @@ public class FieldManager : MonoBehaviour
         {
             Buffs[i].localPosition = new Vector3(i*50,0,0);
         }
+    }
+
+    public void OnePoint(string Content,Vector2 Start,Vector2 Tag,float FadeTime)
+    {
+        RectTransform OnePoint = Instantiate(OnePointPrefab,OnePointParent).GetComponent<RectTransform>();
+
+        OnePoint.GetComponent<TextMeshProUGUI>().text = Content;
+        OnePoint.anchoredPosition = Start;
+
+        OnePoint.DOAnchorPos(Tag,FadeTime);
+        OnePoint.GetComponent<TextMeshProUGUI>().DOFade(0f,FadeTime).OnComplete(()=> 
+        {
+            Destroy(OnePoint.gameObject);
+        });
     }
 
     public void Initialize()

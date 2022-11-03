@@ -19,6 +19,13 @@ public class NovelManager : MonoBehaviour
 
 	public RectTransform LeftTalker, RightTalker;
 
+	public Image Back01, Back02,LeftTatie,RightTatie;
+
+	private AudioSource Audio;
+
+	private List<Sprite> Taties;
+	private List<string> TatieNames;
+
 	private string TargetText, AddText;
 
 	private int CurrentSentenceID = -1,NowCharaNum = 0, NowLineNum = 1;
@@ -26,11 +33,19 @@ public class NovelManager : MonoBehaviour
 	public float NeedAddTime;
 	private float AddTime;
 
-	public bool CanNext=true,Showing;
+	public bool CanNext=true,Showing,WhichBack=true;
 
-	private void OnEnable()
+
+
+	void Start()
 	{
 		CurrentSentenceID = SaveLoadManager.instance.NextNovel;
+
+		//立ち絵読み込み
+		Taties = Resources.LoadAll<Sprite>("Novel/Taties").ToList();
+		TatieNames = Taties.Select(Tatie => Tatie.name).ToList();
+
+		Audio = GetComponent<AudioSource>();
 
 		//最初の1行目を表示します。
 		ReadmoreMessage();
@@ -38,11 +53,23 @@ public class NovelManager : MonoBehaviour
 
 	private void Update()
 	{
-        if ((Input.GetMouseButtonDown(0)||Input.GetKey(KeyCode.Space))&&CanNext)
+        if ((Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))&&CanNext)
         {
 			CanNext = false;
 
 			ReadmoreMessage();
+        }
+		//一括表示
+		else if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && Showing)
+        {
+			massage.text = TargetText;
+
+			AddText = "";
+
+			NowCharaNum = 0;
+
+			Showing = false;
+			CanNext = true;
         }
 
 		if (Showing)
@@ -51,9 +78,30 @@ public class NovelManager : MonoBehaviour
 
 			if (AddTime >= NeedAddTime)
 			{
+				string RichText = "";
+
 				AddTime = 0;
 
-				AddText += TargetText[NowCharaNum];
+                if (TargetText[NowCharaNum]=='<')
+                {
+                    while (true)
+                    {
+						RichText += TargetText[NowCharaNum];
+
+						if (TargetText[NowCharaNum] == '>')
+						{
+							break;
+						}
+
+						NowCharaNum++;
+                    }
+
+					AddText += RichText;
+                }
+                else
+                {
+					AddText += TargetText[NowCharaNum];
+				}
 
 				massage.text = AddText;
 
@@ -76,7 +124,6 @@ public class NovelManager : MonoBehaviour
 	//文章の続きを表示します。
 	public void ReadmoreMessage()
 	{
-
 		//文章番号をもとに文を検索します。
 		Sentence result = SerchSentence(CurrentSentenceID);
 
@@ -86,12 +133,25 @@ public class NovelManager : MonoBehaviour
 		//喋り手のウィンドウを出す
 		TalkerWindow(result);
 
+		AboutTatie(result);
+
+		BackGroundChange(result);
+
+		BGM(result);
+
+		SE(result);
+
+		//特殊な演出がないかチェック
+		StartCoroutine("CheckSpecial",result);
+
 		//メッセージがこれ以上ない場合はダイアログUIを非アクティブにする。
 		EndOfTalk(result);
-		//得られたメッセージを表示します。
-		ShowingMassage(result);
-		ShowingMassageIsBranch(result);
-		Connect(result);
+        //得られたメッセージを表示します。
+
+        if (result.message!=""&&CanNext)
+        {
+			ShowingMassage(result);
+		}
 
 		//文章番号をひとつだけ次に進めます。
 		CurrentSentenceID++;
@@ -244,25 +304,278 @@ public class NovelManager : MonoBehaviour
 
 		string[] Splited = sentence.Talker.Split(',');
 
-        switch (Splited[1])
+		switch (Splited[0])
         {
-			case "Left":
+			case "Rise":
 
-				LeftTalker.DOAnchorPosX(-960,0.3f);
+                {
+					switch (Splited[2])
+					{
+						case "Left":
 
-				LeftTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[0];
+							LeftTalker.DOAnchorPosX(-960, 0.3f);
+
+							LeftTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[1];
+
+							break;
+
+						case "Right":
+
+							RightTalker.DOAnchorPosX(960, 0.3f);
+
+							RightTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[1];
+
+							break;
+					}
+				}
 
 				break;
 
-			case "Right":
+			case "Close":
 
-				RightTalker.DOAnchorPosX(960, 0.3f);
+                {
+					switch (Splited[1])
+					{
+						case "Left":
 
-				RightTalker.GetChild(0).GetComponent<TextMeshProUGUI>().text = Splited[0];
+							LeftTalker.DOAnchorPosX(-1460, 0.3f);
+
+							break;
+
+						case "Right":
+
+							RightTalker.DOAnchorPosX(1460, 0.3f);
+
+							break;
+
+						case "Both":
+
+							LeftTalker.DOAnchorPosX(-1460, 0.3f);
+							RightTalker.DOAnchorPosX(1460, 0.3f);
+
+							break;
+					}
+				}
+
+				break;
+        }
+
+        
+    }
+
+	public void SE(Sentence sentence) 
+	{
+        if (sentence.SE=="")
+        {
+			return;
+        }
+
+		string[] content = sentence.SE.Split(',');
+
+		switch (content[0])
+		{
+			case "Play":
+
+				{
+					BGMManager.instance.SEPlay(content[1], float.Parse(content[2]));
+				}
+
+				break;
+
+			case "PlayLoop":
+
+				BGMManager.instance.SetLoop("SE",true);
+				BGMManager.instance.SEPlay(content[1], float.Parse(content[2]));
+
+				break;
+
+			case "PlayStopLoop":
+
+				BGMManager.instance.SetLoop("SE", false);
+				BGMManager.instance.SEPlay(content[1], float.Parse(content[2]));
+
+				break;
+
+			case "Stop":
+
+				BGMManager.instance.SEStop(float.Parse(content[1]));
+
+				break;
+		}
+	}
+
+	public void BGM(Sentence sentence)
+    {
+        if (sentence.BGM=="")
+        {
+			return;
+        }
+
+		string[] content = sentence.BGM.Split(',');
+
+		switch (content[0])
+        {
+			case "Play" :
+
+                {
+					BGMManager.instance.BGMPlay(content[1],float.Parse(content[2]));
+                }
+
+				break;
+
+			case "Stop":
+
+				{
+					BGMManager.instance.BGMStop(float.Parse(content[1]));
+				}
 
 				break;
         }
     }
+
+	public void AboutTatie(Sentence sentence)
+    {
+        if (sentence.Tatie=="")
+        {
+			return;
+        }
+
+		string[] content = sentence.Tatie.Split(',');
+		Image Target = null;
+
+
+		if (content[2] == "Left")
+		{
+			Target = LeftTatie;
+		}
+		else
+		{
+			Target = RightTatie;
+		}
+
+		//タイプ別
+		switch (content[0])
+        {
+			case "FadeIn" :
+				int Num = TatieNames.IndexOf(content[1]);
+
+				Target.sprite = Taties[Num];
+
+				Target.DOFade(1f,0.5f);
+
+				break;
+
+			case "FadeOut":
+
+				if (content[2] == "Left")
+				{
+					Target = LeftTatie;
+				}
+				else if(content[2]=="Right")
+				{
+					Target = RightTatie;
+				}else if (content[2]=="Both")
+                {
+					LeftTatie.DOFade(0f,0.5f);
+					RightTatie.DOFade(0f,0.5f);
+
+					break;
+                }
+
+				Target.DOFade(0f, 0.5f);
+
+				break;
+
+			case "Change":
+
+				Num = TatieNames.IndexOf(content[1]);
+
+				Target.sprite = Taties[Num];
+
+				break;
+        }
+    }
+
+	public void BackGroundChange(Sentence sentence)
+    {
+        if (sentence.BackGround=="")
+        {
+			return;
+        }
+
+		string[] content = sentence.BackGround.Split(',');
+
+		float Time = float.Parse(content[1]);
+
+		Sprite ChangeImage = Resources.Load<Sprite>("Novel/BackGrounds/"+content[0]);
+
+		//01が起動している場合02にかえる
+		if (WhichBack)
+        {
+			Back02.sprite = ChangeImage;
+
+			Back01.DOFade(0f, Time);
+
+			Back02.DOFade(1f,Time);
+
+        }
+		//02が起動している場合01にかえる
+        else
+        {
+			Back01.sprite = ChangeImage;
+
+			Back02.DOFade(0f, Time);
+
+			Back01.DOFade(1f, Time);
+		}
+
+		WhichBack = !WhichBack;
+    }
+
+	public IEnumerator CheckSpecial(Sentence sentence)
+    {
+
+
+        if (sentence.Special.Contains("SceneFadeIn"))
+        {
+			CanNext = false;
+
+			string[] content = sentence.Special.Split(',');
+
+			GameObject.Find("Fader").GetComponent<Image>().DOFade(0f, float.Parse(content[1]));
+
+			yield return new WaitForSeconds(float.Parse(content[1]));
+        }
+		else if (sentence.Special.Contains("SceneFadeOut"))
+        {
+			CanNext = false;
+
+			string[] content = sentence.Special.Split(',');
+
+			GameObject.Find("Fader").GetComponent<Image>().DOFade(1f, float.Parse(content[1])).OnComplete(()=> { massage.text = ""; });
+
+			yield return new WaitForSeconds(float.Parse(content[1]));
+		}
+		else if (sentence.Special.Contains("GameEnd"))
+        {
+			CanNext = false;
+
+			string[] content = sentence.Special.Split(',');
+
+			GameObject.Find("Fader").GetComponent<Image>().DOFade(1f, float.Parse(content[1])).OnComplete(() => { massage.text = ""; });
+
+			yield break;
+		}
+
+		if (sentence.NeedClick)
+		{
+			CanNext = true;
+		}
+		else
+		{
+			ReadmoreMessage();
+		}
+	}
 
 
 	//シーンチェンジします。

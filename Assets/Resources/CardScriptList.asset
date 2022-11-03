@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c5a3a1b5ac6b649886a50db48d3370, type: 3}
   m_Name: CardScriptList
   m_EditorClassIdentifier: 
-  ParameterList:
-  - {fileID: 11400000, guid: 2db641253be062042abaf1adb6235dc7, type: 2}
-  - {fileID: 11400000, guid: 95171ef2ba81bf843b0ee53dc205e7a2, type: 2}
-  - {fileID: 11400000, guid: b921bbe610e9f604bb3b2b4477c0703e, type: 2}
-  - {fileID: 11400000, guid: df7928f1e71cc37459618bffe4284001, type: 2}
+  Cards:
+  - {fileID: 11400000, guid: 5cf6e46ee3fb3204b96579a9bf1756b4, type: 2}
+  - {fileID: 11400000, guid: 556f384444b27764fa1149d38a29093a, type: 2}
+  - {fileID: 11400000, guid: 803349cb2b4d32743bed8ed29076ff10, type: 2}
+  - {fileID: 11400000, guid: 1c17494cec995574f9ed5629b9a905a3, type: 2}
+  - {fileID: 11400000, guid: 3689b3a4c8d43f845b1a9ae8cb1796fb, type: 2}
+  - {fileID: 11400000, guid: ecd8f7d4aba82f642a841d00823af90b, type: 2}
+  - {fileID: 11400000, guid: a00173e1d5214a24984ccf949cbbb589, type: 2}
+  - {fileID: 11400000, guid: 246cb814aa824524eac0082a15b89f2b, type: 2}
+  - {fileID: 11400000, guid: e20f803a9778fa146973f9070bfc3655, type: 2}
+  - {fileID: 11400000, guid: 8a353211f0f9bd14397a4dcc238c4929, type: 2}
+  - {fileID: 11400000, guid: 2980ec166f82ec4408162efc0bfd8dec, type: 2}
+  - {fileID: 11400000, guid: 59187ab3003a5114199346b07dc8eac6, type: 2}
+  - {fileID: 11400000, guid: d4f82a12f1f82af479eb56864cbf93e5, type: 2}
+  - {fileID: 11400000, guid: 3cbb1913ceaf5b042a7477c91e889bdf, type: 2}

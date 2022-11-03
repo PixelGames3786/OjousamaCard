@@ -20,12 +20,11 @@ public class AttackUpSmallCard : CardBase
 
         if (MeOrEnemy)
         {
-            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy);
-
+            CharaDisplayManager.CDM.CharaMove(Parameter.MyChara, Parameter.Enemy, Parameter.WaitTime);
         }
         else
         {
-            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara);
+            CharaDisplayManager.CDM.CharaMove(Parameter.Enemy, Parameter.MyChara, Parameter.WaitTime);
         }
 
         yield return new WaitForSeconds(0.3f);

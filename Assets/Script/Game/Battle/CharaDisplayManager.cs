@@ -13,13 +13,16 @@ public class CharaDisplayManager : MonoBehaviour
         Normal,
         PhysicAttack,
         MagicAttack,
-        Damage
+        Damage,
+        Difense
     }
 
     public List<CharaImage> Charas;
 
     public Image MyChara, Enemy;
     public CharaImage CharaImages, EnemyImages;
+
+    public bool DifenseFlag;
 
     // Start is called before the first frame update
     void Awake()
@@ -40,9 +43,12 @@ public class CharaDisplayManager : MonoBehaviour
 
         MyChara.sprite = CharaImages.NormalSprite;
         Enemy.sprite = EnemyImages.NormalSprite;
+
+        MyChara.GetComponent<RectTransform>().sizeDelta = CharaImages.NormalSize;
+        Enemy.GetComponent<RectTransform>().sizeDelta = EnemyImages.NormalSize;
     }
 
-    public void CharaMove(MoveType CharaType,MoveType EnemyType)
+    public void CharaMove(MoveType CharaType,MoveType EnemyType,float MoveTime)
     {
         RectTransform CharaRect = MyChara.GetComponent<RectTransform>();
         RectTransform EnemyRect = Enemy.GetComponent<RectTransform>();
@@ -54,7 +60,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.NormalSprite;
 
-                    CharaRect.localPosition = new Vector3(-550,250);
+                    CharaRect.localPosition = CharaImages.NormalPosi;
+                    CharaRect.sizeDelta = CharaImages.NormalSize;
                 }
 
                 break;
@@ -64,8 +71,9 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.PATKSprite;
 
-                    CharaRect.localPosition = new Vector3(200, 250);
-                    CharaRect.DOLocalMoveX(250, 0.5f);
+                    CharaRect.localPosition = CharaImages.PATKPosi;
+                    CharaRect.DOLocalMoveX(CharaImages.PATKPosi.x+50, MoveTime);
+                    CharaRect.sizeDelta = CharaImages.PATKSize;
                 }
 
                 break;
@@ -75,7 +83,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     MyChara.sprite = CharaImages.MATKSprite;
 
-                    CharaRect.localPosition = new Vector3(-550, 250);
+                    CharaRect.localPosition = new Vector3(-550, 280);
+                    CharaRect.sizeDelta = CharaImages.MATKSize;
 
                 }
 
@@ -84,10 +93,33 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.Damage:
 
                 {
+
+                    if (DifenseFlag)
+                    {
+                        MyChara.sprite = CharaImages.DifenseSprite;
+
+                        CharaRect.localPosition = CharaImages.DamagePosi;
+                        CharaRect.DOLocalMoveX(CharaImages.DamagePosi.x-50, MoveTime);
+                        CharaRect.sizeDelta = CharaImages.DifenseSize;
+
+                        DifenseFlag = false;
+
+                        break;
+                    }
+
                     MyChara.sprite = CharaImages.DamageSprite;
 
-                    CharaRect.localPosition = new Vector3(-500, 250);
-                    CharaRect.DOLocalMoveX(-550, 0.5f);
+                    CharaRect.localPosition = CharaImages.DamagePosi;
+                    CharaRect.DOLocalMoveX(CharaImages.DamagePosi.x - 50, MoveTime);
+                    CharaRect.sizeDelta = CharaImages.DamageSize;
+                }
+
+                break;
+
+            case MoveType.Difense:
+
+                {
+                    
                 }
 
                 break;
@@ -100,7 +132,8 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.NormalSprite;
 
-                    EnemyRect.localPosition = new Vector3(550, 250);
+                    EnemyRect.localPosition = EnemyImages.NormalPosi;
+                    EnemyRect.sizeDelta = EnemyImages.NormalSize;
 
                 }
 
@@ -111,8 +144,10 @@ public class CharaDisplayManager : MonoBehaviour
                 {
                     Enemy.sprite = EnemyImages.PATKSprite;
 
-                    EnemyRect.localPosition = new Vector3(-200, 250);
-                    EnemyRect.DOLocalMoveX(-250, 0.5f);
+                    EnemyRect.localPosition = EnemyImages.PATKPosi;
+                    EnemyRect.DOLocalMoveX(EnemyImages.PATKPosi.x-50, MoveTime);
+                    EnemyRect.sizeDelta = EnemyImages.PATKSize;
+
                 }
 
                 break;
@@ -123,6 +158,8 @@ public class CharaDisplayManager : MonoBehaviour
                     Enemy.sprite = EnemyImages.MATKSprite;
 
                     EnemyRect.localPosition = new Vector3(550, 250);
+                    EnemyRect.sizeDelta = EnemyImages.MATKSize;
+
                 }
 
                 break;
@@ -130,12 +167,37 @@ public class CharaDisplayManager : MonoBehaviour
             case MoveType.Damage:
 
                 {
+                    if (DifenseFlag)
+                    {
+                        Enemy.sprite = EnemyImages.DifenseSprite;
+
+                        EnemyRect.localPosition = EnemyImages.DamagePosi;
+                        EnemyRect.DOLocalMoveX(EnemyImages.DamagePosi.x+50, MoveTime);
+                        EnemyRect.sizeDelta = EnemyImages.DifenseSize;
+
+                        DifenseFlag = false;
+
+                        break;
+                    }
+
                     Enemy.sprite = EnemyImages.DamageSprite;
 
-                    EnemyRect.localPosition = new Vector3(500, 250);
-                    EnemyRect.DOLocalMoveX(550, 0.5f);
+                    EnemyRect.localPosition = EnemyImages.DamagePosi;
+                    EnemyRect.DOLocalMoveX(EnemyImages.DamagePosi.x + 50, MoveTime);
+                    EnemyRect.sizeDelta = EnemyImages.DamageSize;
+
 
                 }
+
+                break;
+
+            case MoveType.Difense:
+
+                Enemy.sprite = EnemyImages.DifenseSprite;
+
+                EnemyRect.localPosition = new Vector3(-500, 280);
+                EnemyRect.DOLocalMoveX(-550, MoveTime);
+                EnemyRect.sizeDelta = EnemyImages.DifenseSize;
 
                 break;
         }
@@ -150,6 +212,9 @@ public class CharaDisplayManager : MonoBehaviour
         Enemy.sprite = EnemyImages.NormalSprite;
 
         Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
+
+        MyChara.GetComponent<RectTransform>().sizeDelta = CharaImages.NormalSize;
+        Enemy.GetComponent<RectTransform>().sizeDelta = EnemyImages.NormalSize;
     }
 
     public void CharaAwake(bool MeOrEnemy)
