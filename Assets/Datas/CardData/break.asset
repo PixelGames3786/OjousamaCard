@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: 3
   Name: "\u30D6\u30EC\u30A4\u30AF"
-  Description: 
+  Description: "\u3053\u306E\u30BF\u30FC\u30F3\u306B\u6E1B\u3089\u3057\u305F\u4F53\u529B\u5206\u30B7\u30FC\u30EB\u30C9\u3092\u7372\u5F97"
   Rare: 0
   Cost: 1
   MoveNum: 1

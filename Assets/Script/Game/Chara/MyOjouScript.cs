@@ -85,7 +85,10 @@ public class MyOjouScript : CharaBase
 
     public override void DeckInitialize(List<int> deck = null)
     {
-        Deck = deck;
+        for (int i = 0; i < deck.Count; i++)
+        {
+            Deck.Add(deck[i]);
+        }
 
         // 整数 n の初期値はデッキの枚数
         int n = Deck.Count;

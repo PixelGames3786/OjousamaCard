@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: 7
   Name: "\u5B8C\u5168\u71C3\u713C\u3067\u3059\u308F\uFF01"
-  Description: 
+  Description: "\u653B\u64833-4\u3001\u653B\u64832-8\u3001\u653B\u64832-6\u3001\u653B\u64837-13\u3001\u653B\u64831-2\u3001\u81EA\u8EAB\u306B\u71C3\u713C\u309210\u4ED8\u4E0E"
   Rare: 0
   Cost: 4
   MoveNum: 5
@@ -25,6 +25,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 86f6dd60d9a661d4f9057fe8b36953c5, type: 3}
   UseSE: {fileID: 8300000, guid: 030fff39040f10e44a5cf58b8f54f888, type: 3}
   Types: 0000000000000000000000000000000000000000
-  MyChara: 1
-  Enemy: 3
+  MyChara: 0
+  Enemy: 0
   ScriptName: Desuwa

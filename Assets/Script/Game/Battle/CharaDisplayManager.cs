@@ -17,8 +17,6 @@ public class CharaDisplayManager : MonoBehaviour
         Difense
     }
 
-    public List<CharaImage> Charas;
-
     public Image MyChara, Enemy;
     public CharaImage CharaImages, EnemyImages;
 
@@ -46,6 +44,9 @@ public class CharaDisplayManager : MonoBehaviour
 
         MyChara.GetComponent<RectTransform>().sizeDelta = CharaImages.NormalSize;
         Enemy.GetComponent<RectTransform>().sizeDelta = EnemyImages.NormalSize;
+
+        MyChara.GetComponent<RectTransform>().anchoredPosition = CharaImages.NormalPosi;
+        Enemy.GetComponent<RectTransform>().anchoredPosition = EnemyImages.NormalPosi;
     }
 
     public void CharaMove(MoveType CharaType,MoveType EnemyType,float MoveTime)
@@ -207,11 +208,11 @@ public class CharaDisplayManager : MonoBehaviour
     {
         MyChara.sprite = CharaImages.NormalSprite;
 
-        MyChara.GetComponent<RectTransform>().localPosition = new Vector3(-550, 250);
+        MyChara.GetComponent<RectTransform>().localPosition = CharaImages.NormalPosi;
 
         Enemy.sprite = EnemyImages.NormalSprite;
 
-        Enemy.GetComponent<RectTransform>().localPosition = new Vector3(550, 250);
+        Enemy.GetComponent<RectTransform>().localPosition = EnemyImages.NormalPosi;
 
         MyChara.GetComponent<RectTransform>().sizeDelta = CharaImages.NormalSize;
         Enemy.GetComponent<RectTransform>().sizeDelta = EnemyImages.NormalSize;

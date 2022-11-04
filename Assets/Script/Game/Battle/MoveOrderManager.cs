@@ -72,6 +72,38 @@ public class MoveOrderManager : MonoBehaviour
         }
     }
 
+    public void CardUse(bool MeOrEnemy,int CardNum,float Time)
+    {
+
+        CardController Card = Instantiate(CardPrefab,transform.parent).GetComponent<CardController>();
+
+        Card.WaitFlag = true;
+
+        if (MeOrEnemy)
+        {
+
+            Card.Initialize(CardNum);
+            Card.GetComponent<RectTransform>().anchoredPosition = new Vector2(-800,530);
+            Card.GetComponent<RectTransform>().localScale = new Vector3(0f, 1.2f, 1);
+        }
+        else
+        {
+
+            Card.Initialize(CardNum);
+            Card.GetComponent<RectTransform>().anchoredPosition = new Vector2(800, 530);
+            Card.GetComponent<RectTransform>().localScale = new Vector3(0f, 1.2f, 1);
+
+            Card.transform.GetChild(1).GetComponent<Image>().color = new Color(1f,0.57f,0.57f);
+        }
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(Card.GetComponent<RectTransform>().DOScaleX(1.2f, 0.3f)).AppendInterval(Time - 0.6f).Append(Card.GetComponent<RectTransform>().DOScaleX(0f, 0.3f)).OnComplete(() =>
+        {
+            Destroy(Card.gameObject);
+        });
+    }
+
     public IEnumerator OrderInitialize(bool[] Order)
     {
         //‘S”j‰ó

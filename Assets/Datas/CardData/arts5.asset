@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardID: 10
   Name: "\u4EE3\u511F\u578B\u9632\u5FA1\u30A2\u30FC\u30C4"
-  Description: 
+  Description: "\u30B7\u30FC\u30EB\u30C93-7\u3001\u81EA\u8EAB\u306E\u4F53\u529B\u30921\u6E1B\u5C11"
   Rare: 0
   Cost: 1
   MoveNum: 2
@@ -25,6 +25,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 2765ce8eaa7429f40a914926169a8c4c, type: 3}
   UseSE: {fileID: 8300000, guid: 6a87b3d705bad3b42b7fab8e687db9ae, type: 3}
   Types: 0100000005000000
-  MyChara: 1
-  Enemy: 3
+  MyChara: 0
+  Enemy: 0
   ScriptName: NormalCard

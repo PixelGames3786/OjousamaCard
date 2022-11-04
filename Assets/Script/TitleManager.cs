@@ -11,6 +11,8 @@ public class TitleManager : MonoBehaviour
 
     public Image Fader;
 
+    public int NovelStartPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,13 @@ public class TitleManager : MonoBehaviour
     //‚Í‚¶‚ß‚©‚ç
     public void ForBeginning()
     {
-        SLM.NextNovel = 0;
+        SLM.NextNovel = NovelStartPoint;
 
         Fader.gameObject.SetActive(true);
 
         Fader.DOFade(1f, 1f).OnComplete(() => 
         {
-            SceneManager.LoadSceneAsync("Novel");
+            SceneController.instance.StartSceneLoad("Novel");
         });
 
     }

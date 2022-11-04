@@ -22,6 +22,6 @@ MonoBehaviour:
   MATKSize: {x: 400, y: 400}
   DamageSize: {x: 500, y: 500}
   DifenseSize: {x: 500, y: 500}
-  NormalPosi: {x: 540, y: 250}
+  NormalPosi: {x: 540, y: 290}
   PATKPosi: {x: -190, y: 350}
   DamagePosi: {x: 660, y: 290}

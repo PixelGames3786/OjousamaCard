@@ -423,6 +423,24 @@ public class NovelManager : MonoBehaviour
 
 				break;
 
+			case "PlayLoop":
+
+				{
+					BGMManager.instance.BGMPlay(content[1], float.Parse(content[2]));
+					BGMManager.instance.SetLoop("BGM", true);
+				}
+
+				break;
+
+			case "PlayStopLoop":
+
+                {
+					BGMManager.instance.BGMPlay(content[1], float.Parse(content[2]));
+					BGMManager.instance.SetLoop("BGM", false);
+				}
+
+				break;
+
 			case "Stop":
 
 				{
@@ -474,6 +492,7 @@ public class NovelManager : MonoBehaviour
 				else if(content[2]=="Right")
 				{
 					Target = RightTatie;
+
 				}else if (content[2]=="Both")
                 {
 					LeftTatie.DOFade(0f,0.5f);
@@ -560,9 +579,7 @@ public class NovelManager : MonoBehaviour
         {
 			CanNext = false;
 
-			string[] content = sentence.Special.Split(',');
-
-			GameObject.Find("Fader").GetComponent<Image>().DOFade(1f, float.Parse(content[1])).OnComplete(() => { massage.text = ""; });
+			GameObject.Find("Fader").GetComponent<Image>().DOFade(1f, 5f).OnComplete(() => { massage.text = ""; });
 
 			yield break;
 		}
@@ -588,7 +605,7 @@ public class NovelManager : MonoBehaviour
 				SaveLoadManager.instance.NextBattle = sentence.nextBattle;
             }
 
-			SceneManager.LoadScene(sentence.sceneChange);
+			SceneController.instance.StartSceneLoad(sentence.sceneChange);
         }
     }
 

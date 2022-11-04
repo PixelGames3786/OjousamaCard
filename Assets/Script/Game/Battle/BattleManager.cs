@@ -28,9 +28,9 @@ public class BattleManager : MonoBehaviour
 
     public Transform HandField, OrderField;
     public GameObject CardPrefab;
-    public TextMeshProUGUI TurnText;
+    public TextMeshProUGUI TurnText,TurnDisplayText;
 
-    public GameObject Fader;
+    public GameObject Fader,TurnDisplay;
 
     public MiniDiscriptionController MDC;
     public SpeechBubbleManager SBM;
@@ -68,6 +68,8 @@ public class BattleManager : MonoBehaviour
         InfoList = (BattleInfoList)Resources.Load("BattleInfoList");
         CharaDataBase = (CharaParameterList)Resources.Load("CharaParameterList");
 
+        Audio = GetComponent<AudioSource>();
+
         BattleInfo = InfoList.GetInfo(SaveLoadManager.instance.NextBattle);
 
         //キャラセット
@@ -83,8 +85,6 @@ public class BattleManager : MonoBehaviour
 
         Chara.Enemy = Enemy;
         Enemy.Enemy = Chara;
-
-        Audio = GetComponent<AudioSource>();
 
         Chara.Initialize();
         Enemy.Initialize();
@@ -104,8 +104,6 @@ public class BattleManager : MonoBehaviour
             {
                 SBM.gameObject.SetActive(true);
                 SBM.MessageStart(BattleInfo.BeforeNovel);
-
-                return;
             }
 
             BGMManager.instance.BGMPlay("a",1,BattleInfo.BGM);
@@ -118,15 +116,30 @@ public class BattleManager : MonoBehaviour
     //デュエルが始まった時
     public void BattleStart()
     {
-        Chara.DeckInitialize(SaveLoadManager.instance.Data.MyDecks);
-        Enemy.DeckInitialize(EnemyDecks.GetDeck(BattleInfo.EnemyDeckNum));
+        Sequence Return = TurnDisplaySequence("BattleStart");
 
-        Chara.Draw(5);
-        Enemy.Draw(5);
+        Return.OnComplete(() => 
+        {
+            print("あ");
 
-        Enemy.ChoiceUseCard();
+            Chara.DeckInitialize(SaveLoadManager.instance.Data.MyDecks);
+            print("i");
 
-        SetOrder();
+
+            Enemy.DeckInitialize();
+
+            print("u");
+
+
+            Chara.Draw(5);
+            Enemy.Draw(5);
+
+            Enemy.ChoiceUseCard();
+
+            SetOrder();
+        });
+        
+        
     }
 
     //行動順設定 trueだと自分の動き　falseは敵の動き
@@ -219,32 +232,38 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        int MyDraw = Chara.Para.DrawNum, EnemyDraw = Enemy.Para.DrawNum;
-
-        Chara.Draw(MyDraw);
-        Enemy.Draw(EnemyDraw);
-
-        //ターンカウント増やす
         TurnCount++;
-        TurnText.text = TurnCount.ToString();
 
-        //相手と自分のマナ増やす
-        Chara.Cost+=Chara.Para.CostRecover;
-        if (Chara.Cost > CharaMaxCost) Chara.Cost = CharaMaxCost;
+        Sequence Return = TurnDisplaySequence("Turn"+TurnCount);
 
-        FieldManager.FM.CostChanger = false;
-        FieldManager.FM.CostSub.OnNext(Chara.Cost);
+        Return.OnComplete(() =>
+        {
+            int MyDraw = Chara.Para.DrawNum, EnemyDraw = Enemy.Para.DrawNum;
 
-        Enemy.Cost+=Enemy.Para.CostRecover;
-        if (Enemy.Cost > EnemyMaxCost) Enemy.Cost = EnemyMaxCost;
+            Chara.Draw(MyDraw);
+            Enemy.Draw(EnemyDraw);
 
-        FieldManager.FM.CostChanger = true;
-        FieldManager.FM.CostSub.OnNext(Enemy.Cost);
+            //ターンカウント増やす
+            TurnText.text = TurnCount.ToString();
 
-        Enemy.ChoiceUseCard();
+            //相手と自分のマナ増やす
+            Chara.Cost += Chara.Para.CostRecover;
+            if (Chara.Cost > CharaMaxCost) Chara.Cost = CharaMaxCost;
 
-        SetOrder();
-        CostMaxChange();
+            FieldManager.FM.CostChanger = false;
+            FieldManager.FM.CostSub.OnNext(Chara.Cost);
+
+            Enemy.Cost += Enemy.Para.CostRecover;
+            if (Enemy.Cost > EnemyMaxCost) Enemy.Cost = EnemyMaxCost;
+
+            FieldManager.FM.CostChanger = true;
+            FieldManager.FM.CostSub.OnNext(Enemy.Cost);
+
+            Enemy.ChoiceUseCard();
+
+            SetOrder();
+            CostMaxChange();
+        });
     }
 
     private void CostMaxChange()
@@ -357,7 +376,7 @@ public class BattleManager : MonoBehaviour
                     Audio.clip = Card.Parameter.UseSE;
                     Audio.Play();
 
-                    print(Card.Parameter.Name);
+                    MOM.CardUse(MoveOrder[i],Card.Parameter.CardID,Card.Parameter.WaitTime);
 
                     Card.Coroutine(this, true);
 
@@ -368,7 +387,6 @@ public class BattleManager : MonoBehaviour
 
                     if (Chara.Choiced.Count>1&&Chara.Choiced[1]>Chara.Choiced[0])
                     {
-
                         for (int u = Chara.Choiced[0]; u < 8; u++)
                         {
                             HandCardTrans[u] = HandCardTrans[u + 1];
@@ -405,6 +423,8 @@ public class BattleManager : MonoBehaviour
                     //音を鳴らす
                     Audio.clip = Card.Parameter.UseSE;
                     Audio.Play();
+
+                    MOM.CardUse(MoveOrder[i], Card.Parameter.CardID, Card.Parameter.WaitTime);
 
                     print(Card.Parameter.Name);
 
@@ -512,7 +532,7 @@ public class BattleManager : MonoBehaviour
         Fader.GetComponent<Image>().DOFade(1f, 1f).OnComplete(() =>
         {
             //後で直す
-            SceneManager.LoadScene("Title");
+            SceneController.instance.StartSceneLoad("Title");
         });
 
     }
@@ -529,7 +549,7 @@ public class BattleManager : MonoBehaviour
 
                     SaveLoadManager.instance.NextBattle = BattleInfo.EndDetail;
 
-                    SceneManager.LoadScene("Battle");
+                    SceneController.instance.StartSceneLoad("Battle");
 
                     break;
 
@@ -537,7 +557,7 @@ public class BattleManager : MonoBehaviour
 
                     SaveLoadManager.instance.NextNovel = int.Parse(BattleInfo.EndDetail);
 
-                    SceneManager.LoadScene("Novel");
+                    SceneController.instance.StartSceneLoad("Novel");
 
                     break;
             }
@@ -548,5 +568,23 @@ public class BattleManager : MonoBehaviour
 
         //後で直す
         //SceneManager.LoadScene("Lounge");
+    }
+
+    public Sequence TurnDisplaySequence(string Hyouji)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        TurnDisplayText.text = Hyouji;
+        TurnDisplayText.GetComponent<RectTransform>().anchoredPosition = new Vector2(1920,0f);
+
+        Tween RiseTween = TurnDisplay.GetComponent<RectTransform>().DOScaleY(1f,0.5f);
+        Tween TextRiseTween = TurnDisplayText.GetComponent<RectTransform>().DOLocalMoveX(0f,0.5f);
+
+        Tween CloseTween = TurnDisplay.GetComponent<RectTransform>().DOScaleY(0f, 0.5f);
+        Tween TextCloseTween = TurnDisplayText.GetComponent<RectTransform>().DOLocalMoveX(-1920f, 0.5f);
+
+        sequence.Append(RiseTween).Join(TextRiseTween).AppendInterval(1f).Append(CloseTween).Join(TextCloseTween);
+
+        return sequence;
     }
 }
